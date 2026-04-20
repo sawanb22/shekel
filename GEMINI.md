@@ -56,6 +56,13 @@ When Figma MCP reveals an icon or image node:
 7. Background gradients, overlays, and background images must be 
    read from Figma exactly — never default to white or transparent
 
+## VISUAL VERIFICATION — NON-NEGOTIABLE
+- Step 6 of the skill is NEVER optional
+- Agent must not mark a section complete without a screenshot comparison
+- Alignment issues, spacing gaps, and color differences 
+  must all be fixed before stopping
+- If dev server is not running, start it — never skip verification
+
 ## ONE SECTION PER TASK — ABSOLUTE RULE
 - Implement exactly ONE section per task
 - After section is done: spin up dev server → screenshot → compare to Figma → fix discrepancies → mark [x] in PROGRESS.md

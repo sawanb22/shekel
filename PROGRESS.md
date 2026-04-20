@@ -1,1 +1,6 @@
 - [x] Frame 500-22045 → FeaturesBento.tsx
+- [x] Frame 500-22092 → WhatYouCanDo.tsx
+- [x] Frame 500-22182 → Roadmap.tsx
+- [x] Frame 500-22234 → TrustReliability.tsx (visual screenshot pending — browser agent offline, TS clean + HTML verified)
+- [x] Frame 500-22410 → Faq.tsx (visual screenshot pending — browser agent offline, TS clean + HTML verified)
+- [x] Frame 500-22272 → CtaWaitlist.tsx (visual screenshot pending — browser agent offline, TS clean)
