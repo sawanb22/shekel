@@ -51,6 +51,8 @@ export const colors = {
     card: 'rgba(0,0,0,0.2)',
     networkPill: 'rgba(68,72,84,0.2)',
     timeline: '#444854',
+    footer: 'rgba(198,198,199,0.15)',
+    footerStrong: 'rgba(198,198,199,0.2)',
   }
 };
 

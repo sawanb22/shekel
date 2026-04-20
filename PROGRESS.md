@@ -4,3 +4,4 @@
 - [x] Frame 500-22234 → TrustReliability.tsx (visual screenshot pending — browser agent offline, TS clean + HTML verified)
 - [x] Frame 500-22410 → Faq.tsx (visual screenshot pending — browser agent offline, TS clean + HTML verified)
 - [x] Frame 500-22272 → CtaWaitlist.tsx (visual screenshot pending — browser agent offline, TS clean)
+- [x] Frame 500-22284 → Footer.tsx (shared)

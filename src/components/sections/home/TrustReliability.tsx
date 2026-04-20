@@ -63,7 +63,7 @@ export default function TrustReliability() {
         {/* Section Header */}
         <div className="flex flex-col items-center w-full">
           <h2
-            className="text-center"
+            className="max-w-[736px] text-center"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
@@ -73,28 +73,7 @@ export default function TrustReliability() {
               color: "#191c1e",
             }}
           >
-            Built for{" "}
-            <span
-              style={{
-                background: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              reliability
-            </span>{" "}
-            and{" "}
-            <span
-              style={{
-                background: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              trust
-            </span>
+            Built for reliability and trust
           </h2>
         </div>
 

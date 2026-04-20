@@ -21,7 +21,7 @@ const faqs = [
 export default function Faq() {
   return (
     <section 
-      className="w-full flex flex-col items-center justify-center px-6 md:px-12 py-24"
+      className="w-full flex flex-col items-center justify-center px-6 md:px-12 lg:px-64 py-24"
       style={{ backgroundColor: "#f3f3f4" }}
     >
       <div className="flex flex-col items-center gap-12 w-full max-w-[768px]">
@@ -33,21 +33,11 @@ export default function Faq() {
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500,
               fontSize: "48px",
-              lineHeight: "48px",
+              lineHeight: "40px",
               color: "#1a1c1c",
             }}
           >
-            Frequently Asked{" "}
-            <span
-              style={{
-                background: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Questions
-            </span>
+            Frequently Asked Questions
           </h2>
         </div>
 

@@ -57,21 +57,15 @@ export default function CtaWaitlist() {
                 fontSize: "clamp(40px, 5vw, 60px)",
                 lineHeight: "1.1",
                 letterSpacing: "-0.05em",
+                background: "linear-gradient(193deg, #ffffff 50%, rgba(255, 255, 255, 0) 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
               className="mb-6"
             >
-              <span className="block" style={{ color: "#000000" }}>
-                Join The Future Of
-              </span>
-              <span
-                className="block"
-                style={{
-                  background: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
+              <span className="block">Join the Future of</span>
+              <span className="block">
                 AI Automation
               </span>
             </h2>
