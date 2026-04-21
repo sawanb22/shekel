@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type RevealStaggerProps = {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   stagger?: number;
   delay?: number;
   y?: number;
@@ -14,6 +15,7 @@ type RevealStaggerProps = {
 export function RevealStagger({
   children,
   className,
+  style,
   stagger = 0.12,
   delay = 0,
   y = 20,
@@ -33,6 +35,7 @@ export function RevealStagger({
   return (
     <motion.div
       className={className}
+      style={style}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
