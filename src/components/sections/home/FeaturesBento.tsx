@@ -27,11 +27,11 @@ export default function FeaturesBento() {
 function FeaturesBentoDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block"
+      className="relative hidden w-full overflow-hidden rounded-[24px] md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundImage: "url('/section-6/features-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -278,7 +278,7 @@ function FeaturesBentoMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundImage: "url('/section-6/features-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",

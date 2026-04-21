@@ -1,5 +1,5 @@
 // Roadmap.tsx — Figma node 500:22182 "Body" (1280 × 690)
-// Light pastel gradient bg (features-bg.png cover), rocket on left,
+// Light pastel gradient bg (features-bg.webp cover), rocket on left,
 // vertical timeline on right with dark text on light background.
 
 "use client";
@@ -14,7 +14,7 @@ const CANVAS_W = 1280;
 const CANVAS_H = 690;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
-// Figma fill_3UVOLK uses the same features-bg.png (imageRef f29b33d3…)
+// Figma fill_3UVOLK uses the same features-bg.webp (imageRef f29b33d3…)
 // as FeaturesBento. Apply it as CSS cover so it fills edge-to-edge.
 
 type TimelineItem = {
@@ -73,11 +73,11 @@ export default function Roadmap() {
 function RoadmapDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block"
+      className="relative hidden w-full overflow-hidden rounded-[24px] md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundImage: "url('/section-6/features-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -103,7 +103,7 @@ function RoadmapDesktop() {
           style={{ left: -408, top: -75, width: 1274.68, height: 1293.46 }}
         >
           <Image
-            src="/section-8/rocket.png"
+            src="/section-8/rocket.webp"
             alt=""
             width={1274}
             height={1293}
@@ -248,7 +248,7 @@ function RoadmapMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundImage: "url('/section-6/features-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -262,7 +262,7 @@ function RoadmapMobile() {
         style={{ width: 360 }}
       >
         <Image
-          src="/section-8/rocket.png"
+          src="/section-8/rocket.webp"
           alt=""
           width={360}
           height={365}

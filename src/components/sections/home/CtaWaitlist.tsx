@@ -28,26 +28,29 @@ export default function CtaWaitlist() {
 
 function CtaDesktop() {
   return (
-    <section
-      className="relative hidden w-full overflow-hidden md:block"
-      style={{
-        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
-        containerType: "inline-size",
-        backgroundImage: "url('/section-6/features-bg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: "#f0e8ff",
-      }}
-    >
-      <div
-        className="absolute left-0 top-0"
-        style={{
-          width: CANVAS_W,
-          height: CANVAS_H,
-          transform: `scale(${SCALE})`,
-          transformOrigin: "top left",
-        }}
-      >
+    <section className="hidden w-full bg-white md:block">
+      <div className="pb-16">
+        <div
+          className="relative w-full rounded-[24px]"
+          style={{
+            aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
+            containerType: "inline-size",
+            backgroundImage: "url('/section-6/features-bg.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundColor: "#f0e8ff",
+          }}
+        >
+          <div className="absolute inset-0 overflow-hidden rounded-[24px]">
+            <div
+              className="absolute left-0 top-0"
+              style={{
+                width: CANVAS_W,
+                height: CANVAS_H,
+                transform: `scale(${SCALE})`,
+                transformOrigin: "top left",
+              }}
+            >
         {/* Decorative blurred ellipse — Figma x=-549, y=-566, w=696, h=696 */}
         <div
           aria-hidden
@@ -61,22 +64,6 @@ function CtaDesktop() {
             filter: "blur(257.5px)",
           }}
         />
-
-        {/* Robot character — Figma x=366, y=-2, w=1160, h=652, clipped by section overflow */}
-        <Float
-          amplitude={8}
-          duration={9}
-          className="pointer-events-none absolute"
-          style={{ left: 366, top: -2, width: 1160, height: 652 }}
-        >
-          <Image
-            src="/section-11/cta-robot.png"
-            alt=""
-            width={1160}
-            height={652}
-            style={{ width: "100%", height: "100%", objectFit: "fill" }}
-          />
-        </Float>
 
         {/* Heading — Figma x=81, y=62, w=612, textCase TITLE */}
         <div className="absolute" style={{ left: 81, top: 62, width: 612 }}>
@@ -136,6 +123,34 @@ function CtaDesktop() {
             <WaitlistForm />
           </div>
         </Reveal>
+            </div>
+          </div>
+          {/* Keep mascot position, but render outside clipped layer so feet are not cut */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 z-20"
+            style={{
+              width: CANVAS_W,
+              height: CANVAS_H,
+              transform: `scale(${SCALE})`,
+              transformOrigin: "top left",
+            }}
+          >
+            <Float
+              amplitude={8}
+              duration={9}
+              className="absolute"
+              style={{ left: 366, top: -12, width: 1160, height: 652 }}
+            >
+              <Image
+                src="/section-11/cta-robot.webp"
+                alt=""
+                width={1160}
+                height={652}
+                style={{ width: "100%", height: "100%", objectFit: "fill" }}
+              />
+            </Float>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -218,7 +233,7 @@ function CtaMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundImage: "url('/section-6/features-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -227,7 +242,7 @@ function CtaMobile() {
       {/* Decorative robot — small, bottom-right, semi-transparent */}
       <Float amplitude={8} duration={9} className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72">
         <Image
-          src="/section-11/cta-robot.png"
+          src="/section-11/cta-robot.webp"
           alt=""
           width={580}
           height={326}

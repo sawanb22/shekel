@@ -29,7 +29,7 @@ function CompareDesktop() {
 
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block"
+      className="relative hidden w-full overflow-hidden rounded-[24px] md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
@@ -45,12 +45,11 @@ function CompareDesktop() {
         }}
       >
         <Image
-          src="/section-3/bg-texture.png"
+          src="/section-3/bg-texture.webp"
           alt=""
-          width={1841}
-          height={1252}
-          className="pointer-events-none absolute"
-          style={{ left: "-395px", top: "-7px", width: 1841, height: 1252 }}
+          width={CANVAS_W}
+          height={CANVAS_H}
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
           priority
         />
 
@@ -96,7 +95,7 @@ function CompareMobile() {
   return (
     <section className="relative block w-full overflow-hidden md:hidden">
       <Image
-        src="/section-3/bg-texture.png"
+        src="/section-3/bg-texture.webp"
         alt=""
         width={1841}
         height={1252}

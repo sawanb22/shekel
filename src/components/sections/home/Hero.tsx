@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 //   - Ellipse 43664: x=-98, y=-139, 163×163, same gradient, blur(203.4px)
 //   - Ellipse 43665: x=1252, y=-82, 163×163, same gradient, blur(214.7px)
 //   - Circuit lines SVG (Group 9210): x=412, y=50, 1566.67×1025.34 → /images/hero/circuit-lines.svg
-// Robot (image 51): x=653, y=118, 645×645 → /images/hero/robot.png
+// Robot (image 51): x=653, y=118, 645×645 → /images/hero/robot.webp
 // Left text column:
 //   - "The Marketplace for": x=56, y=82, 628×72, Poppins 500 64/72, letter -5.62%,
 //     fill linear-gradient(193°, #ffffff 50% → rgba(255,255,255,0) 100%) clipped to text
@@ -156,7 +156,7 @@ function HeroDesktop() {
           style={{ left: 653, top: 118, width: 645, height: 645 }}
         >
           <Image
-            src="/images/hero/robot.png"
+            src="/images/hero/robot.webp"
             alt="AI robot hero illustration"
             fill
             sizes="645px"
@@ -352,7 +352,7 @@ function HeroMobile() {
           className="relative h-[260px] w-[260px] sm:h-[320px] sm:w-[320px]"
         >
           <Image
-            src="/images/hero/robot.png"
+            src="/images/hero/robot.webp"
             alt="AI robot hero illustration"
             fill
             sizes="(max-width: 640px) 260px, 320px"

@@ -19,7 +19,6 @@ type Card = {
   desc: string;
   img: string;
   imgAlt: string;
-  overlay?: string;
 };
 
 const CARDS: Card[] = [
@@ -28,20 +27,18 @@ const CARDS: Card[] = [
     desc: "Automated content strategy, hyper-personalized\nemails, and real-time social listening agents.",
     img: "/section-5/marketing.png",
     imgAlt: "Marketing",
-    overlay: "/section-5/marketing-overlay.png",
   },
   {
     title: "Real Estate",
     desc: "Property valuation agents, virtual tour guides,\nand predictive market analysis bots.",
-    img: "/section-5/real-estate.png",
+    img: "/section-5/real-estate.jpg",
     imgAlt: "Real Estate",
   },
   {
     title: "Legal",
     desc: "Contract analysis, compliance monitoring, and\ncase law research agents.",
-    img: "/section-5/legal.png",
+    img: "/section-5/legal-overlay.png",
     imgAlt: "Legal",
-    overlay: "/section-5/legal-overlay.png",
   },
 ];
 
@@ -132,16 +129,6 @@ function UseCaseCard({ card }: { card: Card }) {
           sizes="400px"
           style={{ objectFit: "cover" }}
         />
-        {card.overlay ? (
-          <Image
-            src={card.overlay}
-            alt=""
-            fill
-            aria-hidden
-            sizes="400px"
-            style={{ objectFit: "cover", mixBlendMode: "multiply" }}
-          />
-        ) : null}
       </div>
       <div className="pt-5">
         <h3
