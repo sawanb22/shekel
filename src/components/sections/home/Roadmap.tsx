@@ -105,9 +105,8 @@ function RoadmapDesktop() {
           <Image
             src="/section-8/rocket.webp"
             alt=""
-            width={1274}
-            height={1293}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            fill
+            style={{ objectFit: "contain" }}
           />
         </Float>
 

@@ -184,7 +184,8 @@ function Panel({
         alt=""
         width={455}
         height={headerHeight}
-        className="relative z-10 h-auto w-[455px] max-w-full object-contain object-left"
+        className="relative z-10 object-contain object-left"
+        style={{ width: "100%", height: "auto" }}
       />
 
       <h3
