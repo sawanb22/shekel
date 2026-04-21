@@ -92,27 +92,22 @@ function RoadmapDesktop() {
           transformOrigin: "top left",
         }}
       >
-        {/* Rocket — show center 49% of image (Figma cropTransform x: 22.8% → 71.8%)
-            Container clips to 625px wide, offset so image center is revealed. */}
+        {/* Rocket — Figma rect: x=-408, y=-75, w=1274.68, h=1293.46.
+            The section overflow:hidden clips the 408px that sits off-canvas;
+            ~866px (68%) of the rocket is visible on the left. */}
         <Float
           amplitude={14}
           rotate={2}
           duration={8}
-          className="pointer-events-none absolute overflow-hidden"
-          style={{ left: -117, top: -75, width: 625, height: 1294 }}
+          className="pointer-events-none absolute"
+          style={{ left: -408, top: -75, width: 1274.68, height: 1293.46 }}
         >
           <Image
             src="/section-8/rocket.png"
             alt=""
             width={1274}
             height={1293}
-            style={{
-              width: 1274,
-              height: 1293,
-              marginLeft: -291,
-              objectFit: "fill",
-              flexShrink: 0,
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         </Float>
 

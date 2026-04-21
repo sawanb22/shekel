@@ -8,6 +8,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
+import { Float } from "@/components/shared/motion/Float";
 
 const CANVAS_W = 1280;
 const CANVAS_H = 552;
@@ -28,10 +29,14 @@ export default function CtaWaitlist() {
 function CtaDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden bg-white md:block"
+      className="relative hidden w-full overflow-hidden md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
+        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#f0e8ff",
       }}
     >
       <div
@@ -43,16 +48,7 @@ function CtaDesktop() {
           transformOrigin: "top left",
         }}
       >
-        <Image
-          src="/section-11/bg-texture.png"
-          alt=""
-          width={1841}
-          height={1252}
-          priority
-          aria-hidden
-          className="pointer-events-none absolute opacity-30"
-          style={{ left: -385, top: -397, width: 1841, height: 1252 }}
-        />
+        {/* Decorative blurred ellipse — Figma x=-549, y=-566, w=696, h=696 */}
         <div
           aria-hidden
           className="pointer-events-none absolute rounded-full"
@@ -66,6 +62,23 @@ function CtaDesktop() {
           }}
         />
 
+        {/* Robot character — right side decoration */}
+        <Float
+          amplitude={10}
+          duration={9}
+          className="pointer-events-none absolute"
+          style={{ right: -160, top: -50, height: 620, width: "auto" }}
+        >
+          <Image
+            src="/section-11/bg-fluid-robot.png"
+            alt=""
+            width={1728}
+            height={1117}
+            style={{ height: 620, width: "auto", objectFit: "contain" }}
+          />
+        </Float>
+
+        {/* Heading — Figma x=81, y=62, w=612, textCase TITLE */}
         <div className="absolute" style={{ left: 81, top: 62, width: 612 }}>
           <Reveal>
             <h2
@@ -79,7 +92,7 @@ function CtaDesktop() {
                 color: "#000000",
               }}
             >
-              Join the Future of
+              Join The Future Of
               <br />
               <span
                 style={{
@@ -204,15 +217,25 @@ function WaitlistForm() {
 
 function CtaMobile() {
   return (
-    <section className="relative block w-full overflow-hidden bg-white md:hidden">
-      <Image
-        src="/section-11/bg-texture.png"
-        alt=""
-        width={1841}
-        height={1252}
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
-      />
+    <section
+      className="relative block w-full overflow-hidden md:hidden"
+      style={{
+        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#f0e8ff",
+      }}
+    >
+      {/* Decorative robot — small, bottom-right, semi-transparent */}
+      <Float amplitude={8} duration={9} className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72">
+        <Image
+          src="/section-11/bg-fluid-robot.png"
+          alt=""
+          width={480}
+          height={310}
+          style={{ width: "100%", height: "auto" }}
+        />
+      </Float>
       <div
         aria-hidden
         className="pointer-events-none absolute -left-40 -top-40 rounded-full"
@@ -237,7 +260,7 @@ function CtaMobile() {
               color: "#000000",
             }}
           >
-            Join the Future of{" "}
+            Join The Future Of{" "}
             <span
               style={{
                 background: BLUE_GRADIENT,
