@@ -38,7 +38,7 @@ const STANDARD_ITEMS = [
 
 export default function Compare() {
   return (
-    <section className="relative w-full py-24 overflow-hidden">
+    <section className="relative w-full py-24 overflow-hidden bg-white">
       {/* ── Same decorative background as AppStore for visual continuity ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
@@ -66,7 +66,8 @@ export default function Compare() {
       </div>
 
       {/* ── Content ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+      {/* Figma: 1280 content area, 20px side margin → 1232 card width */}
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-5">
         {/*
           2-column grid card container.
           Figma: gap-x-px (1px gap used as divider), bg-[#e2e8f0] container acts as the border/divider color.
@@ -74,7 +75,7 @@ export default function Compare() {
           as a 1px divider line. Outer shadow matches Figma xl shadow.
         */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 gap-px rounded-[40px] overflow-hidden bg-[#e2e8f0]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-px rounded-[40px] overflow-hidden bg-[#e2e8f0] w-full md:h-[412px]"
           style={{
             boxShadow:
               "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 8px 10px -6px rgba(0,0,0,0.1)",

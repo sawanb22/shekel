@@ -16,77 +16,100 @@ const PATNERS = [
 
 export default function Hero() {
   return (
-    <section className="relative w-full bg-black min-h-screen flex flex-col justify-between overflow-hidden pt-28">
-      {/* Decorative Background Gradients (Simulating ellipses) */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#b557fa]/20 via-[#b557fa]/5 to-transparent pointer-events-none -translate-y-1/4 translate-x-1/4 rounded-full blur-[80px]" />
-      
-      {/* Concentric Border Decorations */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] border border-[#b557fa]/30 rounded-3xl -translate-y-10 translate-x-32 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[700px] h-[700px] border border-[#b557fa]/20 rounded-[40px] -translate-y-20 translate-x-40 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] border border-[#b557fa]/10 rounded-[50px] -translate-y-32 translate-x-52 pointer-events-none" />
+    <section className="relative w-full bg-black overflow-hidden">
+      {/* Fixed-height hero area (Figma frame is 726px tall incl. logos bar) */}
+      <div className="relative w-full h-[726px]">
+        {/* Decorative background ellipses */}
+        <div className="absolute left-[-19px] top-[-49px] h-[211px] w-[1343px] pointer-events-none">
+          <div className="absolute inset-0 blur-[120px] opacity-40 bg-[radial-gradient(ellipse_at_center,_rgba(181,87,250,0.25),_transparent_70%)]" />
+        </div>
+        <div className="absolute left-[-98px] top-[-139px] w-[163px] h-[163px] pointer-events-none">
+          <div className="absolute inset-0 blur-[100px] opacity-35 bg-[radial-gradient(ellipse_at_center,_rgba(181,87,250,0.35),_transparent_70%)]" />
+        </div>
+        <div className="absolute left-[1252px] top-[-82px] w-[163px] h-[163px] pointer-events-none">
+          <div className="absolute inset-0 blur-[100px] opacity-35 bg-[radial-gradient(ellipse_at_center,_rgba(249,168,212,0.35),_transparent_70%)]" />
+        </div>
 
-      {/* Main Content Container */}
-      <div className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center justify-between relative z-10">
-        
-        {/* Left Column: Typography & CTAs */}
-        <div className="flex flex-col items-start max-w-2xl mt-12 lg:mt-0">
-          
-          <h1 className="font-heading font-medium tracking-tight flex flex-col mb-[50px]">
-             {/* Gradient applied to 'The Marketplace for' */}
-             <span 
-               className="text-[48px] md:text-[64px] leading-[1.1] bg-clip-text text-transparent"
-               style={{ backgroundImage: "linear-gradient(190.548deg, rgb(255, 255, 255) 55.625%, rgba(255, 255, 255, 0) 110.73%)" }}
-             >
-               The Marketplace for
-             </span>
-             {/* Solid Blue Gradient applied to 'AI Agents' */}
-             <span className="text-[64px] md:text-[88px] leading-[1.1] bg-gradient-to-b from-[#2864e4] to-[#ecf2ff] bg-clip-text text-transparent">
-               AI Agents
-             </span>
-          </h1>
+        {/* Concentric border decorations + circuit zone */}
+        <div className="absolute right-[-340px] top-[50px] w-[980px] h-[980px] pointer-events-none">
+          <div className="absolute inset-[0%] border border-[#b557fa] rounded-[30px] opacity-30 mix-blend-difference" />
+          <div className="absolute inset-[6%] border border-[#b557fa] rounded-[30px] opacity-30 mix-blend-difference" />
+          <div className="absolute inset-[12%] border border-[#b557fa] rounded-[30px] opacity-20 mix-blend-difference" />
+          <div className="absolute inset-[18%] border border-[#b557fa] rounded-[30px] opacity-10 mix-blend-difference" />
+        </div>
 
-          <p className="font-sans font-normal text-[#a7aab9] text-[18px] md:text-[20px] leading-[1.6] max-w-[628px] mb-[60px]">
-            Discover, deploy, and monetize high-performance decentralized intelligence. The premier ecosystem for chaining autonomous workflows across industries.
-          </p>
+        {/* Content (keep section full-width; constrain only inner content) */}
+        <div className="relative z-10 w-full h-[637px] pt-[75px]">
+          <div className="relative mx-auto w-full max-w-[1440px] h-full px-[56px]">
+            {/* Left content block */}
+            <div className="absolute left-[56px] top-[118px] w-[628px]">
+              <h1 className="font-heading font-medium tracking-tight">
+                <span
+                  className="block text-[64px] leading-[72px] bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(190.548deg, rgb(255, 255, 255) 55.625%, rgba(255, 255, 255, 0) 110.73%)",
+                    letterSpacing: "-3.6px",
+                  }}
+                >
+                  The Marketplace for
+                </span>
+                <span className="block text-[88px] leading-[normal] bg-gradient-to-b from-[#2864e4] to-[#ecf2ff] bg-clip-text text-transparent">
+                  AI Agents
+                </span>
+              </h1>
 
-          <div className="flex flex-row items-center gap-[14px]">
-            <Button variant="primary">Join Waitlist</Button>
-            <Button variant="outline">Explore Platform</Button>
+              <p className="mt-[60px] font-sans font-normal text-[#a7aab9] text-[20px] leading-[32.5px] w-[628px]">
+                Discover, deploy, and monetize high-performance decentralized intelligence. The premier ecosystem for
+                chaining autonomous workflows across industries.
+              </p>
+
+              <div className="mt-[64px] flex items-center gap-[14px]">
+                <Button variant="primary">Join Waitlist</Button>
+                <Button variant="outline">Explore Platform</Button>
+              </div>
+            </div>
+
+            {/* Robot */}
+            <div className="absolute left-[653px] top-[118px] w-[645px] h-[645px]">
+              <Image src="/images/hero/robot.png" alt="AI Robot Graphic" fill className="object-cover" priority />
+            </div>
           </div>
         </div>
 
-        {/* Right Column: Hero Graphic */}
-        <div className="relative w-full max-w-lg lg:max-w-[645px] aspect-square mt-16 lg:mt-0 lg:ml-8 flex-shrink-0">
-          <Image 
-            src="/images/hero/robot.png" 
-            alt="AI Robot Graphic" 
-            fill 
-            className="object-contain animate-[float_6s_ease-in-out_infinite]"
-            priority
-          />
+        {/* Partner Logo Strip (fixed at bottom of hero frame) */}
+        <div className="absolute left-0 right-0 bottom-0 h-[89px] bg-black border-y border-[rgba(255,255,255,0.2)] overflow-hidden">
+          {/* Fades (34px) */}
+          <div className="absolute left-0 top-0 bottom-0 w-[34px] bg-gradient-to-r from-black to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-[34px] bg-gradient-to-l from-black to-transparent z-10" />
+
+          <div className="relative mx-auto w-full max-w-[1280px] h-full">
+            <div className="absolute left-[-23px] top-1/2 -translate-y-1/2">
+              <Image src="/images/hero/openai.png" alt="OpenAI" width={103} height={28} />
+            </div>
+            <div className="absolute left-[131px] top-[2px]">
+              <Image src="/images/hero/google-ai.png" alt="Google AI" width={134} height={73} />
+            </div>
+            <div className="absolute left-[301px] top-[-17px]">
+              <Image src="/images/hero/anthropic.svg" alt="Anthropic" width={185} height={123} />
+            </div>
+            <div className="absolute left-[560px] top-[26px]">
+              <Image src="/images/hero/azure.png" alt="Azure" width={90} height={26} />
+            </div>
+            <div className="absolute left-[723px] top-[35px]">
+              <Image src="/images/hero/meta.png" alt="Meta" width={95} height={19} />
+            </div>
+            <div className="absolute left-[892px] top-[8px]">
+              <Image src="/images/hero/notion.png" alt="Notion" width={102} height={72} />
+            </div>
+            <div className="absolute left-[1049px] top-[23px]">
+              <Image src="/images/hero/slack.png" alt="Slack" width={103} height={42} />
+            </div>
+            <div className="absolute left-[1207px] top-[18px]">
+              <Image src="/images/hero/aws.png" alt="AWS" width={50} height={50} />
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Partner Logo Strip */}
-      <div className="w-full relative h-[89px] border-t border-b border-[rgba(255,255,255,0.2)] bg-black overflow-hidden flex items-center justify-center mt-20">
-         {/* Fade left/right */}
-         <div className="absolute top-0 left-0 bottom-0 w-[100px] bg-gradient-to-r from-black to-transparent z-10" />
-         <div className="absolute top-0 right-0 bottom-0 w-[100px] bg-gradient-to-l from-black to-transparent z-10" />
-
-         {/* Logos Flex Track */}
-         <div className="flex flex-row items-center justify-between w-full max-w-7xl mx-auto px-8 gap-8 whitespace-nowrap opacity-80 overflow-x-auto no-scrollbar relative z-0">
-           {PATNERS.map((partner, idx) => (
-             <div key={idx} className="relative flex items-center justify-center min-w-max">
-               <Image 
-                 src={partner.src} 
-                 alt={partner.name} 
-                 width={partner.width > 120 ? 120 : partner.width} 
-                 height={partner.height > 40 ? 40 : partner.height}
-                 className="object-contain hover:opacity-100 transition-opacity" 
-               />
-             </div>
-           ))}
-         </div>
       </div>
     </section>
   );
