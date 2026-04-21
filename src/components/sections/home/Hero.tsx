@@ -40,7 +40,7 @@ const PARTNERS: Partner[] = [
   { name: "Google AI", src: "/images/hero/google-ai.png", x: 132, y: 3, w: 134, h: 73 },
   { name: "Anthropic", src: "/images/hero/anthropic.svg", x: 302, y: -16, w: 185, h: 123 },
   { name: "Azure", src: "/images/hero/azure.png", x: 561, y: 27, w: 90, h: 26 },
-  { name: "Meta", src: "/images/hero/meta.png", x: 724, y: 36, w: 95, h: 19 },
+  { name: "Meta", src: "/images/hero/meta.png", x: 700, y: 22, w: 140, h: 44 },
   { name: "Notion", src: "/images/hero/notion.png", x: 893, y: 9, w: 102, h: 72 },
   { name: "Slack", src: "/images/hero/slack.png", x: 1050, y: 24, w: 103, h: 42 },
   { name: "AWS", src: "/images/hero/aws.png", x: 1208, y: 19, w: 50, h: 50 },
@@ -152,7 +152,7 @@ function HeroDesktop() {
           amplitude={10}
           rotate={1.5}
           duration={7}
-          className="pointer-events-none absolute"
+          className="pointer-events-none absolute z-20"
           style={{ left: 653, top: 118, width: 645, height: 645 }}
         >
           <Image
@@ -249,7 +249,7 @@ function HeroDesktop() {
 
         {/* Logo strip (Frame 2147225678) */}
         <div
-          className="absolute overflow-hidden"
+          className="absolute z-10 overflow-hidden"
           style={{
             left: -4,
             top: 637,
