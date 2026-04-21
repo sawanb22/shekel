@@ -1,136 +1,205 @@
+// TrustReliability.tsx — Figma node 500:22234 "Trust & Reliability Section"
+// 1280 × ~640. 4-column grid (Verified / Community / Secure / Scalable).
+
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+import { colors, typography } from "@/tokens/design-tokens";
+import { Reveal } from "@/components/shared/motion/Reveal";
+import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
 
-// LAYOUT MAP: Trust & Reliability Section (Frame 500:22234)
-// Section: full-width, bg: gradient white → #f2f4f7, px: 32px (container max-w), py: 128px
-// Container: max-w-[1536px] centered, gap-96px between header and grid
-// Section Header: centered heading — Poppins Medium 48px, tracking -1.2px, color #191c1e
-//   - "reliability" & "trust": gradient text #2864e4 → #ecf2ff
-// Grid: 4 columns, gap-48px
-// Cards: p-32px, rounded-12px, semi-transparent white bg + subtle border, flex-col
-//   - Icon block: ~51-53px SVG with shadow, mb-32px
-//   - Title: Plus Jakarta Sans Bold, 20px, tracking -0.5px, #191c1e, mb-12px
-//   - Body: Inter Regular, 16px, line-height 26px, #414753
+const CANVAS_W = 1280;
+const CANVAS_H = 640;
+const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
-const cards = [
+type Card = {
+  icon: string;
+  iconW: number;
+  iconH: number;
+  title: string;
+  desc: string;
+};
+
+const CARDS: Card[] = [
   {
     icon: "/section-9/icon-verified.svg",
-    alt: "Verified Agents Icon",
+    iconW: 19,
+    iconH: 24,
     title: "Verified Agents",
-    body: "Every agent undergoes rigorous security and quality audit",
-    iconW: 51,
-    iconH: 56,
+    desc: "Every agent undergoes\nrigorous security and\nquality audit",
   },
   {
     icon: "/section-9/icon-community.svg",
-    alt: "Community Ratings Icon",
+    iconW: 21,
+    iconH: 21,
     title: "Community Ratings",
-    body: "Transparent reviews and historical performance data",
-    iconW: 53,
-    iconH: 53,
+    desc: "Transparent reviews and\nhistorical performance\ndata",
   },
   {
     icon: "/section-9/icon-secure.svg",
-    alt: "Secure Infrastructure Icon",
+    iconW: 19,
+    iconH: 24,
     title: "Secure Infrastructure",
-    body: "Enterprise-grade data encryption and privacy controls",
-    iconW: 51,
-    iconH: 56,
+    desc: "Enterprise-grade data\nencryption and privacy\ncontrols",
   },
   {
     icon: "/section-9/icon-scalable.svg",
-    alt: "Scalable Platform Icon",
+    iconW: 17,
+    iconH: 24,
     title: "Scalable Platform",
-    body: "Execute thousands of tasks simultaneously with low latency",
-    iconW: 49,
-    iconH: 56,
+    desc: "Execute thousands of\ntasks simultaneously with\nlow latency",
   },
 ];
 
 export default function TrustReliability() {
   return (
+    <>
+      <TrustDesktop />
+      <TrustMobile />
+    </>
+  );
+}
+
+function TrustDesktop() {
+  return (
     <section
-      className="w-full"
+      className="relative hidden w-full overflow-hidden md:block"
       style={{
-        background: "linear-gradient(to bottom, #ffffff, #f2f4f7)",
-        paddingTop: "128px",
-        paddingBottom: "128px",
-        paddingLeft: "32px",
-        paddingRight: "32px",
+        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
+        containerType: "inline-size",
+        background:
+          "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
       }}
     >
-      {/* Container */}
-      <div className="mx-auto flex flex-col gap-24 w-full max-w-[1536px]">
-        {/* Section Header */}
-        <div className="flex flex-col items-center w-full">
-          <h2
-            className="max-w-[736px] text-center"
-            style={{
-              fontFamily: "'Poppins', sans-serif",
-              fontWeight: 500,
-              fontSize: "48px",
-              lineHeight: "48px",
-              letterSpacing: "-1.2px",
-              color: "#191c1e",
-            }}
-          >
-            Built for reliability and trust
-          </h2>
-        </div>
-
-        {/* 4-Column Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full">
-          {cards.map((card) => (
-            <div
-              key={card.title}
-              className="flex flex-col"
-              style={{
-                padding: "32px",
-                borderRadius: "12px",
-                background: "rgba(255,255,255,0.8)",
-                border: "1px solid rgba(0,0,0,0.06)",
-              }}
-            >
-              {/* Icon */}
-              <div className="mb-8 relative" style={{ width: card.iconW, height: card.iconH }}>
-                <Image
-                  src={card.icon}
-                  alt={card.alt}
-                  width={card.iconW}
-                  height={card.iconH}
-                  className="object-contain"
-                />
-              </div>
-
-              {/* Title */}
-              <p
-                className="mb-3"
-                style={{
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  lineHeight: "28px",
-                  letterSpacing: "-0.5px",
-                  color: "#191c1e",
-                }}
-              >
-                {card.title}
-              </p>
-
-              {/* Body */}
-              <p
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 400,
-                  fontSize: "16px",
-                  lineHeight: "26px",
-                  color: "#414753",
-                }}
-              >
-                {card.body}
-              </p>
-            </div>
+      <div
+        className="absolute left-0 top-0 flex flex-col"
+        style={{
+          width: CANVAS_W,
+          height: CANVAS_H,
+          transform: `scale(${SCALE})`,
+          transformOrigin: "top left",
+          padding: "128px 32px",
+          gap: 96,
+        }}
+      >
+        <Reveal className="w-full text-center">
+          <TrustHeading />
+        </Reveal>
+        <RevealStagger className="grid w-full grid-cols-4" stagger={0.1}>
+          {CARDS.map((c) => (
+            <RevealItem key={c.title} className="h-full">
+              <TrustCard card={c} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealStagger>
+      </div>
+    </section>
+  );
+}
+
+function TrustHeading() {
+  return (
+    <h2
+      style={{
+        margin: 0,
+        fontFamily: typography.fonts.poppins,
+        fontWeight: 500,
+        fontSize: 48,
+        lineHeight: "48px",
+        letterSpacing: "-0.025em",
+        color: "#191C1E",
+      }}
+    >
+      Built for{" "}
+      <span
+        style={{
+          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}
+      >
+        reliability
+      </span>{" "}
+      and{" "}
+      <span
+        style={{
+          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}
+      >
+        trust
+      </span>
+    </h2>
+  );
+}
+
+function TrustCard({ card }: { card: Card }) {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <motion.article
+      className="flex h-full flex-col"
+      style={{ padding: 32 }}
+      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
+      <div className="pb-8">
+        <Image src={card.icon} alt="" width={card.iconW} height={card.iconH} />
+      </div>
+      <h3
+        className="pb-3"
+        style={{
+          margin: 0,
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontWeight: 700,
+          fontSize: 20,
+          lineHeight: "28px",
+          letterSpacing: "-0.025em",
+          color: "#191C1E",
+        }}
+      >
+        {card.title}
+      </h3>
+      <p
+        style={{
+          margin: 0,
+          whiteSpace: "pre-line",
+          fontFamily: typography.fonts.inter,
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: "26px",
+          color: "#414753",
+        }}
+      >
+        {card.desc}
+      </p>
+    </motion.article>
+  );
+}
+
+function TrustMobile() {
+  return (
+    <section
+      className="block w-full md:hidden"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
+      }}
+    >
+      <div className="flex flex-col gap-12 px-6 py-20 sm:px-8">
+        <Reveal className="text-center">
+          <TrustHeading />
+        </Reveal>
+        <RevealStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.1}>
+          {CARDS.map((c) => (
+            <RevealItem key={c.title}>
+              <TrustCard card={c} />
+            </RevealItem>
+          ))}
+        </RevealStagger>
       </div>
     </section>
   );

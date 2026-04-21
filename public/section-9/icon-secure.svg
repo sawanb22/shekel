@@ -1,20 +1,20 @@
-<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 54.7499 59.6778" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Background+Shadow" filter="url(#filter0_d_2025_4883)">
-<rect x="2" y="1" width="50.7499" height="55.6778" rx="12" fill="var(--fill-0, white)" shape-rendering="crispEdges"/>
-<path id="Icon" d="M25.8005 32.2644H28.9495L28.2427 28.3172C28.6353 28.149 28.9515 27.885 29.191 27.5252C29.4306 27.1654 29.5504 26.766 29.5504 26.3269C29.5504 25.7275 29.3377 25.2151 28.9122 24.7896C28.4867 24.3642 27.9743 24.1514 27.375 24.1514C26.7756 24.1514 26.2632 24.3642 25.8377 24.7896C25.4122 25.2151 25.1995 25.7275 25.1995 26.3269C25.1995 26.766 25.3193 27.1654 25.5589 27.5252C25.7985 27.885 26.1146 28.149 26.5072 28.3172L25.8005 32.2644V32.2644M27.375 40.6778C24.6714 39.9406 22.4331 38.3493 20.6598 35.9038C18.8866 33.4583 18 30.7243 18 27.7019V20.5096L27.375 17L36.7499 20.5096V27.7019C36.7499 30.7243 35.8633 33.4583 34.0901 35.9038C32.3168 38.3493 30.0785 39.9406 27.375 40.6778V40.6778M27.375 38.7019C29.5416 38.0144 31.3333 36.6394 32.75 34.5769C34.1666 32.5144 34.875 30.2227 34.875 27.7019V21.7956L27.375 18.9951L19.875 21.7956V27.7019C19.875 30.2227 20.5833 32.5144 22 34.5769C23.4166 36.6394 25.2083 38.0144 27.375 38.7019V38.7019M27.375 28.8389V28.8389V28.8389V28.8389V28.8389V28.8389V28.8389V28.8389V28.8389V28.8389" fill="url(#paint0_linear_2025_4883)"/>
+<svg width="55" height="89" viewBox="0 0 55 89" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_500_22257)">
+<rect x="2.00727" y="1.00363" width="50.9343" height="55.8801" rx="12" fill="white" shape-rendering="crispEdges"/>
+<path d="M25.8942 32.3816H29.0547L28.3454 28.4201C28.7394 28.2513 29.0567 27.9863 29.2971 27.6252C29.5376 27.2641 29.6578 26.8632 29.6578 26.4225C29.6578 25.821 29.4443 25.3067 29.0173 24.8797C28.5902 24.4527 28.076 24.2392 27.4744 24.2392C26.8729 24.2392 26.3586 24.4527 25.9316 24.8797C25.5046 25.3067 25.2911 25.821 25.2911 26.4225C25.2911 26.8632 25.4113 27.2641 25.6518 27.6252C25.8922 27.9863 26.2095 28.2513 26.6035 28.4201L25.8942 32.3816ZM27.4744 40.8256C24.7611 40.0858 22.5146 38.4886 20.7349 36.0342C18.9553 33.5799 18.0654 30.836 18.0654 27.8025V20.5841L27.4744 17.0618L36.8835 20.5841V27.8025C36.8835 30.836 35.9936 33.5799 34.214 36.0342C32.4343 38.4886 30.1878 40.0858 27.4744 40.8256ZM27.4744 38.8425C29.649 38.1525 31.4472 36.7725 32.869 34.7025C34.2908 32.6325 35.0017 30.3325 35.0017 27.8025V21.8748L27.4744 19.0642L19.9472 21.8748V27.8025C19.9472 30.3325 20.6581 32.6325 22.0799 34.7025C23.5017 36.7725 25.2999 38.1525 27.4744 38.8425Z" fill="url(#paint0_linear_500_22257)"/>
 </g>
 <defs>
-<filter id="filter0_d_2025_4883" x="0" y="0" width="54.7499" height="59.6778" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_500_22257" x="0" y="0" width="54.949" height="59.8946" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="1"/>
 <feGaussianBlur stdDeviation="1"/>
 <feComposite in2="hardAlpha" operator="out"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2025_4883"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2025_4883" result="shape"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_500_22257"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_500_22257" result="shape"/>
 </filter>
-<linearGradient id="paint0_linear_2025_4883" x1="27.375" y1="17" x2="27.375" y2="40.6778" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_500_22257" x1="27.4744" y1="17.0618" x2="27.4744" y2="40.8256" gradientUnits="userSpaceOnUse">
 <stop stop-color="#2864E4"/>
 <stop offset="1" stop-color="#ECF2FF"/>
 </linearGradient>

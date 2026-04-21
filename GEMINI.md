@@ -63,6 +63,12 @@ When Figma MCP reveals an icon or image node:
   must all be fixed before stopping
 - If dev server is not running, start it — never skip verification
 
+## VISUAL VERIFICATION IN CURSOR
+- Cursor cannot take screenshots automatically
+- After every fix, user will provide a screenshot
+- Agent must wait for screenshot before marking section done
+- Never mark a section complete without user screenshot confirmation
+
 ## ONE SECTION PER TASK — ABSOLUTE RULE
 - Implement exactly ONE section per task
 - After section is done: spin up dev server → screenshot → compare to Figma → fix discrepancies → mark [x] in PROGRESS.md
@@ -91,3 +97,11 @@ When Figma MCP reveals an icon or image node:
 - PAGE_THEME.json — deleted, do not recreate
 - Any .json file in project root unless explicitly asked by user
 - Any file not part of the defined structure
+
+## MANDATORY SKILL — READ BEFORE IMPLEMENTING ANY SECTION
+Before implementing or refactoring ANY section from a Figma frame, the agent
+MUST read `.agent/skills/pixel-perfect-figma-section.md` and follow its
+11-step roadmap. That skill is the canonical, pixel-perfect responsive
+pattern for this project (Hero.tsx and Concept.tsx are its reference
+implementations). The older `.agent/skills/figma-implementation.md` is
+preserved for historical context but the pixel-perfect skill supersedes it.

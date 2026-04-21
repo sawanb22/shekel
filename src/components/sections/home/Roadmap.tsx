@@ -1,207 +1,303 @@
-import Image from 'next/image';
-import { colors, typography, radiuses } from '@/tokens/design-tokens';
+// Roadmap.tsx — Figma node 500:22182 "Body" (1280 × 690)
+// Light pastel gradient bg (features-bg.png cover), rocket on left,
+// vertical timeline on right with dark text on light background.
 
-// ─── Asset paths ────────────────────────────────────────────────────────────
-const bgGrid      = '/section-8/bg-grid.png';
-const rocket      = '/section-8/rocket.png';
-const iconCheck   = '/section-8/icon-check.svg';
-const iconSync    = '/section-8/icon-sync.svg';
+"use client";
 
-const TIMELINE_DATA = [
+import Image from "next/image";
+import { colors, typography } from "@/tokens/design-tokens";
+import { Float } from "@/components/shared/motion/Float";
+import { Reveal } from "@/components/shared/motion/Reveal";
+import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
+
+const CANVAS_W = 1280;
+const CANVAS_H = 690;
+const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
+
+// Figma fill_3UVOLK uses the same features-bg.png (imageRef f29b33d3…)
+// as FeaturesBento. Apply it as CSS cover so it fills edge-to-edge.
+
+type TimelineItem = {
+  status: "COMPLETED" | "IN PROGRESS" | "UPCOMING";
+  heading: string;
+  desc: string;
+  statusBg: string;
+  statusText: string;
+  nodeBg: string;
+  nodeShadow?: string;
+  nodeBorder?: string;
+  icon?: string;
+};
+
+const TIMELINE: TimelineItem[] = [
   {
-    status: 'COMPLETED',
-    statusBg: colors.background.badgeDark,
-    statusText: colors.text.badgePurple,
-    heading: 'Alpha Launch & Core Engine',
-    desc: 'Development of the decentralized hosting protocol and basic agent API standards.',
-    icon: iconCheck,
-    nodeBg: colors.background.badgePurple,
-    nodeShadow: colors.overlay.badgeShadowPurple,
+    status: "COMPLETED",
+    heading: "Alpha Launch & Core Engine",
+    desc: "Development of the decentralized hosting protocol and basic agent API standards.",
+    statusBg: "#202534",
+    statusText: "#E5E7F6",
+    nodeBg: "#BA9EFF",
+    nodeShadow: "rgba(186, 158, 255, 0.35)",
+    icon: "/section-8/node-completed.svg",
   },
   {
-    status: 'IN PROGRESS',
-    statusBg: colors.overlay.badgeShadowBlue,
-    statusText: colors.text.badgeBlue,
-    heading: 'Marketplace Beta v2.0',
-    desc: 'Introducing automated revenue splitting and the visual workflow builder for all users.',
-    icon: iconSync,
-    nodeBg: colors.background.badgeBlue,
-    nodeShadow: colors.overlay.badgeShadowBlue,
+    status: "IN PROGRESS",
+    heading: "Marketplace Beta v2.0",
+    desc: "Introducing automated revenue splitting and the visual workflow builder for all users.",
+    statusBg: "#202534",
+    statusText: "#699CFF",
+    nodeBg: "#C2CFFF",
+    nodeShadow: "rgba(105, 156, 255, 0.25)",
+    icon: "/section-8/node-inprogress.svg",
   },
   {
-    status: 'UPCOMING',
-    statusBg: colors.background.badgeDark,
-    statusText: colors.text.badgeUpcoming,
-    heading: 'Enterprise SDK & Global Node Mesh',
-    desc: 'Scaling to 100k+ agents with localized edge-node hosting for sub-10ms latency.',
-    icon: null, // Empty circle
-    nodeBg: colors.background.badgeDark,
-    nodeBorder: colors.border.timeline,
+    status: "UPCOMING",
+    heading: "Enterprise SDK & Global Node Mesh",
+    desc: "Scaling to 100k+ agents with localized edge-node hosting for sub-10ms latency.",
+    statusBg: "#202534",
+    statusText: "#A7AAB9",
+    nodeBg: "#2D2F3A",
+    nodeBorder: "#444854",
   },
 ];
 
 export default function Roadmap() {
   return (
-    <section className="w-full relative overflow-hidden" style={{ minHeight: '690px' }}>
-      
-      {/* ── Background Layer ────────────────────────────────────────────────── */}
-      <div 
-        className="absolute inset-0 pointer-events-none bg-[#fff5f5]"
-      >
-        <div 
-          className="absolute"
-          style={{
-            top: '-47px',
-            left: '-395px',
-            width: '1841px',
-            height: '1252px',
-            transform: 'rotate(180deg) scaleY(-1)'
-          }}
-        >
-          <Image src={bgGrid} alt="Grid Background" fill className="object-cover" priority unoptimized />
-        </div>
-      </div>
+    <>
+      <RoadmapDesktop />
+      <RoadmapMobile />
+    </>
+  );
+}
 
-      {/* ── Decorative Rocket ─────────────────────────────────────────────── */}
-      <div 
-        className="absolute pointer-events-none"
+function RoadmapDesktop() {
+  return (
+    <section
+      className="relative hidden w-full overflow-hidden md:block"
+      style={{
+        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
+        containerType: "inline-size",
+        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#f0e8ff",
+      }}
+    >
+      <div
+        className="absolute left-0 top-0"
         style={{
-          top: '-75px',
-          left: '-408px',
-          width: '1274px',
-          height: '1293px',
-          transform: 'rotate(-38.88deg)',
+          width: CANVAS_W,
+          height: CANVAS_H,
+          transform: `scale(${SCALE})`,
+          transformOrigin: "top left",
         }}
       >
-        <Image src={rocket} alt="Rocket 3D" fill className="object-contain" />
+        {/* Rocket — show center 49% of image (Figma cropTransform x: 22.8% → 71.8%)
+            Container clips to 625px wide, offset so image center is revealed. */}
+        <Float
+          amplitude={14}
+          rotate={2}
+          duration={8}
+          className="pointer-events-none absolute overflow-hidden"
+          style={{ left: -117, top: -75, width: 625, height: 1294 }}
+        >
+          <Image
+            src="/section-8/rocket.png"
+            alt=""
+            width={1274}
+            height={1293}
+            style={{
+              width: 1274,
+              height: 1293,
+              marginLeft: -291,
+              objectFit: "fill",
+              flexShrink: 0,
+            }}
+          />
+        </Float>
+
+        {/* Roadmap content — x=509, y=55, w=800 (Figma layout_MG2NQ8) */}
+        <div
+          className="absolute flex flex-col"
+          style={{ left: 509, top: 55, width: 800, gap: 80 }}
+        >
+          <Reveal>
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: typography.fonts.poppins,
+                fontWeight: 700,
+                fontSize: 36,
+                lineHeight: "40px",
+                color: "#000000",
+              }}
+            >
+              Development Roadmap
+            </h2>
+          </Reveal>
+
+          <RevealStagger className="flex flex-col" style={{ gap: 48 }} stagger={0.18}>
+            {TIMELINE.map((item, i) => (
+              <RevealItem key={item.heading}>
+                <TimelineRow item={item} isLast={i === TIMELINE.length - 1} />
+              </RevealItem>
+            ))}
+          </RevealStagger>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) {
+  return (
+    <div className="flex flex-row items-stretch" style={{ gap: 32 }}>
+      {/* Node + connector column */}
+      <div className="relative flex flex-col items-center" style={{ width: 24 }}>
+        {item.icon ? (
+          <div
+            className="relative z-10 flex items-center justify-center"
+            style={{
+              width: 24,
+              height: 24,
+              borderRadius: "9999px",
+              backgroundColor: item.nodeBg,
+              boxShadow: `0 0 0 5px ${item.nodeShadow}`,
+              flexShrink: 0,
+            }}
+          >
+            <Image src={item.icon} alt="" width={10} height={8} />
+          </div>
+        ) : (
+          <div
+            style={{
+              width: 24,
+              height: 24,
+              borderRadius: "9999px",
+              backgroundColor: item.nodeBg,
+              border: `1.5px solid ${item.nodeBorder}`,
+              flexShrink: 0,
+            }}
+          />
+        )}
+
+        {!isLast && (
+          <div
+            className="mt-3 flex-1"
+            style={{
+              width: 1.5,
+              backgroundColor: "rgba(0,0,0,0.12)",
+              minHeight: 56,
+            }}
+          />
+        )}
       </div>
 
-      {/* ── Content Container ─────────────────────────────────────────────── */}
-      <div className="relative mx-auto mt-14" style={{ maxWidth: '1280px', height: '100%' }}>
-        <div 
-          className="flex flex-col gap-12"
+      {/* Text content */}
+      <div className="flex flex-col" style={{ gap: 8, paddingBottom: 32 }}>
+        {/* Status badge */}
+        <div
+          className="inline-flex self-start rounded"
           style={{
-            position: 'absolute',
-            left: '509px',
-            top: '0',
-            width: '800px',
+            backgroundColor: item.statusBg,
+            padding: "2px 8px",
           }}
         >
+          <span
+            style={{
+              fontFamily: typography.fonts.inter,
+              fontWeight: 700,
+              fontSize: 10,
+              lineHeight: "15px",
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              color: item.statusText,
+            }}
+          >
+            {item.status}
+          </span>
+        </div>
+
+        <h4
+          style={{
+            margin: 0,
+            fontFamily: typography.fonts.inter,
+            fontWeight: 600,
+            fontSize: 20,
+            lineHeight: "28px",
+            color: "#0b0b0b",
+          }}
+        >
+          {item.heading}
+        </h4>
+
+        <p
+          style={{
+            margin: 0,
+            fontFamily: typography.fonts.inter,
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: "24px",
+            color: "rgba(0, 0, 0, 0.6)",
+          }}
+        >
+          {item.desc}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function RoadmapMobile() {
+  return (
+    <section
+      className="relative block w-full overflow-hidden md:hidden"
+      style={{
+        backgroundImage: "url('/section-6/features-bg.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#f0e8ff",
+      }}
+    >
+      {/* Rocket — faint decoration top-right on mobile */}
+      <Float
+        amplitude={10}
+        duration={8}
+        className="pointer-events-none absolute -right-24 -top-16 opacity-50"
+        style={{ width: 360 }}
+      >
+        <Image
+          src="/section-8/rocket.png"
+          alt=""
+          width={360}
+          height={365}
+          style={{ width: "100%", height: "auto" }}
+        />
+      </Float>
+
+      <div className="relative z-10 flex flex-col gap-10 px-6 py-16 sm:px-8">
+        <Reveal>
           <h2
             style={{
+              margin: 0,
               fontFamily: typography.fonts.poppins,
               fontWeight: 700,
-              fontSize: '36px',
-              lineHeight: '40px',
-              color: colors.white, // In the design the text is black but the bg is dark, I'll use white for visibility given the dark gradient bg in the actual React code (the Figma metadata had text-black but the frame bg was transparent in Figma while the component has a dark gradient). Wait, it's black in design because the Figma render might have had a white bg behind it! No, the design screenshot shows a white/pinkish background! Ah, my radial gradient from the SVG was `#111` to `#0b0b0b`, but I noticed the design screenshot is light colored. Let me override it to match the light theme screenshot.
+              fontSize: "clamp(28px, 8vw, 36px)",
+              lineHeight: 1.1,
+              color: "#000000",
             }}
-            className="text-black"
           >
             Development Roadmap
           </h2>
+        </Reveal>
 
-          <div className="flex flex-col gap-12">
-            {TIMELINE_DATA.map((item, i) => (
-              <div key={item.heading} className="flex gap-8 items-start h-full">
-                
-                {/* Timeline Column */}
-                <div className="flex flex-col items-center shrink-0 w-6 h-full">
-                  
-                  {/* Node */}
-                  {item.icon ? (
-                    <div
-                      className="flex items-center justify-center shrink-0 relative"
-                      style={{
-                        width: '24px',
-                        height: '17.28px',
-                        backgroundColor: item.nodeBg,
-                        borderRadius: radiuses.full,
-                        boxShadow: `0 0 0 4px ${item.nodeShadow}`,
-                      }}
-                    >
-                      <Image src={item.icon} alt={item.status} width={10} height={10} />
-                    </div>
-                  ) : (
-                    <div
-                      className="shrink-0"
-                      style={{
-                        width: '24px',
-                        height: '24px',
-                        backgroundColor: item.nodeBg,
-                        border: `1px solid ${item.nodeBorder}`,
-                        borderRadius: radiuses.full,
-                      }}
-                    />
-                  )}
-
-                  {/* Vertical Line */}
-                  {i < TIMELINE_DATA.length - 1 && (
-                    <div
-                      className="w-0.5 mt-4"
-                      style={{
-                        minHeight: '86px',  // Adjust height to connect items nicely
-                        backgroundColor: colors.border.timeline,
-                        flex: 1,
-                      }}
-                    />
-                  )}
-                </div>
-
-                {/* Content Column */}
-                <div className="flex flex-col gap-2 pb-8">
-                  {/* Status Badge */}
-                  <div
-                    className="inline-flex px-2 py-0.5 rounded shrink-0 self-start mt-[-2px]"
-                    style={{
-                      backgroundColor: item.statusBg,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: typography.fonts.inter,
-                        fontWeight: 600,
-                        fontSize: '10px',
-                        lineHeight: '15px',
-                        textTransform: 'uppercase',
-                        color: item.statusText,
-                      }}
-                    >
-                      {item.status}
-                    </span>
-                  </div>
-
-                  {/* Heading */}
-                  <h4
-                    style={{
-                      fontFamily: typography.fonts.inter,
-                      fontWeight: 600,
-                      fontSize: '20px',
-                      lineHeight: '28px',
-                      color: colors.black,
-                    }}
-                  >
-                    {item.heading}
-                  </h4>
-
-                  {/* Description */}
-                  <p
-                    style={{
-                      fontFamily: typography.fonts.inter,
-                      fontWeight: 400,
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                      color: colors.black,
-                    }}
-                  >
-                    {item.desc}
-                  </p>
-                </div>
-
-              </div>
-            ))}
-          </div>
-
-        </div>
+        <RevealStagger className="flex flex-col gap-10" stagger={0.15}>
+          {TIMELINE.map((item, i) => (
+            <RevealItem key={item.heading}>
+              <TimelineRow item={item} isLast={i === TIMELINE.length - 1} />
+            </RevealItem>
+          ))}
+        </RevealStagger>
       </div>
     </section>
   );

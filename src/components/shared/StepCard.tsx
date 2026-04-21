@@ -6,6 +6,8 @@
 // Title: Poppins Medium 24px, #1a1c1c.
 // Body: Inter Regular 16px, lh 24px, #414753.
 
+import { colors, typography } from "@/tokens/design-tokens";
+
 type StepCardProps = {
   number: string;      // e.g. "01"
   title: string;
@@ -25,8 +27,12 @@ export default function StepCard({ number, title, description }: StepCardProps) 
       >
         {/* Gradient number text: Inter SemiBold 30px */}
         <span
-          className="font-sans font-semibold text-[30px] leading-[36px] bg-clip-text text-transparent select-none"
+          className="select-none bg-clip-text text-transparent"
           style={{
+            fontFamily: typography.fonts.inter,
+            fontWeight: 600,
+            fontSize: 30,
+            lineHeight: "36px",
             backgroundImage: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
           }}
         >
@@ -37,14 +43,33 @@ export default function StepCard({ number, title, description }: StepCardProps) 
       {/* Title — Poppins Medium 24px, #1a1c1c, pt-5 inferred from y=92 - y=80 = 12 + 20pt gap  */}
       <div className="pt-5">
         <h3
-          className="font-heading font-medium text-[24px] leading-[28px] text-[#1a1c1c] whitespace-nowrap"
+          className="whitespace-nowrap"
+          style={{
+            margin: 0,
+            fontFamily: typography.fonts.poppins,
+            fontWeight: 500,
+            fontSize: 24,
+            lineHeight: "28px",
+            color: colors.text.dark,
+          }}
         >
           {title}
         </h3>
       </div>
 
       {/* Body — Inter Regular 16px, lh 24px, #414753 */}
-      <p className="font-sans font-normal text-[16px] leading-[24px] text-[#414753] max-w-[320px]">
+      <p
+        style={{
+          margin: 0,
+          maxWidth: 320,
+          whiteSpace: "pre-line",
+          fontFamily: typography.fonts.inter,
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: "24px",
+          color: colors.text.body,
+        }}
+      >
         {description}
       </p>
     </div>

@@ -1,9 +1,9 @@
 import Header from "@/components/shared/Header";
 import Hero from "@/components/sections/home/Hero";
-import AppStore from "@/components/sections/home/AppStore";
+import Concept from "@/components/sections/home/Concept";
 import Compare from "@/components/sections/home/Compare";
-import HowItWorks from "@/components/sections/home/HowItWorks";
 import FeaturesBento from "@/components/sections/home/FeaturesBento";
+import HowItWorks from "@/components/sections/home/HowItWorks";
 import UseCases from "@/components/sections/home/UseCases";
 import WhatYouCanDo from "@/components/sections/home/WhatYouCanDo";
 import Roadmap from "@/components/sections/home/Roadmap";
@@ -17,13 +17,13 @@ export default function Home() {
       <Header />
       {/* 1. Hero – dark bg */}
       <Hero />
-      {/* 2. App Store / AI Concept – pastel gradient bg */}
-      <AppStore />
+      {/* 2. Concept – white bg with grid decoration (Figma y=787, frame 500:22431) */}
+      <Concept />
       {/* 3. Fragmented vs Shekel Standard – pastel gradient bg */}
       <Compare />
       {/* 4. Three-Step Architectural Flow – white bg */}
       <HowItWorks />
-      {/* 5. Features Bento Grid */}
+      {/* 5. Features Bento Grid – pixel-perfect Figma 500:22045 */}
       <FeaturesBento />
       {/* 6. Use Cases – Engineered for Every Vertical */}
       <UseCases />

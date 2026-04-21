@@ -1,0 +1,71 @@
+"use client";
+
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { ReactNode } from "react";
+
+type RevealStaggerProps = {
+  children: ReactNode;
+  className?: string;
+  stagger?: number;
+  delay?: number;
+  y?: number;
+};
+
+export function RevealStagger({
+  children,
+  className,
+  stagger = 0.12,
+  delay = 0,
+  y = 20,
+}: RevealStaggerProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const container: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : stagger,
+        delayChildren: delay,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={container}
+      data-stagger-y={y}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function RevealItem({
+  children,
+  className,
+  y = 20,
+}: {
+  children: ReactNode;
+  className?: string;
+  y?: number;
+}) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const item: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : { hidden: { opacity: 0, y }, visible: { opacity: 1, y: 0 } };
+
+  return (
+    <motion.div
+      className={className}
+      variants={item}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      {children}
+    </motion.div>
+  );
+}
