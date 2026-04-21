@@ -97,12 +97,12 @@ function FeaturesBentoDesktop() {
               aria-hidden
               className="pointer-events-none absolute"
               style={{
-                left: 296,
+                left: 0,
                 top: 0,
-                width: 296,
+                width: 616,
                 height: 300,
                 background:
-                  "linear-gradient(-90deg, rgba(186,158,255,0.1) 0%, rgba(186,158,255,0) 100%)",
+                  "linear-gradient(90deg, rgba(186,158,255,0) 50%, rgba(186,158,255,0.14) 100%)",
               }}
             />
 
