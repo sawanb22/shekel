@@ -58,8 +58,10 @@ export const colors = {
 
 export const typography = {
   fonts: {
-    inter: "'Inter', sans-serif",
-    poppins: "'Poppins', sans-serif",
+    // CSS variable set by next/font/google in layout.tsx — falls back to literal name
+    inter: "var(--font-inter, 'Inter', sans-serif)",
+    poppins: "var(--font-poppins, 'Poppins', sans-serif)",
+    jakarta: "var(--font-plus-jakarta, 'Plus Jakarta Sans', sans-serif)",
     mono: "'Liberation Mono', monospace",
   },
 };

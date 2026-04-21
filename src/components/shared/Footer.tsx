@@ -21,19 +21,21 @@ export default function Footer() {
           Bottom bar: fixed 82px row, top stroke, horizontal padding 80, copyright left + credit right.
       */}
       <div className="mx-auto flex w-full flex-col">
-        <div className="flex flex-col gap-12 px-6 py-14 md:px-[84px] lg:flex-row lg:justify-between lg:gap-16 lg:py-[87px]">
+        <div className="flex flex-col gap-12 px-6 py-14 md:px-[84px] lg:flex-row lg:justify-between lg:gap-20 lg:py-[87px]">
           <div className="flex w-full max-w-[331px] flex-col">
-            <p className="max-w-[313px] text-[14px] leading-[22.75px] text-white/70">
-              AI-powered marketplace to discover, build, and scale intelligent agents. Built for the Nocturnal
-              Architect.
-            </p>
-            <div className="mt-4 flex flex-col gap-[14px]">
+            <div className="flex flex-col gap-4">
               <Image src="/shared/footer-brand.svg" alt="Shekel logo" width={127} height={34} />
+              <p className="max-w-[313px] text-[14px] leading-[22.75px] text-white/70">
+                AI-powered marketplace to discover, build, and scale intelligent agents. Built for the Nocturnal
+                Architect.
+              </p>
+            </div>
+            <div className="mt-5 flex flex-col gap-[14px]">
               <Image src="/shared/footer-social-icons.png" alt="Social icons" width={54} height={20} />
             </div>
           </div>
 
-          <div className="grid w-full max-w-[547px] grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 md:gap-x-[49px]">
+          <div className="grid w-full max-w-[610px] grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 md:gap-x-[44px]">
             <nav className="flex w-full flex-col gap-[14px]">
               <h3
                 className="text-[14px] leading-5 text-white"
@@ -94,7 +96,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex h-auto w-full flex-col gap-3 border-t border-[rgba(198,198,199,0.2)] px-6 py-8 md:h-[82px] md:flex-row md:items-center md:justify-between md:px-20 md:py-0">
+        <div className="flex h-auto w-full flex-col gap-3 border-t border-[rgba(198,198,199,0.2)] px-6 py-8 md:h-[82px] md:flex-row md:items-center md:justify-between md:px-[84px] md:py-0">
           <p className="text-[11px] font-medium uppercase tracking-[0.11em] text-white">
             © 2026 Shekel Marketplace. All rights reserved.
           </p>

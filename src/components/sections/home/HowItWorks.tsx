@@ -41,7 +41,7 @@ export default function HowItWorks() {
               fontFamily: typography.fonts.poppins,
               fontWeight: 500,
               fontSize: "clamp(32px, 5vw, 48px)",
-              lineHeight: 1.05,
+              lineHeight: "40px",
               color: colors.text.dark,
             }}
           >
@@ -66,6 +66,20 @@ export default function HowItWorks() {
             className="pointer-events-none absolute top-10 hidden h-[2px] md:block"
             style={{
               left: "25%",
+              right: "calc(50% + 56px)",
+              backgroundImage:
+                "linear-gradient(to right, rgba(0,90,182,0.1), #005ab6 50%, rgba(0,90,182,0.1))",
+              transformOrigin: "left center",
+            }}
+            initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          />
+          <motion.div
+            className="pointer-events-none absolute top-10 hidden h-[2px] md:block"
+            style={{
+              left: "calc(50% + 56px)",
               right: "25%",
               backgroundImage:
                 "linear-gradient(to right, rgba(0,90,182,0.1), #005ab6 50%, rgba(0,90,182,0.1))",

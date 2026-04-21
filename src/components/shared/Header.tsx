@@ -35,7 +35,7 @@ export default function Header() {
             href="#"
             className="text-[#737373] hover:text-white transition-colors"
             style={{
-              fontFamily: "Nimbus Sans, sans-serif",
+              fontFamily: "var(--font-inter, 'Inter', sans-serif)",
               fontWeight: 400,
               fontSize: 14,
               lineHeight: "20px",

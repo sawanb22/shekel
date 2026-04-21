@@ -36,7 +36,7 @@ export default function Faq() {
       <div
         className="mx-auto flex w-full flex-col"
         style={{
-          maxWidth: 768,
+          maxWidth: 860,
           padding: "clamp(64px, 8vw, 96px) clamp(24px, 5vw, 48px)",
           gap: "clamp(32px, 4vw, 48px)",
         }}
@@ -64,7 +64,7 @@ function FaqHeading() {
         fontFamily: typography.fonts.poppins,
         fontWeight: 500,
         fontSize: "clamp(32px, 5vw, 48px)",
-        lineHeight: 1.05,
+        lineHeight: "40px",
         color: "#1A1C1C",
       }}
     >

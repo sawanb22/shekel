@@ -162,7 +162,7 @@ function TrustCard({ card }: { card: Card }) {
         className="pb-3"
         style={{
           margin: 0,
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
+          fontFamily: typography.fonts.jakarta,
           fontWeight: 700,
           fontSize: 20,
           lineHeight: "28px",
