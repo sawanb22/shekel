@@ -62,19 +62,19 @@ function CtaDesktop() {
           }}
         />
 
-        {/* Robot character — right side decoration */}
+        {/* Robot character — Figma x=366, y=-2, w=1160, h=652, clipped by section overflow */}
         <Float
-          amplitude={10}
+          amplitude={8}
           duration={9}
           className="pointer-events-none absolute"
-          style={{ right: -160, top: -50, height: 620, width: "auto" }}
+          style={{ left: 366, top: -2, width: 1160, height: 652 }}
         >
           <Image
-            src="/section-11/bg-fluid-robot.png"
+            src="/section-11/cta-robot.png"
             alt=""
-            width={1728}
-            height={1117}
-            style={{ height: 620, width: "auto", objectFit: "contain" }}
+            width={1160}
+            height={652}
+            style={{ width: "100%", height: "100%", objectFit: "fill" }}
           />
         </Float>
 
@@ -149,12 +149,12 @@ function WaitlistForm() {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="relative flex items-center"
+      className="flex items-center gap-3"
       style={{ width: "100%", height: "100%" }}
     >
       <motion.div
         className="relative"
-        style={{ width: 282, height: 56, top: 8 }}
+        style={{ width: 282, height: 56 }}
         animate={{
           boxShadow: focused
             ? "0 0 0 4px rgba(40, 100, 228, 0.15)"
@@ -184,11 +184,9 @@ function WaitlistForm() {
 
       <motion.button
         type="submit"
-        className="absolute flex items-center justify-center text-white"
+        className="flex h-14 items-center justify-center text-white"
         style={{
-          left: 294,
-          top: 8,
-          padding: "16px 32px",
+          padding: "0 32px",
           background: BLUE_GRADIENT,
           borderRadius: 24,
           fontFamily: typography.fonts.inter,
@@ -229,10 +227,10 @@ function CtaMobile() {
       {/* Decorative robot — small, bottom-right, semi-transparent */}
       <Float amplitude={8} duration={9} className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72">
         <Image
-          src="/section-11/bg-fluid-robot.png"
+          src="/section-11/cta-robot.png"
           alt=""
-          width={480}
-          height={310}
+          width={580}
+          height={326}
           style={{ width: "100%", height: "auto" }}
         />
       </Float>

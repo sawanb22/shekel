@@ -12,9 +12,9 @@ const NAV_LINKS = ["Browse", "Solutions", "Pricing", "Developers"] as const;
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[75px] bg-black/90 backdrop-blur-md border-b border-white/10 flex items-center px-12">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[75px] bg-black backdrop-blur-md border-b border-white/10 flex items-center">
       {/* Logo — Figma x=47, y=21, w=127, h=33.61 */}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 pl-[47px]">
         <Link href="/" aria-label="Shekel home">
           <Image
             src="/shared/header-logo.svg"
@@ -26,15 +26,16 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Nav links — Figma x=369, gap=32px, Nimbus Sans Regular 14px #737373 */}
-      <nav className="hidden md:flex items-center gap-8 ml-auto mr-auto" style={{ marginLeft: "calc(369px - 47px - 127px - 48px)" }}>
+      {/* Nav links — Figma x=369, gap=32px, Nimbus Sans Regular 14px #737373
+          Gap from logo right edge (47+127=174) to nav left (369): 369-174=195px */}
+      <nav className="hidden md:flex items-center gap-8 flex-shrink-0" style={{ paddingLeft: 195 }}>
         {NAV_LINKS.map((label) => (
           <Link
             key={label}
             href="#"
             className="text-[#737373] hover:text-white transition-colors"
             style={{
-              fontFamily: "sans-serif",
+              fontFamily: "Nimbus Sans, sans-serif",
               fontWeight: 400,
               fontSize: 14,
               lineHeight: "20px",
@@ -46,8 +47,11 @@ export default function Header() {
         ))}
       </nav>
 
+      {/* Spacer pushes right content to the right */}
+      <div className="flex-1" />
+
       {/* Right side — Search + CTA — Figma search at x=802, button at x=1092 */}
-      <div className="flex items-center gap-6 flex-shrink-0 ml-auto">
+      <div className="flex items-center gap-6 flex-shrink-0 pr-[48px]">
         {/* Search — Figma x=802, w=266, h=38, border rgba(255,255,255,0.1) */}
         <div
           className="hidden lg:flex items-center gap-2 border rounded-[5px] focus-within:border-white/30 transition-colors"

@@ -24,29 +24,29 @@ type Card = {
 const CARDS: Card[] = [
   {
     icon: "/section-9/icon-verified.svg",
-    iconW: 19,
-    iconH: 24,
+    iconW: 30,
+    iconH: 30,
     title: "Verified Agents",
     desc: "Every agent undergoes\nrigorous security and\nquality audit",
   },
   {
     icon: "/section-9/icon-community.svg",
-    iconW: 21,
-    iconH: 21,
+    iconW: 30,
+    iconH: 30,
     title: "Community Ratings",
     desc: "Transparent reviews and\nhistorical performance\ndata",
   },
   {
     icon: "/section-9/icon-secure.svg",
-    iconW: 19,
-    iconH: 24,
+    iconW: 30,
+    iconH: 30,
     title: "Secure Infrastructure",
     desc: "Enterprise-grade data\nencryption and privacy\ncontrols",
   },
   {
     icon: "/section-9/icon-scalable.svg",
-    iconW: 17,
-    iconH: 24,
+    iconW: 30,
+    iconH: 30,
     title: "Scalable Platform",
     desc: "Execute thousands of\ntasks simultaneously with\nlow latency",
   },
@@ -147,7 +147,16 @@ function TrustCard({ card }: { card: Card }) {
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
       <div className="pb-8">
-        <Image src={card.icon} alt="" width={card.iconW} height={card.iconH} />
+        <div
+          className="flex items-center justify-center rounded-2xl bg-white"
+          style={{
+            width: 56,
+            height: 56,
+            boxShadow: "0 8px 22px -14px rgba(36, 54, 86, 0.35)",
+          }}
+        >
+          <Image src={card.icon} alt="" width={card.iconW} height={card.iconH} />
+        </div>
       </div>
       <h3
         className="pb-3"

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { colors, typography } from "@/tokens/design-tokens";
+import { typography } from "@/tokens/design-tokens";
 
 const productLinks = ["Explore Agents", "Categories", "Agent Details", "Pricing", "AI Agents Statistics"];
 const platformLinks = ["Create / Publish Agents", "Workflow Builder", "Developer", "Documentation"];
@@ -20,7 +20,7 @@ export default function Footer() {
           Right block: 4 columns, mixed vertical gaps (14-25px), headings in Poppins 14/20.
           Bottom bar: fixed 82px row, top stroke, horizontal padding 80, copyright left + credit right.
       */}
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col">
+      <div className="mx-auto flex w-full flex-col">
         <div className="flex flex-col gap-12 px-6 py-14 md:px-[84px] lg:flex-row lg:justify-between lg:gap-16 lg:py-[87px]">
           <div className="flex w-full max-w-[331px] flex-col">
             <p className="max-w-[313px] text-[14px] leading-[22.75px] text-white/70">
