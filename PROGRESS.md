@@ -5,4 +5,3 @@
 - [x] Frame 500-22410 → Faq.tsx (visual screenshot pending — browser agent offline, TS clean + HTML verified)
 - [x] Frame 500-22272 → CtaWaitlist.tsx (visual screenshot pending — browser agent offline, TS clean)
 - [x] Frame 500-22284 → Footer.tsx (shared)
-- [x] Frame 500-21924 → Hero.tsx (verified @1440px)
