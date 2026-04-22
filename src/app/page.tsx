@@ -13,7 +13,7 @@ import CtaWaitlist from "@/components/sections/home/CtaWaitlist";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-white selection:bg-blue-500/30">
+    <div className="min-h-screen overflow-x-clip text-white selection:bg-blue-500/30">
       <Header />
       {/* 1. Hero – dark bg */}
       <Hero />

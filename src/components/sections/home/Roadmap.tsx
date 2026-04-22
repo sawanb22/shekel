@@ -179,14 +179,35 @@ function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) 
                 height: 17.28,
                 borderRadius: 8.64,
                 backgroundColor: item.nodeBg,
+                boxSizing: "border-box",
+                padding: item.status === "COMPLETED" ? "3px 4px" : "3px 3px",
+                overflow: "hidden",
               }}
             >
               <Image
                 src={item.icon}
                 alt=""
-                width={item.status === "COMPLETED" ? 9.5 : 9.33}
-                height={item.status === "COMPLETED" ? 7.01 : 9.33}
-                style={{ width: "auto", height: "auto" }}
+                width={item.status === "COMPLETED" ? 5 : 6}
+                height={item.status === "COMPLETED" ? 4 : 6}
+                style={
+                  item.status === "COMPLETED"
+                    ? {
+                        width: 9,
+                        height: 7,
+                        maxWidth: 9,
+                        maxHeight: 7,
+                        objectFit: "contain",
+                        flexShrink: 0,
+                      }
+                    : {
+                        width: 9,
+                        height: 9,
+                        maxWidth: 9,
+                        maxHeight: 9,
+                        objectFit: "contain",
+                        flexShrink: 0,
+                      }
+                }
               />
             </div>
           </div>
