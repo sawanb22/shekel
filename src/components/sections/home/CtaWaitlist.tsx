@@ -247,12 +247,12 @@ function CtaMobile() {
         backgroundColor: "#f0e8ff",
       }}
     >
-      {/* Decorative robot — small, bottom-right, semi-transparent */}
+      {/* Decorative robot — top-right by headline (mobile), behind copy */}
       <Float
         amplitude={12}
         rotate={2}
         duration={5.5}
-        className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72"
+        className="pointer-events-none absolute -right-6 top-12 z-[1] w-[min(200px,46vw)] max-w-[220px] opacity-[0.68] sm:-right-4 sm:top-14"
       >
         <Image
           src="/section-11/cta-robot.webp"
@@ -264,7 +264,7 @@ function CtaMobile() {
       </Float>
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-40 -top-40 rounded-full"
+        className="pointer-events-none absolute -left-40 -top-40 z-0 rounded-full"
         style={{
           width: 500,
           height: 500,
@@ -276,6 +276,7 @@ function CtaMobile() {
       <div className="relative z-10 flex flex-col gap-6 px-6 py-16 sm:px-8">
         <Reveal>
           <h2
+            className="relative pr-[min(7.5rem,30%)]"
             style={{
               margin: 0,
               fontFamily: typography.fonts.poppins,
