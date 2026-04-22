@@ -383,7 +383,7 @@ function HeroDesktop() {
           }}
         >
           <motion.div
-            className="flex w-max items-center"
+            className="absolute left-0 top-1/2 flex w-max -translate-y-1/2 items-center"
             animate={prefersReducedMotion ? undefined : { x: ["0%", "-50%"] }}
             transition={
               prefersReducedMotion
@@ -570,7 +570,7 @@ function HeroMobile() {
         }}
       >
         <motion.div
-          className="flex w-max items-center"
+          className="absolute left-0 top-1/2 flex w-max -translate-y-1/2 items-center"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 20, ease: "linear", repeat: Infinity }}
         >
