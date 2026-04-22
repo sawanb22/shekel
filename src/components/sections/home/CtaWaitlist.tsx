@@ -136,8 +136,9 @@ function CtaDesktop() {
             }}
           >
             <Float
-              amplitude={8}
-              duration={9}
+              amplitude={14}
+              rotate={2}
+              duration={5.5}
               className="absolute"
               style={{ left: 366, top: -12, width: 914, height: 652 }}
             >
@@ -247,7 +248,12 @@ function CtaMobile() {
       }}
     >
       {/* Decorative robot — small, bottom-right, semi-transparent */}
-      <Float amplitude={8} duration={9} className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72">
+      <Float
+        amplitude={12}
+        rotate={2}
+        duration={5.5}
+        className="pointer-events-none absolute -bottom-8 -right-16 opacity-60 w-72"
+      >
         <Image
           src="/section-11/cta-robot.webp"
           alt=""

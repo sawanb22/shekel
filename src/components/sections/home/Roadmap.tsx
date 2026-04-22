@@ -288,7 +288,7 @@ function RoadmapMobile() {
       <Float
         amplitude={10}
         duration={8}
-        className="pointer-events-none absolute -right-24 -top-16 opacity-50"
+        className="pointer-events-none absolute -right-24 top-2 opacity-50"
         style={{ width: 360 }}
       >
         <Image

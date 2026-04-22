@@ -234,7 +234,7 @@ function ConceptHeading({
     >
       The App Store for
       <br />
-      AutonomousIntelligence
+      Autonomous<wbr />Intelligence
     </h2>
   );
 }

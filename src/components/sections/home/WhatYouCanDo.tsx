@@ -275,9 +275,9 @@ const badgeText = {
 function TopInputBar() {
   return (
     <div
-      className="flex shrink-0 items-center gap-4"
+      className="flex w-full min-w-0 max-w-full shrink items-center gap-3 sm:gap-4"
       style={{
-        width: 576,
+        width: "min(576px, 100%)",
         padding: 16,
         backgroundColor: colors.white,
         borderRadius: radiuses.icon,
@@ -303,6 +303,7 @@ function TopInputBar() {
           lineHeight: "24px",
           color: colors.text.inputLabel,
           flex: 1,
+          minWidth: 0,
         }}
       >
         Generate marketing campaign
@@ -464,10 +465,10 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
 function WhatYouCanDoMobile() {
   return (
     <section
-      className="block w-full md:hidden"
+      className="block w-full overflow-x-clip md:hidden"
       style={{ backgroundColor: colors.background.sectionAlt }}
     >
-      <div className="flex flex-col gap-10 px-6 py-16 sm:px-8">
+      <div className="flex min-w-0 max-w-full flex-col gap-10 px-6 py-16 sm:px-8">
         <Reveal className="text-center">
           <h2
             style={{
@@ -495,7 +496,7 @@ function WhatYouCanDoMobile() {
 
         <Reveal>
           <div
-            className="flex w-full flex-col items-center gap-6 p-6"
+            className="flex w-full min-w-0 max-w-full flex-col items-center gap-6 overflow-hidden p-6"
             style={{ backgroundColor: colors.white, borderRadius: radiuses.card }}
           >
             <TopInputBar />
