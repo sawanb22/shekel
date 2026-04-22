@@ -44,7 +44,7 @@ export default function Footer() {
                 Product
               </h3>
               {productLinks.map((item) => (
-                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-colors hover:text-white">
+                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-[color,opacity] duration-200 ease-out hover:text-white hover:opacity-95">
                   {item}
                 </Link>
               ))}
@@ -59,7 +59,7 @@ export default function Footer() {
               </h3>
               <div className="flex flex-col gap-[15px]">
                 {platformLinks.map((item) => (
-                  <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-colors hover:text-white">
+                  <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-[color,opacity] duration-200 ease-out hover:text-white hover:opacity-95">
                     {item}
                   </Link>
                 ))}
@@ -74,7 +74,7 @@ export default function Footer() {
                 Company
               </h3>
               {companyLinks.map((item) => (
-                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-colors hover:text-white">
+                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-[color,opacity] duration-200 ease-out hover:text-white hover:opacity-95">
                   {item}
                 </Link>
               ))}
@@ -88,7 +88,7 @@ export default function Footer() {
                 Resources
               </h3>
               {resourceLinks.map((item) => (
-                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-colors hover:text-white">
+                <Link key={item} href="#" className="text-[14px] leading-5 text-white/70 transition-[color,opacity] duration-200 ease-out hover:text-white hover:opacity-95">
                   {item}
                 </Link>
               ))}

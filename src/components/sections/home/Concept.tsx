@@ -322,8 +322,15 @@ function ConceptCard({
   return (
     <motion.div
       className="flex flex-col border bg-white shadow-xl"
-      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -6,
+              boxShadow: "0px 20px 34px -20px rgba(53, 72, 109, 0.42)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
       style={{
         borderColor: CARD_BORDER,
         borderRadius: 16,

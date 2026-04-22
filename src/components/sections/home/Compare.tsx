@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 
 const CANVAS_W = 1280;
 const CANVAS_H = 507;
@@ -45,7 +48,7 @@ function CompareDesktop() {
         }}
       >
         <Image
-          src="/section-3/bg-texture.webp"
+          src="/section-3/bg-comparison.webp"
           alt=""
           width={CANVAS_W}
           height={CANVAS_H}
@@ -95,7 +98,7 @@ function CompareMobile() {
   return (
     <section className="relative block w-full overflow-hidden md:hidden">
       <Image
-        src="/section-3/bg-texture.webp"
+        src="/section-3/bg-comparison.webp"
         alt=""
         width={1841}
         height={1252}
@@ -163,9 +166,16 @@ function Panel({
   withBlur = false,
   compact = false,
 }: PanelProps) {
+  const prefersReducedMotion = useReducedMotion();
   return (
-    <div
+    <motion.div
       className={`relative flex flex-col ${compact ? "gap-5 p-7 sm:p-8" : "gap-6 p-20"}`}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : { y: -4, boxShadow: "0px 18px 34px -20px rgba(53, 72, 109, 0.4)" }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
       style={{ backgroundColor: panelBg }}
     >
       {withBlur ? (
@@ -215,6 +225,6 @@ function Panel({
           </li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 }

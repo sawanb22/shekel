@@ -7,6 +7,7 @@
 // Body: Inter Regular 16px, lh 24px, #414753.
 
 import { colors, typography } from "@/tokens/design-tokens";
+import { motion, useReducedMotion } from "framer-motion";
 
 type StepCardProps = {
   number: string;      // e.g. "01"
@@ -15,8 +16,20 @@ type StepCardProps = {
 };
 
 export default function StepCard({ number, title, description }: StepCardProps) {
+  const prefersReducedMotion = useReducedMotion();
   return (
-    <div className="flex flex-col items-center gap-3 text-center">
+    <motion.div
+      className="flex flex-col items-center gap-3 text-center"
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -6,
+              scale: 1.01,
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
+    >
       {/* Number Bubble — 80×80px, rounded-full, white bg, Figma shadow */}
       <div
         className="flex items-center justify-center w-20 h-20 rounded-full bg-white"
@@ -72,6 +85,6 @@ export default function StepCard({ number, title, description }: StepCardProps) 
       >
         {description}
       </p>
-    </div>
+    </motion.div>
   );
 }

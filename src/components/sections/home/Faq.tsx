@@ -95,13 +95,21 @@ function FaqCard({ item }: { item: Item }) {
         boxShadow:
           "0px 4px 8px 0px rgba(0, 0, 0, 0.02), 0px 12px 32px 0px rgba(0, 0, 0, 0.04)",
       }}
-      whileHover={prefersReducedMotion ? undefined : { y: -2 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -2,
+              boxShadow:
+                "0px 10px 20px 0px rgba(0, 0, 0, 0.06), 0px 20px 38px -8px rgba(0, 0, 0, 0.08)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
     >
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-left"
+        className="flex w-full items-center justify-between text-left transition-colors duration-200 ease-out hover:bg-[rgba(40,100,228,0.04)]"
         style={{ padding: 24 }}
         aria-expanded={open}
       >
@@ -117,8 +125,8 @@ function FaqCard({ item }: { item: Item }) {
           {item.q}
         </span>
         <motion.span
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.25 }}
+          animate={{ rotate: open ? 180 : 0, y: open ? 0 : -0.5 }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
           className="flex items-center justify-center"
         >
           <Image src="/section-10/chevron.svg" alt="" width={12} height={8} />

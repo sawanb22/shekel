@@ -14,6 +14,9 @@
 
 import Image from "next/image";
 
+const CARD_HOVER_CLASS =
+  "transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0px_18px_34px_-16px_rgba(61,86,133,0.42)]";
+
 export default function AppStore() {
   return (
     <section className="relative w-full py-24 overflow-hidden">
@@ -76,8 +79,9 @@ export default function AppStore() {
             {/* Card 1: AI Agent Marketplace — h=300px, col-[1/span_2] in Figma */}
             {/* Internal gradient: purple from left-half → transparent going right */}
             <div
-              className="relative bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px] overflow-hidden
+              className={`relative bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px] overflow-hidden
                          flex flex-col items-start pt-[48px] px-[48px] pb-[48px] min-h-[300px]"
+                         ${CARD_HOVER_CLASS}`}
             >
               {/* Right-half purple gradient overlay (from Figma: Gradient, right-half) */}
               <div
@@ -99,7 +103,7 @@ export default function AppStore() {
                 {/* "Explore Marketplace →" link-button */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-2 pt-4 font-sans font-semibold text-[16px] leading-[24px] group"
+                  className="group inline-flex items-center gap-2 pt-4 font-sans font-semibold text-[16px] leading-[24px] transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]"
                 >
                   <span
                     className="bg-clip-text text-transparent"
@@ -115,7 +119,7 @@ export default function AppStore() {
                     alt="arrow"
                     width={16}
                     height={16}
-                    className="group-hover:translate-x-1 transition-transform"
+                    className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
                   />
                 </a>
               </div>
@@ -123,8 +127,9 @@ export default function AppStore() {
 
             {/* Card 2: Dev Ecosystem — h=256px, col-1 row-2 in Figma */}
             <div
-              className="bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
-                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[59px] min-h-[256px]"
+              className={`bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
+                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[59px] min-h-[256px]
+                         ${CARD_HOVER_CLASS}`}
             >
               <Image
                 src="/images/section-2/icon-dev.svg"
@@ -157,8 +162,9 @@ export default function AppStore() {
           >
             {/* Cell 1, 1: Flexible Pricing */}
             <div
-              className="bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
-                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[32px]"
+              className={`bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
+                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[32px]
+                         ${CARD_HOVER_CLASS}`}
             >
               <Image
                 src="/images/section-2/icon-pricing.svg"
@@ -178,8 +184,9 @@ export default function AppStore() {
 
             {/* Cell 1, 2: Workflow Builder */}
             <div
-              className="bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
-                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[32px]"
+              className={`bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
+                         flex flex-col gap-3 items-start pt-[33px] px-[33px] pb-[32px]
+                         ${CARD_HOVER_CLASS}`}
             >
               <Image
                 src="/images/section-2/icon-workflow.svg"
@@ -199,8 +206,9 @@ export default function AppStore() {
 
             {/* Cell 2, full-width: Global Settlement Network — col-span-2 */}
             <div
-              className="bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
-                         flex flex-row items-center gap-12 p-[48px]"
+              className={`bg-white border border-[rgba(0,0,0,0.2)] rounded-[24px]
+                         flex flex-row items-center gap-12 p-[48px]
+                         transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0px_20px_36px_-18px_rgba(61,86,133,0.44)]`}
               style={{ gridColumn: "1 / span 2" }}
             >
               {/* Left: text content */}

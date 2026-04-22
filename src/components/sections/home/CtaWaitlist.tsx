@@ -139,14 +139,14 @@ function CtaDesktop() {
               amplitude={8}
               duration={9}
               className="absolute"
-              style={{ left: 366, top: -12, width: 1160, height: 652 }}
+              style={{ left: 366, top: -12, width: 914, height: 652 }}
             >
               <Image
                 src="/section-11/cta-robot.webp"
                 alt=""
-                width={1160}
+                width={914}
                 height={652}
-                style={{ width: "100%", height: "100%", objectFit: "fill" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             </Float>
           </div>
@@ -159,6 +159,7 @@ function CtaDesktop() {
 function WaitlistForm() {
   const prefersReducedMotion = useReducedMotion();
   const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [email, setEmail] = useState("");
 
   return (
@@ -170,21 +171,25 @@ function WaitlistForm() {
       <motion.div
         className="relative"
         style={{ width: 282, height: 56 }}
-        animate={{
-          boxShadow: focused
-            ? "0 0 0 4px rgba(40, 100, 228, 0.15)"
-            : "0 0 0 0 rgba(40, 100, 228, 0)",
-        }}
-        transition={{ duration: 0.2 }}
       >
-        <input
+        <motion.input
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           className="h-full w-full bg-white outline-none"
+          animate={{
+            boxShadow: focused
+              ? "0 0 0 3px rgba(40, 100, 228, 0.18), 0px 12px 26px -18px rgba(40, 100, 228, 0.45)"
+              : hovered
+                ? "0px 10px 22px -18px rgba(40, 100, 228, 0.34)"
+                : "0px 0px 0px 0px rgba(40, 100, 228, 0)",
+          }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           style={{
             padding: "18px 24px",
             borderRadius: 24,
@@ -192,7 +197,9 @@ function WaitlistForm() {
             fontWeight: 400,
             fontSize: 16,
             color: "#6B7280",
-            border: `1px solid ${focused ? colors.brand.blueStart : "#e5e7eb"}`,
+            border: `1px solid ${
+              focused ? colors.brand.blueStart : hovered ? "rgba(40,100,228,0.58)" : "#e5e7eb"
+            }`,
           }}
         />
       </motion.div>
@@ -312,6 +319,7 @@ function CtaMobile() {
 function MobileWaitlistForm() {
   const prefersReducedMotion = useReducedMotion();
   const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [email, setEmail] = useState("");
   return (
     <form
@@ -325,20 +333,26 @@ function MobileWaitlistForm() {
         onChange={(e) => setEmail(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         className="flex-1 bg-white outline-none"
         animate={{
           boxShadow: focused
-            ? "0 0 0 4px rgba(40, 100, 228, 0.15)"
-            : "0 0 0 0 rgba(40, 100, 228, 0)",
+            ? "0 0 0 3px rgba(40, 100, 228, 0.18), 0px 12px 26px -18px rgba(40, 100, 228, 0.45)"
+            : hovered
+              ? "0px 10px 22px -18px rgba(40, 100, 228, 0.34)"
+              : "0px 0px 0px 0px rgba(40, 100, 228, 0)",
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         style={{
           padding: "16px 20px",
           borderRadius: 24,
           fontFamily: typography.fonts.inter,
           fontSize: 16,
           color: "#111",
-          border: `1px solid ${focused ? colors.brand.blueStart : "#e5e7eb"}`,
+          border: `1px solid ${
+            focused ? colors.brand.blueStart : hovered ? "rgba(40,100,228,0.58)" : "#e5e7eb"
+          }`,
         }}
       />
       <motion.button

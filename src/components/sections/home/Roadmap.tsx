@@ -5,6 +5,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
 import { Float } from "@/components/shared/motion/Float";
 import { Reveal } from "@/components/shared/motion/Reveal";
@@ -37,18 +38,18 @@ const TIMELINE: TimelineItem[] = [
     statusBg: "#202534",
     statusText: "#E5E7F6",
     nodeBg: "#BA9EFF",
-    nodeShadow: "rgba(186, 158, 255, 0.35)",
-    icon: "/section-8/node-completed.svg",
+    nodeShadow: "rgba(186, 158, 255, 0.2)",
+    icon: "/section-8/icon-check.svg",
   },
   {
     status: "IN PROGRESS",
     heading: "Marketplace Beta v2.0",
     desc: "Introducing automated revenue splitting and the visual workflow builder for all users.",
-    statusBg: "#202534",
-    statusText: "#699CFF",
-    nodeBg: "#C2CFFF",
-    nodeShadow: "rgba(105, 156, 255, 0.25)",
-    icon: "/section-8/node-inprogress.svg",
+    statusBg: "#DCE7FF",
+    statusText: "#5E8FEF",
+    nodeBg: "#699CFF",
+    nodeShadow: "rgba(105, 156, 255, 0.22)",
+    icon: "/section-8/icon-sync.svg",
   },
   {
     status: "UPCOMING",
@@ -77,7 +78,7 @@ function RoadmapDesktop() {
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        backgroundImage: "url('/section-6/features-bg.webp')",
+        backgroundImage: "url('/section-8/roadmap.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -144,23 +145,50 @@ function RoadmapDesktop() {
 }
 
 function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) {
+  const prefersReducedMotion = useReducedMotion();
   return (
-    <div className="flex flex-row items-stretch" style={{ gap: 32 }}>
+    <motion.div
+      className="flex flex-row items-stretch"
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -4,
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
+      style={{ gap: 32 }}
+    >
       {/* Node + connector column */}
-      <div className="relative flex flex-col items-center" style={{ width: 24 }}>
+      <div className="relative flex flex-col items-center" style={{ width: 32 }}>
         {item.icon ? (
           <div
             className="relative z-10 flex items-center justify-center"
             style={{
-              width: 24,
-              height: 24,
-              borderRadius: "9999px",
-              backgroundColor: item.nodeBg,
-              boxShadow: `0 0 0 5px ${item.nodeShadow}`,
+              width: 32,
+              height: 25.28,
+              borderRadius: 8.64,
+              backgroundColor: item.nodeShadow,
               flexShrink: 0,
             }}
           >
-            <Image src={item.icon} alt="" width={10} height={8} />
+            <div
+              className="flex items-center justify-center"
+              style={{
+                width: 24,
+                height: 17.28,
+                borderRadius: 8.64,
+                backgroundColor: item.nodeBg,
+              }}
+            >
+              <Image
+                src={item.icon}
+                alt=""
+                width={item.status === "COMPLETED" ? 9.5 : 9.33}
+                height={item.status === "COMPLETED" ? 7.01 : 9.33}
+                style={{ width: "auto", height: "auto" }}
+              />
+            </div>
           </div>
         ) : (
           <div
@@ -177,11 +205,13 @@ function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) 
 
         {!isLast && (
           <div
-            className="mt-3 flex-1"
+            className="mt-4 flex-1"
             style={{
-              width: 1.5,
-              backgroundColor: "rgba(0,0,0,0.12)",
-              minHeight: 56,
+              width: 2,
+              backgroundColor: "#444854",
+              opacity: 0.92,
+              borderRadius: 9999,
+              minHeight: 60,
             }}
           />
         )}
@@ -194,7 +224,8 @@ function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) 
           className="inline-flex self-start rounded"
           style={{
             backgroundColor: item.statusBg,
-            padding: "2px 8px",
+            padding: "3px 10px",
+            borderRadius: 8,
           }}
         >
           <span
@@ -202,7 +233,7 @@ function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) 
               fontFamily: typography.fonts.inter,
               fontWeight: 700,
               fontSize: 10,
-              lineHeight: "15px",
+              lineHeight: "14px",
               letterSpacing: "0.05em",
               textTransform: "uppercase",
               color: item.statusText,
@@ -238,7 +269,7 @@ function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) 
           {item.desc}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -247,7 +278,7 @@ function RoadmapMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.webp')",
+        backgroundImage: "url('/section-8/roadmap.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",

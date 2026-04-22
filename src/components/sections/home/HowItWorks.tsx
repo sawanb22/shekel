@@ -62,27 +62,14 @@ export default function HowItWorks() {
         </Reveal>
 
         <div className="relative grid grid-cols-1 gap-y-16 gap-x-12 md:grid-cols-3">
+          {/* Single continuous connector line (no center gap). */}
           <motion.div
-            className="pointer-events-none absolute top-10 hidden h-[2px] md:block"
+            className="pointer-events-none absolute top-24 hidden h-[2px] md:block"
             style={{
               left: "25%",
-              right: "calc(50% + 56px)",
-              backgroundImage:
-                "linear-gradient(to right, rgba(0,90,182,0.1), #005ab6 50%, rgba(0,90,182,0.1))",
-              transformOrigin: "left center",
-            }}
-            initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-          />
-          <motion.div
-            className="pointer-events-none absolute top-10 hidden h-[2px] md:block"
-            style={{
-              left: "calc(50% + 56px)",
               right: "25%",
               backgroundImage:
-                "linear-gradient(to right, rgba(0,90,182,0.1), #005ab6 50%, rgba(0,90,182,0.1))",
+                "linear-gradient(to right, rgba(0,90,182,0.05) 0%, #005ab6 18%, #005ab6 82%, rgba(0,90,182,0.05) 100%)",
               transformOrigin: "left center",
             }}
             initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}

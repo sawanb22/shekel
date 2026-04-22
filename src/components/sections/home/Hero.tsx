@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/shared/Button";
 import { colors, typography } from "@/tokens/design-tokens";
 import { Float } from "@/components/shared/motion/Float";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 // LAYOUT MAP — Figma frame 500:21924 "Hero" (1280 × 717, logo strip extends to y=726)
 // Root: bg #000000 (colors.black); fixed 1280×726 canvas scaled to viewport via CSS transform.
@@ -75,77 +75,198 @@ export default function Hero() {
 }
 
 function HeroDesktop() {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block"
+      className="relative hidden w-full overflow-hidden bg-black md:block"
       style={{
-        backgroundColor: colors.black,
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
       }}
     >
-      <div
-        className="absolute left-0 top-0"
-        style={{
-          width: CANVAS_W,
-          height: CANVAS_H,
-          transform: `scale(${SCALE})`,
-          transformOrigin: "top left",
-        }}
-      >
-        {/* Blurred blue ellipses */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: -19,
-            top: -49,
-            width: 1343,
-            height: 211,
-            background: BLUE_GRADIENT,
-            filter: "blur(1000px)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: -98,
-            top: -139,
-            width: 163,
-            height: 163,
-            background: BLUE_GRADIENT,
-            filter: "blur(203.4px)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: 1252,
-            top: -82,
-            width: 163,
-            height: 163,
-            background: BLUE_GRADIENT,
-            filter: "blur(214.7px)",
-          }}
-        />
+          <div
+            className="absolute left-0 top-0"
+            style={{
+              width: CANVAS_W,
+              height: CANVAS_H,
+              transform: `scale(${SCALE})`,
+              transformOrigin: "top left",
+            }}
+          >
+            {/* Blurred blue ellipses */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute rounded-full"
+              style={{
+                left: -19,
+                top: -49,
+                width: 1343,
+                height: 211,
+                background: BLUE_GRADIENT,
+                filter: "blur(1000px)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute rounded-full"
+              style={{
+                left: -98,
+                top: -139,
+                width: 163,
+                height: 163,
+                background: BLUE_GRADIENT,
+                filter: "blur(203.4px)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute rounded-full"
+              style={{
+                left: 1252,
+                top: -82,
+                width: 163,
+                height: 163,
+                background: BLUE_GRADIENT,
+                filter: "blur(214.7px)",
+              }}
+            />
+            {/* Circuit-lines SVG background (Group 9210) */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute"
+              style={{ left: 412, top: 20, width: 1566.67, height: 1025.34, opacity: 0.9 }}
+            >
+              <Image
+                src="/images/hero/circuit-lines.svg"
+                alt=""
+                fill
+                sizes="1567px"
+                className="object-contain object-left-top"
+                priority
+              />
+            </div>
+            {/* 4 staggered purple depth panels — over lines, behind mascot — match Figma layered glass */}
 
-        {/* Circuit-lines SVG background (Group 9210) */}
+        {/* 4 staggered purple depth panels — over lines, behind mascot — match Figma layered glass */}
+        {/* Right side is flush to canvas edge (no right-side rounding), only left corners rounded */}
+        {/* Outer → inner: inner is largest & most opaque (main glass area);
+            outer panels are small stacked-sheet tabs peeking from top-left.
+            All flush to right+bottom; only top-left & bottom-left corners rounded. */}
         <div
           aria-hidden
           className="pointer-events-none absolute"
-          style={{ left: 412, top: 50, width: 1566.67, height: 1025.34 }}
-        >
-          <Image
-            src="/images/hero/circuit-lines.svg"
-            alt=""
-            fill
-            sizes="1567px"
-            className="object-contain object-left-top"
-            priority
-          />
-        </div>
+          style={{ left: 902, top: 246, width: 378, height: 480, background: "rgba(130, 72, 255, 0.06)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{ left: 860, top: 267, width: 420, height: 459, background: "rgba(130, 72, 255, 0.11)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{ left: 818, top: 288, width: 462, height: 438, background: "rgba(130, 72, 255, 0.17)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{ left: 776, top: 309, width: 504, height: 417, background: "rgba(130, 72, 255, 0.22)", borderRadius: 0 }}
+        />
+
+        {/* Soft purple atmospheric glow — rendered AFTER panels so it sits on top */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: 700,
+            top: 90,
+            width: 760,
+            height: 620,
+            background:
+              "radial-gradient(ellipse at center, rgba(146, 78, 255, 0.26) 0%, rgba(146, 78, 255, 0.12) 42%, rgba(146, 78, 255, 0.04) 68%, rgba(146, 78, 255, 0) 100%)",
+            filter: "blur(28px)",
+          }}
+        />
+        {/* Fade the line system at outer edges so corners feel diluted */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            inset: 0,
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.08) 17%, rgba(0,0,0,0) 34%, rgba(0,0,0,0) 74%, rgba(0,0,0,0.16) 90%, rgba(0,0,0,0.38) 100%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            inset: 0,
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.1) 16%, rgba(0,0,0,0) 34%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+
+        {/* Smooth black→purple blend inside circuit-line area */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: 180,
+            top: 20,
+            width: 1100,
+            height: 706,
+            background:
+              "linear-gradient(120deg, rgba(0,0,0,0.52) 0%, rgba(28, 18, 58, 0.42) 26%, rgba(86, 48, 156, 0.34) 52%, rgba(126, 72, 214, 0.30) 76%, rgba(160, 98, 242, 0.28) 100%)",
+            maskImage:
+              "linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,1) 56%, rgba(0,0,0,1) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,1) 56%, rgba(0,0,0,1) 100%)",
+          }}
+        />
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: 640,
+            top: 150,
+            width: 640,
+            height: 460,
+            background:
+              "radial-gradient(ellipse at 58% 58%, rgba(255, 255, 255, 0.86) 0%, rgba(245, 228, 255, 0.62) 24%, rgba(201, 132, 255, 0.36) 46%, rgba(165, 96, 248, 0.18) 68%, rgba(165, 96, 248, 0) 100%)",
+            filter: "blur(14px)",
+          }}
+        />
+        {/* Local white bloom behind mascot body/legs (matches reference hotspot) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: 760,
+            top: 310,
+            width: 520,
+            height: 360,
+            background:
+              "radial-gradient(ellipse at 60% 58%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 24%, rgba(245,228,255,0.42) 48%, rgba(210,160,255,0.18) 68%, rgba(210,160,255,0) 100%)",
+            filter: "blur(18px)",
+          }}
+        />
+
+        {/* Bottom-blended right-side rectangular panel from design */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: 952,
+            top: 178,
+            width: 328,
+            height: 548,
+            background:
+              "linear-gradient(180deg, rgba(180, 112, 255, 0.2) 0%, rgba(180, 112, 255, 0.14) 42%, rgba(180, 112, 255, 0.08) 72%, rgba(180, 112, 255, 0.04) 100%)",
+            borderRadius: 0,
+          }}
+        />
 
         {/* Robot character — floating animation */}
         <Float
@@ -172,8 +293,8 @@ function HeroDesktop() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           style={{
-            left: 56,
-            top: 82,
+            left: 24,
+            top: 102,
             width: 628,
             fontFamily: typography.fonts.poppins,
             fontWeight: 500,
@@ -197,13 +318,14 @@ function HeroDesktop() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
           style={{
-            left: 65,
-            top: 151,
+            left: 33,
+            top: 171,
             width: 628,
             fontFamily: typography.fonts.poppins,
             fontWeight: 500,
             fontSize: 88,
-            lineHeight: "1em",
+            lineHeight: "1.14em",
+            paddingBottom: 14,
             background: BLUE_GRADIENT,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -220,8 +342,8 @@ function HeroDesktop() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
           style={{
-            left: 60,
-            top: 315,
+            left: 28,
+            top: 335,
             width: 508.73,
             fontFamily: typography.fonts.inter,
             fontWeight: 400,
@@ -238,7 +360,7 @@ function HeroDesktop() {
         {/* Button row */}
         <motion.div
           className="absolute flex flex-row items-center"
-          style={{ left: 62, top: 461, gap: 14 }}
+          style={{ left: 30, top: 481, gap: 14 }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.38 }}
@@ -247,7 +369,7 @@ function HeroDesktop() {
           <Button variant="outline">Explore Platform</Button>
         </motion.div>
 
-        {/* Logo strip (Frame 2147225678) */}
+        {/* Logo strip (Frame 2147225678) — auto-scrolling marquee */}
         <div
           className="absolute z-10 overflow-hidden"
           style={{
@@ -260,21 +382,41 @@ function HeroDesktop() {
             borderBottom: `1px solid ${BORDER_SOFT}`,
           }}
         >
-          {PARTNERS.map((p) => (
-            <div
-              key={p.name}
-              className="absolute"
-              style={{ left: p.x, top: p.y, width: p.w, height: p.h }}
-            >
-              <Image
-                src={p.src}
-                alt={p.name}
-                fill
-                sizes={`${p.w}px`}
-                className="object-contain"
-              />
-            </div>
-          ))}
+          <motion.div
+            className="flex w-max items-center"
+            animate={prefersReducedMotion ? undefined : { x: ["0%", "-50%"] }}
+            transition={
+              prefersReducedMotion
+                ? undefined
+                : { duration: 26, ease: "linear", repeat: Infinity }
+            }
+          >
+            {[0, 1].map((copyIdx) => (
+              <div
+                key={copyIdx}
+                className="flex items-center"
+                style={{ minWidth: 1291, height: 89, gap: 56, padding: "0 28px" }}
+              >
+                {PARTNERS.map((p) => (
+                  <motion.div
+                    key={`${copyIdx}-${p.name}`}
+                    className="relative flex-shrink-0"
+                    style={{ width: p.w, height: p.h }}
+                    whileHover={prefersReducedMotion ? undefined : { y: -1.5, scale: 1.02 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    <Image
+                      src={p.src}
+                      alt={p.name}
+                      fill
+                      sizes={`${p.w}px`}
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            ))}
+          </motion.div>
 
           {/* Fade overlays anchored to strip edges */}
           <div
@@ -302,7 +444,7 @@ function HeroDesktop() {
             }}
           />
         </div>
-      </div>
+          </div>
     </section>
   );
 }
@@ -313,7 +455,7 @@ function HeroMobile() {
       className="relative block w-full overflow-hidden md:hidden"
       style={{ backgroundColor: colors.black }}
     >
-      {/* Blurred blue glow — single large ellipse for ambient color */}
+      {/* Restored ambient gradient and circuit detail for mobile */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
@@ -328,21 +470,18 @@ function HeroMobile() {
           opacity: 0.55,
         }}
       />
-      {/* Circuit lines — subtle, scaled down, anchored top-right */}
+      {/* Purple glow anchored behind mascot */}
       <div
         aria-hidden
-        className="pointer-events-none absolute opacity-40"
-        style={{ right: -120, top: 0, width: 600, height: 420 }}
-      >
-        <Image
-          src="/images/hero/circuit-lines.svg"
-          alt=""
-          fill
-          sizes="600px"
-          className="object-contain object-right-top"
-          priority
-        />
-      </div>
+        className="pointer-events-none absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          width: 420,
+          height: 320,
+          background:
+            "radial-gradient(ellipse at center, rgba(186,132,255,0.42) 0%, rgba(148,88,255,0.26) 40%, rgba(108,64,220,0.14) 66%, rgba(108,64,220,0) 100%)",
+          filter: "blur(18px)",
+        }}
+      />
 
       <div className="relative flex flex-col items-center gap-8 px-6 pt-20 pb-10 text-center">
         {/* Robot — compact, centered, floating */}
@@ -386,7 +525,8 @@ function HeroMobile() {
             fontFamily: typography.fonts.poppins,
             fontWeight: 500,
             fontSize: "clamp(44px, 13vw, 72px)",
-            lineHeight: 1,
+            lineHeight: "1.1em",
+            paddingBottom: 6,
             background: BLUE_GRADIENT,
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
@@ -419,9 +559,9 @@ function HeroMobile() {
         </div>
       </div>
 
-      {/* Logo strip — horizontal scroll-snap so all partners stay visible */}
+      {/* Logo strip — auto-scrolling marquee (no manual horizontal scroll) */}
       <div
-        className="relative flex items-center overflow-x-auto"
+        className="relative overflow-hidden"
         style={{
           height: 72,
           backgroundColor: colors.black,
@@ -429,23 +569,35 @@ function HeroMobile() {
           borderBottom: `1px solid ${BORDER_SOFT}`,
         }}
       >
-        <div className="flex min-w-full flex-row items-center gap-8 px-6">
-          {PARTNERS.map((p) => (
+        <motion.div
+          className="flex w-max items-center"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+        >
+          {[0, 1].map((copyIdx) => (
             <div
-              key={p.name}
-              className="relative flex-shrink-0"
-              style={{ width: p.w * 0.75, height: p.h * 0.75 }}
+              key={copyIdx}
+              className="flex items-center"
+              style={{ minWidth: 720, height: 72, gap: 32, padding: "0 24px" }}
             >
-              <Image
-                src={p.src}
-                alt={p.name}
-                fill
-                sizes={`${Math.round(p.w * 0.75)}px`}
-                className="object-contain"
-              />
+              {PARTNERS.map((p) => (
+                <div
+                  key={`${copyIdx}-${p.name}`}
+                  className="relative flex-shrink-0"
+                  style={{ width: p.w * 0.75, height: p.h * 0.75 }}
+                >
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    fill
+                    sizes={`${Math.round(p.w * 0.75)}px`}
+                    className="object-contain"
+                  />
+                </div>
+              ))}
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

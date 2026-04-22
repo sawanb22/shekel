@@ -115,8 +115,16 @@ function UseCaseCard({ card }: { card: Card }) {
         boxShadow:
           "0px 4px 8px 0px rgba(0, 0, 0, 0.02), 0px 12px 32px 0px rgba(0, 0, 0, 0.04)",
       }}
-      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -6,
+              boxShadow:
+                "0px 10px 20px 0px rgba(0, 0, 0, 0.05), 0px 22px 40px -8px rgba(0, 0, 0, 0.08)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
     >
       <div
         className="relative w-full overflow-hidden"

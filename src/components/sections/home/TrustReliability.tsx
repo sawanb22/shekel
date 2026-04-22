@@ -143,12 +143,19 @@ function TrustCard({ card }: { card: Card }) {
     <motion.article
       className="flex h-full flex-col"
       style={{ padding: 32 }}
-      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -6,
+              boxShadow: "0px 18px 34px -22px rgba(53, 72, 109, 0.4)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
     >
       <div className="pb-8">
         <div
-          className="flex items-center justify-center rounded-2xl bg-white"
+          className="flex items-center justify-center rounded-[12px] bg-white"
           style={{
             width: 56,
             height: 56,

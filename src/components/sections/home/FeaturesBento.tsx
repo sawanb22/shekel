@@ -14,6 +14,8 @@ const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
 const BLUE_GRADIENT =
   "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)";
+const CARD_HOVER_CLASS =
+  "transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1.5 hover:shadow-[0px_18px_34px_-16px_rgba(61,86,133,0.42)]";
 
 export default function FeaturesBento() {
   return (
@@ -31,7 +33,7 @@ function FeaturesBentoDesktop() {
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        backgroundImage: "url('/section-6/features-bg.webp')",
+        backgroundImage: "url('/section-6/bg-ai_agent_marketplace.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
@@ -46,45 +48,18 @@ function FeaturesBentoDesktop() {
           transformOrigin: "top left",
         }}
       >
-        {/* ── Soft gradient overlays for depth ── */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: -120,
-            top: -120,
-            width: 600,
-            height: 600,
-            background: BLUE_GRADIENT,
-            filter: "blur(180px)",
-            opacity: 0.5,
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: 900,
-            top: 300,
-            width: 600,
-            height: 600,
-            background: BLUE_GRADIENT,
-            filter: "blur(200px)",
-            opacity: 0.4,
-          }}
-        />
 
-        {/* ── Card group (x=28, y=79, 1216×588) with 8px gaps ── */}
+        {/* ── Card group (x=28, y=79, 1216×588) with 16px gaps ── */}
         <div className="absolute" style={{ left: 28, top: 79, width: 1216, height: 596 }}>
-          {/* Row 1 — y=0, h=300. Gap=8px between cards so effective widths shrink */}
+          {/* Row 1 — y=0, h=300. Gap=16px between cards */}
 
-          {/* AI Agent Marketplace — x=0, w=616, h=300 */}
+          {/* AI Agent Marketplace — x=0, w=604, h=300 */}
           <div
-            className="absolute overflow-hidden"
+            className={`absolute overflow-hidden ${CARD_HOVER_CLASS}`}
             style={{
               left: 0,
               top: 0,
-              width: 616,
+              width: 604,
               height: 300,
               backgroundColor: colors.white,
               border: `1px solid ${colors.border.card}`,
@@ -92,37 +67,29 @@ function FeaturesBentoDesktop() {
               padding: "48px 48px 100px",
             }}
           >
-            {/* right-half purple gradient overlay */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute"
-              style={{
-                left: 0,
-                top: 0,
-                width: 616,
-                height: 300,
-                background:
-                  "linear-gradient(90deg, rgba(186,158,255,0) 50%, rgba(186,158,255,0.14) 100%)",
-              }}
-            />
-
             <div className="relative flex flex-col gap-4">
               <h3 style={h3Style}>AI Agent Marketplace</h3>
               <p style={{ ...bodyStyle, width: 384 }}>
                 The world&apos;s largest repository of fine-tuned, task-specific autonomous agents ready for work.
               </p>
-              <a href="#" className="mt-2 inline-flex items-center gap-2">
+              <a href="#" className="group mt-2 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]">
                 <span style={exploreLinkStyle}>Explore Marketplace</span>
-                <Image src="/section-6/icon-arrow.svg" alt="" width={16} height={16} />
+                <Image
+                  src="/section-6/icon-arrow.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
+                />
               </a>
             </div>
           </div>
 
-          {/* Flexible Pricing — x=624, w=304, h=300 */}
+          {/* Flexible Pricing — x=620, w=296, h=300 */}
           <SmallCard
-            left={624}
+            left={620}
             top={0}
-            width={304}
+            width={296}
             height={300}
             icon="/section-6/icon-pricing.svg"
             iconW={33}
@@ -132,11 +99,11 @@ function FeaturesBentoDesktop() {
             paddingBottom={102}
           />
 
-          {/* Workflow Builder — x=936, w=280, h=300 */}
+          {/* Workflow Builder — x=932, w=284, h=300 */}
           <SmallCard
-            left={936}
+            left={932}
             top={0}
-            width={280}
+            width={284}
             height={300}
             icon="/section-6/icon-workflow.svg"
             iconW={30}
@@ -146,12 +113,12 @@ function FeaturesBentoDesktop() {
             paddingBottom={102}
           />
 
-          {/* Row 2 — y=308, h=256. Row gap = 308-300=8px */}
+          {/* Row 2 — y=316, h=256. Row gap = 316-300=16px */}
 
           {/* Dev Ecosystem — x=0, w=304, h=256 */}
           <SmallCard
             left={0}
-            top={308}
+            top={316}
             width={304}
             height={256}
             icon="/section-6/icon-dev.svg"
@@ -162,13 +129,13 @@ function FeaturesBentoDesktop() {
             paddingBottom={58}
           />
 
-          {/* Global Settlement — x=312, w=904, h=256 */}
+          {/* Global Settlement — x=320, w=896, h=256 */}
           <div
-            className="absolute flex flex-row items-center justify-center"
+            className={`absolute flex flex-row items-center justify-center ${CARD_HOVER_CLASS}`}
             style={{
-              left: 312,
-              top: 308,
-              width: 904,
+              left: 320,
+              top: 316,
+              width: 896,
               height: 256,
               backgroundColor: colors.white,
               border: `1px solid ${colors.border.card}`,
@@ -248,8 +215,15 @@ function SmallCard({
   return (
     <motion.div
       className="absolute flex flex-col"
-      whileHover={prefersReducedMotion ? undefined : { y: -4 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -6,
+              boxShadow: "0px 20px 34px -18px rgba(61, 86, 133, 0.45)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
       style={{
         left,
         top,
@@ -278,13 +252,13 @@ function FeaturesBentoMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.webp')",
+        backgroundImage: "url('/section-6/bg-ai_agent_marketplace.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
       }}
     >
-      <div className="relative z-10 flex flex-col gap-6 px-6 py-14 sm:px-8">
+      <div className="relative z-10 flex flex-col gap-10 px-6 py-14 sm:px-8">
         <MobileCard
           large
           title="AI Agent Marketplace"
@@ -313,7 +287,7 @@ function FeaturesBentoMobile() {
           body="Full SDK support for Python, JS, and Rust to integrate Shekel into any stack."
         />
         <div
-          className="flex flex-col gap-4 rounded-[24px] border p-6"
+          className={`flex flex-col gap-4 rounded-[24px] border p-6 ${CARD_HOVER_CLASS}`}
           style={{
             borderColor: colors.border.card,
             backgroundColor: colors.white,
@@ -375,7 +349,7 @@ function MobileCard({
 }) {
   return (
     <div
-      className="flex flex-col gap-3 rounded-[24px] border p-6"
+      className={`flex flex-col gap-3 rounded-[24px] border p-6 ${CARD_HOVER_CLASS}`}
       style={{ borderColor: colors.border.card, backgroundColor: colors.white }}
     >
       {icon && iconW && iconH ? (
@@ -384,9 +358,15 @@ function MobileCard({
       <h3 style={large ? h3Style : h4Style}>{title}</h3>
       <p style={large ? bodyStyle : smallBodyStyle}>{body}</p>
       {cta ? (
-        <a href="#" className="mt-1 inline-flex items-center gap-2">
+        <a href="#" className="group mt-1 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]">
           <span style={exploreLinkStyle}>{cta}</span>
-          <Image src="/section-6/icon-arrow.svg" alt="" width={16} height={16} />
+          <Image
+            src="/section-6/icon-arrow.svg"
+            alt=""
+            width={16}
+            height={16}
+            className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
+          />
         </a>
       ) : null}
     </div>

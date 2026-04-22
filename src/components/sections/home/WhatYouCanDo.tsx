@@ -87,7 +87,8 @@ function WhatYouCanDoDesktop() {
           <VisualCard />
         </Reveal>
         <RevealStagger
-          className="grid w-full grid-cols-3 pt-4"
+          className="grid grid-cols-3 gap-x-16 pt-4"
+          style={{ width: 1120, margin: "0 auto" }}
           stagger={0.12}
         >
           {columns.map((col) => (
@@ -129,9 +130,19 @@ function Heading() {
 }
 
 function VisualCard() {
+  const prefersReducedMotion = useReducedMotion();
   return (
-    <div
+    <motion.div
       className="relative w-full overflow-hidden"
+      whileHover={
+        prefersReducedMotion
+          ? undefined
+          : {
+              y: -4,
+              boxShadow: "0px 20px 36px -20px rgba(53, 72, 109, 0.42)",
+            }
+      }
+      transition={{ duration: 0.22, ease: "easeOut" }}
       style={{
         backgroundColor: colors.white,
         borderRadius: radiuses.card,
@@ -150,8 +161,16 @@ function VisualCard() {
           opacity: 0.4,
         }}
       />
-      <div className="pointer-events-none absolute inset-0 w-full">
-        <Image src={bgWaves} alt="" fill className="object-cover" priority />
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          left: 436,
+          top: 170,
+          width: 780,
+          height: 220,
+        }}
+      >
+        <Image src={bgWaves} alt="" fill className="object-fill object-left" priority />
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-12 p-12">
@@ -212,6 +231,7 @@ function VisualCard() {
       <FloatingBadge
         top={235}
         right={103}
+        compact
         content={
           <>
             <div
@@ -239,7 +259,7 @@ function VisualCard() {
           </>
         }
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -354,11 +374,13 @@ function FloatingBadge({
   left,
   right,
   content,
+  compact = false,
 }: {
   top: number;
   left?: number;
   right?: number;
   content: React.ReactNode;
+  compact?: boolean;
 }) {
   return (
     <div
@@ -367,7 +389,7 @@ function FloatingBadge({
         top,
         left,
         right,
-        padding: "13px 17px",
+        padding: compact ? "10px 17px" : "13px 17px",
         backgroundColor: colors.overlay.whiteGlass,
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
@@ -411,7 +433,7 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
       </p>
       <a
         href="#"
-        className="inline-flex items-center gap-1 transition-transform duration-200 hover:translate-x-0.5"
+        className="group inline-flex items-center gap-1 rounded-full border border-transparent px-3 py-1.5 transition-[transform,opacity,filter,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-[rgba(40,100,228,0.28)] hover:bg-[rgba(236,242,255,0.95)] hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))] hover:shadow-[0px_12px_24px_-14px_rgba(40,100,228,0.52)]"
       >
         <span
           style={{
@@ -427,7 +449,13 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
         >
           {col.link}
         </span>
-        <Image src={col.icon} alt="" width={12} height={12} />
+        <Image
+          src={col.icon}
+          alt=""
+          width={12}
+          height={12}
+          className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
+        />
       </a>
     </div>
   );
