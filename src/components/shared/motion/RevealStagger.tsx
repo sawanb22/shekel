@@ -50,10 +50,12 @@ export function RevealStagger({
 export function RevealItem({
   children,
   className,
+  style,
   y = 20,
 }: {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   y?: number;
 }) {
   const prefersReducedMotion = useReducedMotion();
@@ -65,6 +67,7 @@ export function RevealItem({
   return (
     <motion.div
       className={className}
+      style={style}
       variants={item}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { colors, typography } from "@/tokens/design-tokens";
+import { colors, typography, radiuses } from "@/tokens/design-tokens";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Concept.tsx — "THE CONCEPT" section
@@ -53,9 +53,9 @@ const LIST_ITEMS = [
 ];
 
 const CARD_BORDER = "rgba(68,72,84,0.1)";
-const BADGE_BG = "rgba(186,158,255,0.1)";
+const BADGE_BG = colors.gradient.purpleLight;
 const BADGE_BORDER = "rgba(186,158,255,0.2)";
-const BADGE_TEXT = "#BA9EFF";
+const BADGE_TEXT = colors.background.badgePurple;
 const CARD_TITLE = "#4D4C4C";
 
 export default function Concept() {

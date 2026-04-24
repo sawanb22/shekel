@@ -9,6 +9,7 @@ type RevealProps = {
   y?: number;
   duration?: number;
   className?: string;
+  style?: React.CSSProperties;
   as?: "div" | "span" | "li" | "section";
   once?: boolean;
 };
@@ -19,6 +20,7 @@ export function Reveal({
   y = 24,
   duration = 0.6,
   className,
+  style,
   as = "div",
   once = true,
 }: RevealProps) {
@@ -41,6 +43,7 @@ export function Reveal({
       variants={variants}
       transition={{ duration, ease: "easeOut", delay }}
       className={className}
+      style={style}
     >
       {children}
     </MotionTag>

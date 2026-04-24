@@ -1,0 +1,473 @@
+---
+description: Run this rule every time a Figma frame URL or node ID is given and a section must be implemented or updated. Follow every step in order — none are optional.
+alwaysApply: false
+---
+
+# Figma Section Implementation Rule
+
+> Pre-flight: confirm you have read `CLAUDE.md` and `PROGRESS.md` before step 1.
+
+---
+
+## AUTO-LOOP MODE
+
+If the user provides multiple frame node IDs in one message, the agent runs
+the full 11-step process for section 1, verifies it with the browser agent,
+confirms it passes, updates PROGRESS.md, then immediately moves to section 2
+— no pause, no waiting for user input between sections.
+
+Only stop the loop if:
+- A section has unresolvable missing assets after all attempts (log `[!]`, continue)
+- A discrepancy cannot be fixed after 3 attempts (log `[!]`, continue)
+- The user explicitly says "stop after this section"
+
+After ALL sections are done, send one final summary:
+- Full page screenshot at CANVAS_W px (desktop)
+- Full page screenshot at 375px (mobile)
+- List of any `[!]` issues needing attention
+- Tokens added
+- Missing assets logged
+
+---
+
+## Step 0 — Context Load
+
+Read in this exact order before touching any tool or file:
+1. `CLAUDE.md` — all project rules, what is done, token reference
+2. `PROGRESS.md` — current section count N, what frame maps to what file
+3. `src/tokens/design-tokens.ts` — full token list (never duplicate)
+4. Skim `src/components/sections/home/Concept.tsx` — canonical reference implementation.
+   Do NOT use Hero.tsx as a reference — it has a known desktop/mobile text duplication violation.
+
+---
+
+## Step 1 — Fetch the Frame
+
+Call `get_figma_data` with the provided `fileKey` and `nodeId`. Record:
+
+| Field | MCP path | Use |
+|-------|----------|-----|
+| Frame name | `name` | Confirms what section this is |
+| Width | `dimensions.width` | → `CANVAS_W` |
+| Height | `dimensions.height` | → `CANVAS_H` |
+| Page Y position | `locationRelativeToParent.y` on parent artboard | → page order |
+| Background | `fills[0]` | → section background |
+
+If hierarchy is unclear, list all sibling frame IDs sorted by `locationRelativeToParent.y`
+to confirm the correct insertion order.
+
+---
+
+## Step 2 — Determine File Name and Section Number
+
+1. Check `PROGRESS.md` for the next available section number N.
+2. Check `src/components/sections/[page-name]/` for existing files.
+3. Before creating anything — check if a visually identical section already exists in:
+   - `src/components/sections/home/`
+   - `src/components/sections/marketplace/`
+   If yes → import it directly, do not rebuild.
+4. Name the file `PascalCase.tsx` from the section's **visible heading or badge text**.
+   - Badge "THE CONCEPT" + heading "App Store" → `Concept.tsx`
+   - Heading "Built for reliability and trust" → `TrustReliability.tsx`
+5. Never name a file after a Figma frame ID.
+
+---
+
+## Step 3 — Read Every Property (recursively)
+
+For every child node at every level, record:
+
+| Property | MCP field |
+|----------|-----------|
+| x, y position | `locationRelativeToParent.x`, `.y` |
+| Width, height | `dimensions.width`, `.height` |
+| Fill | `fills` — solid hex, linear gradient (angle + stops), radial gradient |
+| Border | `strokes`, `strokeWeight`, `borderRadius` (each corner if mixed) |
+| Shadow / blur | `effects` — type, x, y, blur, spread, color, opacity |
+| Typography | `textStyle.fontFamily`, `.fontWeight`, `.fontSize`, `.lineHeight`, `.letterSpacing`, `.textAlign` |
+| Text content | `text` — preserve `\n` line breaks exactly |
+
+**Resolve every `globalVars.styles` reference** (`layout_XXX`, `fill_XXX`, `style_XXX`,
+`effect_XXX`) before writing any code. If a property is unclear, call `get_figma_data`
+again on that specific node ID — never guess.
+
+---
+
+## Step 4 — Write the Layout Map Comment
+
+Before writing any JSX, write this comment at the top of the new file.
+It must be complete enough for another agent to recreate the section from it alone.
+
+```typescript
+// ─────────────────────────────────────────────────────────────────────────────
+// [ComponentName].tsx  —  "[Visible section heading]"
+// Figma frame: [FRAME_ID]  "[Figma frame name]"
+// Canvas: [CANVAS_W] × [CANVAS_H] px   Page-y: [Y]   bg: [color]
+//
+// Responsive strategy:
+//   ≥ 768 px  →  Scaled cqw canvas  (100cqw / [CANVAS_W]px)
+//   < 768 px  →  Stacked reflow, fluid clamp() font sizes
+//
+// LAYOUT MAP  (all coords are section-absolute Figma px):
+//   [Node name]   (x=[X], y=[Y])   [W]×[H]   [style summary]
+//   [Node name]   (x=[X], y=[Y])   [W]×[H]   [style summary]
+//   ...
+// ─────────────────────────────────────────────────────────────────────────────
+```
+
+---
+
+## Step 5 — Export Assets
+
+For every image, icon, or SVG node:
+
+1. **Check `public/` first** — if the asset already exists, use it directly.
+2. If not: call `download_figma_images` with the node ID.
+3. Save to the correct folder:
+   - Home page sections → `public/section-[N]/[descriptive-kebab-name].svg` or `.png`
+   - All other pages → `public/section-[N]-[page-name]/[descriptive-kebab-name].svg` or `.png`
+     (N restarts from 1 for each new page — never use global sequential numbers across pages)
+   - Complex SVGs with `NaN` path segments → export as `.png` instead.
+   - If MCP output path differs from project path, copy the file manually.
+4. **Export fails completely** → inline the SVG data from MCP `fills` / children.
+5. **Never use a placeholder.** Never skip an asset.
+6. Truly unresolvable → log under `MISSING ASSETS:` in `PROGRESS.md` and stop.
+
+---
+
+## Step 6 — Token Check
+
+1. Open `src/tokens/design-tokens.ts`.
+2. For every value from Step 3:
+   - Matching token exists → use `colors.xxx`, `typography.fonts.xxx`, `radiuses.xxx`.
+   - Value appears ≥ 2 times in this section, no token exists → append to bottom of its group in the token file.
+   - Value appears only once → declare as `const` at the top of the component file only.
+3. Never rename, reorder, or delete existing tokens.
+
+Available token groups:
+- `colors.white/black`, `colors.brand`, `colors.gradient`, `colors.text`,
+  `colors.background`, `colors.status`, `colors.overlay`, `colors.border`
+- `typography.fonts` (inter, poppins, jakarta, mono)
+- `radiuses` (card="24px", cardLg="32px", cardSm="12px", pill="16px",
+  full="9999px", icon="12px", inputIcon="8px", tag="4px")
+
+Import `radiuses` in every section file — never hardcode `borderRadius` values.
+
+---
+
+## Step 7 — Implement the Section
+
+### Skeleton (use exactly this structure)
+
+```typescript
+import Image from "next/image";
+import { colors, typography, radiuses } from "@/tokens/design-tokens";
+
+// [Layout Map from Step 4]
+
+const CANVAS_W = /* exact Figma frame width — e.g. 1280 */;
+const CANVAS_H = /* exact Figma frame height */;
+const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
+
+// One-off values not in tokens (used < 2 times in this section):
+// const BADGE_COLOR = "#ba9eff";
+
+export default function SectionName() {
+  return (
+    <>
+      <SectionDesktop />
+      <SectionMobile />
+    </>
+  );
+}
+
+// ─── Desktop ─────────────────────────────────────────────────────────────────
+
+function SectionDesktop() {
+  return (
+    <section
+      className="relative hidden w-full overflow-hidden md:block"
+      style={{
+        backgroundColor: colors.background.section,
+        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
+        containerType: "inline-size",
+      }}
+    >
+      <div
+        className="absolute left-0 top-0"
+        style={{
+          width: CANVAS_W,
+          height: CANVAS_H,
+          transform: `scale(${SCALE})`,
+          transformOrigin: "top left",
+        }}
+      >
+        {/* Every child: position absolute, exact Figma left/top/width/height */}
+      </div>
+    </section>
+  );
+}
+
+// ─── Mobile ──────────────────────────────────────────────────────────────────
+
+function SectionMobile() {
+  return (
+    <section
+      className="relative block w-full overflow-hidden md:hidden"
+      style={{ backgroundColor: colors.background.section }}
+    >
+      <div className="flex flex-col gap-8 px-6 py-16">
+        {/* Same sub-components as desktop, different fontSize / lineHeight props */}
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### Desktop Canvas Rules (non-negotiable)
+
+| Rule | Detail |
+|------|--------|
+| `hidden md:block` | Hides desktop canvas on mobile |
+| `aspectRatio: CANVAS_W / CANVAS_H` | Reserves proportional height — no fixed heights ever |
+| `containerType: "inline-size"` | Enables `cqw` units for scale |
+| `overflow-hidden` | Clips decorative bleeds |
+| Inner div: `absolute left-0 top-0` | NOT `mx-auto` — breaks left edge alignment |
+| Inner div: fixed px `width` + `height` | Exact Figma canvas dimensions |
+| Scale: `calc(100cqw / ${CANVAS_W}px)` | Use `cqw` — `vw` double-counts scrollbar width |
+| `transformOrigin: "top left"` | Scales from the correct anchor |
+| Every child: `position: absolute` | With inline `style={{ left: X, top: Y, width: W, height: H }}` |
+| Typography: always inline `style` | `fontFamily`, `fontWeight`, `fontSize`, `lineHeight`, `letterSpacing` — never Tailwind text utilities |
+
+---
+
+### Typography Templates
+
+**Standard text node:**
+```typescript
+<p
+  className="absolute m-0"
+  style={{
+    left: X, top: Y, width: W,
+    fontFamily: typography.fonts.poppins,
+    fontWeight: 500,
+    fontSize: FS,
+    lineHeight: `${LH}px`,
+    letterSpacing: `${LS}em`,
+    color: colors.text.heading,
+  }}
+>
+  {text}
+</p>
+```
+
+**Gradient text:**
+```typescript
+<h2
+  className="absolute m-0"
+  style={{
+    left: X, top: Y, width: W,
+    fontFamily: typography.fonts.poppins,
+    fontWeight: 700,
+    fontSize: FS,
+    lineHeight: `${LH}px`,
+    background: `linear-gradient(${ANGLE}deg, ${STOP_1}, ${STOP_2})`,
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  }}
+>
+  {text}
+</h2>
+```
+
+---
+
+### Gradients and Shadows
+
+- Reproduce every gradient stop, angle, and opacity exactly from Figma `GRADIENT_LINEAR` / `GRADIENT_RADIAL`.
+- Reproduce every shadow from `effects` in exact order: `x y blur spread color`.
+  - If Figma shadow matches Tailwind `shadow-xl` exactly → use `className="shadow-xl"`.
+  - Otherwise → `style={{ boxShadow: "Xpx Ypx BLURpx SPREADpx rgba(...)" }}`.
+- Multiple shadows → comma-separate in the string; order matters.
+
+---
+
+### Shared Sub-Components Pattern
+
+When desktop and mobile render the same element with different sizing — extract it:
+
+```typescript
+function SectionHeading({
+  fontSize,
+  lineHeight,
+}: {
+  fontSize: number | string;
+  lineHeight: string;
+}) {
+  return (
+    <h2
+      style={{
+        margin: 0,
+        fontFamily: typography.fonts.poppins,
+        fontWeight: 600,
+        fontSize,
+        lineHeight,
+        color: colors.text.heading,
+      }}
+    >
+      Heading copy — lives in ONE place only
+    </h2>
+  );
+}
+
+// Desktop: <SectionHeading fontSize={48} lineHeight="60px" />
+// Mobile:  <SectionHeading fontSize="clamp(28px, 8vw, 40px)" lineHeight="1.2" />
+```
+
+Text content must **never** be duplicated between desktop and mobile.
+
+---
+
+### Mobile Layout Rules
+
+- `block md:hidden` on the section wrapper.
+- Tailwind flex/grid with `px-6 py-16` as the base padding.
+- Fluid font sizes: `fontSize: "clamp(28px, 8vw, 40px)"` — never fixed px on mobile headings.
+- Preserve brand: colours, gradients, key hero images. Simplify layout, not identity.
+- Horizontal logo / partner strips → `overflow-x-auto` with flex row so all logos are reachable.
+
+---
+
+## Step 8 — Wire into `page.tsx`
+
+1. Read `src/app/[page-name]/page.tsx`.
+2. Add the import in positional order matching Figma y-order.
+3. Insert `<SectionName />` at the correct vertical position.
+4. Keep numbered comments consistent — shift only if needed by the insertion.
+5. **Do not move or modify any other section.**
+
+---
+
+## Step 9 — Verification Loop (non-skippable)
+
+1. Start dev server if not running: `npm run dev`
+2. Open Cursor browser agent, navigate to `http://localhost:3000/[page-path]`
+3. Set viewport to exactly **CANVAS_W px wide** (no fixed height — height is driven
+   by `aspectRatio`, section fills edge-to-edge)
+   — at CANVAS_W, `scale()` = 1 giving a true 1:1 pixel comparison against Figma
+4. Scroll to the section being verified and take a screenshot
+5. Fetch the Figma frame image via Figma MCP
+6. Compare systematically and list every discrepancy with exact px values:
+
+   | Check | Detail |
+   |-------|--------|
+   | Position | Every element x, y |
+   | Size | Width, height of every element |
+   | Typography | fontFamily, fontSize, fontWeight, lineHeight, color |
+   | Colors | Backgrounds, fills, borders |
+   | Gradients | Angle, stops, opacity |
+   | Shadows | x, y, blur, spread, color |
+   | Images/icons | Correct asset, correct size |
+   | Edge-to-edge | Section fills full browser width — no gaps or white margins |
+
+   Example discrepancy list:
+   > 1. Heading top: 96px rendered vs 82px Figma — fix
+   > 2. Right edge has 2px white gap — section width not 100%
+   > 3. Badge border opacity 0.1 rendered vs 0.2 Figma — fix
+
+7. Fix all discrepancies in code
+8. Re-screenshot at CANVAS_W to confirm fixes
+9. Resize browser to a **different desktop width** (e.g. 1440px if CANVAS_W is 1280px)
+   — verify section still fills edge-to-edge and scales proportionally, no overflow
+10. Set viewport to **375px wide** — verify `block md:hidden` layout is readable,
+    stacked, full width, brand colours and gradients preserved
+11. Mark done only when all three viewport checks pass
+
+---
+
+## Step 10 — Update PROGRESS.md
+
+Append this block immediately after verifying:
+
+```markdown
+### Section [N] — [Descriptive Name]
+- **Status**: `[x]` verified by browser agent (desktop CANVAS_W px + mobile 375px)
+- **Figma Frame**: [FRAME_ID] "[frame name]"
+- **Component**: `src/components/sections/[page]/[Name].tsx`
+- **Assets**: `public/section-[N]-[page-name]/` — [list files]
+- **Tokens added**: [list] or "none"
+- **Local consts**: [list] or "none"
+```
+
+In AUTO-LOOP MODE: mark `[x]` immediately after browser agent confirms both
+viewports pass — do not wait for user input. Proceed to next section.
+
+---
+
+## Step 11 — Handoff / Loop Continue
+
+**In AUTO-LOOP MODE:**
+- Confirm: browser agent verified at CANVAS_W px (desktop) and 375px (mobile).
+- Section marked `[x]` in PROGRESS.md.
+- State what section is next and immediately begin Step 0 for it.
+
+**In single-section mode:**
+Send one message containing:
+- Section name, badge text, visible heading.
+- Position in `page.tsx` (what it sits between).
+- Assets exported and where saved.
+- New tokens added (or "none").
+- Local `const` values and why they weren't tokenised.
+- Browser agent verification result: desktop CANVAS_W px ✓, mobile 375px ✓.
+
+---
+
+## Pre-Done Checklist
+
+Run before declaring any section complete:
+
+- [ ] `aspectRatio` matches Figma frame's exact `CANVAS_W / CANVAS_H`
+- [ ] Scale uses `100cqw`, not `100vw`
+- [ ] `containerType: "inline-size"` on the outer section
+- [ ] Inner canvas div is `absolute left-0 top-0` — not `mx-auto`
+- [ ] Every desktop child has inline `left`, `top`, `width`, `height` from Figma
+- [ ] All typography uses inline `style` — no Tailwind text-size utilities
+- [ ] All gradients reproduce exact angle, stops, opacity from Figma
+- [ ] All shadows reproduce exact values from Figma `effects`, correct order
+- [ ] All assets in correct `public/section-[N]-[page-name]/` folder, no placeholders
+- [ ] Design tokens reused; new ones appended at bottom of their group only
+- [ ] `radiuses` imported and used — no hardcoded `borderRadius` values
+- [ ] Mobile wrapper present with fluid font sizes and brand preserved
+- [ ] Text content lives in shared sub-components — never duplicated desktop/mobile
+- [ ] `page.tsx` updated with import + JSX in correct position
+- [ ] No other section file was modified
+- [ ] Browser agent screenshot at CANVAS_W px matches Figma ✓
+- [ ] Browser agent screenshot at 375px — mobile readable and brand preserved ✓
+- [ ] `PROGRESS.md` marked `[x]` with full section detail block
+
+---
+
+## Absolute Forbidden Actions
+
+- Skipping browser agent verification screenshots.
+- Marking `[x]` without both desktop (CANVAS_W) and mobile (375px) browser agent screenshots passing.
+- Using Tailwind `text-*` utilities for Figma font sizes or line heights.
+- Using `vw` in the scale formula — always `cqw`.
+- Using `mx-auto` on the inner canvas div.
+- Capping scale with `min(1, …)`.
+- Placing mobile JSX before desktop JSX in the file.
+- Hardcoding a color, radius, or font that exists as a token.
+- Hardcoding a `borderRadius` value — always use `radiuses` tokens.
+- Duplicating text content between desktop and mobile — shared sub-components always.
+- Using Hero.tsx as a reference implementation — it has a text duplication violation.
+- Moving or reordering any section in an existing `page.tsx`.
+- Touching `Header.tsx`, `Footer.tsx`, `layout.tsx`, any home section, or any marketplace section.
+- Creating `SECTION_MANIFEST.json`, `PAGE_THEME.json`, or any undeclared JSON file.
+- Importing `fs from 'fs'` or any Node.js module in `page.tsx`.
+- Creating `public/images/` subfolders.
+- Reusing section numbers across pages — each page restarts from 1.
+- Modifying any file not in: new section file, its assets folder,
+  `page.tsx`, `design-tokens.ts`, `PROGRESS.md`.
