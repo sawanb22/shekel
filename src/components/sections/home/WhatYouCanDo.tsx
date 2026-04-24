@@ -171,6 +171,13 @@ function VisualCard() {
         }}
       >
         <Image src={bgWaves} alt="" fill className="object-fill object-left" priority />
+        <Image
+          src={bgWaves}
+          alt=""
+          fill
+          className="object-fill object-left"
+          style={{ opacity: 0.7, filter: "contrast(1.22) saturate(1.2)" }}
+        />
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-12 p-12">

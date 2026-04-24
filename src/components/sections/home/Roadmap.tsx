@@ -85,6 +85,15 @@ function RoadmapDesktop() {
       }}
     >
       <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
+          opacity: 0.38,
+        }}
+      />
+      <div
         className="absolute left-0 top-0"
         style={{
           width: CANVAS_W,
@@ -305,6 +314,15 @@ function RoadmapMobile() {
         backgroundColor: "#f0e8ff",
       }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
+          opacity: 0.34,
+        }}
+      />
       {/* Rocket — faint decoration top-right on mobile */}
       <Float
         amplitude={10}

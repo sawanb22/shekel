@@ -206,6 +206,19 @@ function HeroDesktop() {
               "linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.1) 16%, rgba(0,0,0,0) 34%, rgba(0,0,0,0) 100%)",
           }}
         />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute"
+          style={{
+            left: -8,
+            top: -16,
+            width: 280,
+            height: 230,
+            background:
+              "radial-gradient(ellipse at 18% 14%, rgba(184, 204, 255, 0.24) 0%, rgba(144, 171, 255, 0.12) 38%, rgba(84, 116, 208, 0.04) 70%, rgba(0,0,0,0) 100%)",
+            filter: "blur(12px)",
+          }}
+        />
 
         {/* Smooth black→purple blend inside circuit-line area */}
         <div
@@ -234,8 +247,8 @@ function HeroDesktop() {
             width: 640,
             height: 460,
             background:
-              "radial-gradient(ellipse at 58% 58%, rgba(255, 255, 255, 0.86) 0%, rgba(245, 228, 255, 0.62) 24%, rgba(201, 132, 255, 0.36) 46%, rgba(165, 96, 248, 0.18) 68%, rgba(165, 96, 248, 0) 100%)",
-            filter: "blur(14px)",
+              "radial-gradient(ellipse at 60% 58%, rgba(255,255,255,0.96) 0%, rgba(252,245,255,0.84) 22%, rgba(231,198,255,0.56) 44%, rgba(192,132,255,0.28) 66%, rgba(192,132,255,0) 100%)",
+            filter: "blur(12px)",
           }}
         />
         {/* Local white bloom behind mascot body/legs (matches reference hotspot) */}
@@ -248,25 +261,25 @@ function HeroDesktop() {
             width: 520,
             height: 360,
             background:
-              "radial-gradient(ellipse at 60% 58%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 24%, rgba(245,228,255,0.42) 48%, rgba(210,160,255,0.18) 68%, rgba(210,160,255,0) 100%)",
-            filter: "blur(18px)",
+              "radial-gradient(ellipse at 62% 56%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.86) 24%, rgba(245,228,255,0.54) 48%, rgba(210,160,255,0.24) 70%, rgba(210,160,255,0) 100%)",
+            filter: "blur(14px)",
           }}
         />
-
-        {/* Bottom-blended right-side rectangular panel from design */}
         <div
           aria-hidden
           className="pointer-events-none absolute"
           style={{
-            left: 952,
-            top: 178,
-            width: 328,
-            height: 548,
+            left: 720,
+            top: 240,
+            width: 620,
+            height: 460,
             background:
-              "linear-gradient(180deg, rgba(180, 112, 255, 0.2) 0%, rgba(180, 112, 255, 0.14) 42%, rgba(180, 112, 255, 0.08) 72%, rgba(180, 112, 255, 0.04) 100%)",
-            borderRadius: 0,
+              "radial-gradient(ellipse at 64% 58%, rgba(255,255,255,0.62) 0%, rgba(246,233,255,0.34) 40%, rgba(196,136,255,0.14) 68%, rgba(196,136,255,0) 100%)",
+            filter: "blur(22px)",
           }}
         />
+
+        {/* Removed extra right rectangle to avoid visible block behind mascot */}
 
         {/* Robot character — floating animation */}
         <Float
@@ -294,7 +307,7 @@ function HeroDesktop() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           style={{
             left: 24,
-            top: 102,
+            top: 132,
             width: 628,
             fontFamily: typography.fonts.poppins,
             fontWeight: 500,
@@ -306,6 +319,7 @@ function HeroDesktop() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
+            textShadow: "0 4px 28px rgba(0, 0, 0, 0.42)",
           }}
         >
           The Marketplace for
@@ -319,7 +333,7 @@ function HeroDesktop() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
           style={{
             left: 33,
-            top: 171,
+            top: 201,
             width: 628,
             fontFamily: typography.fonts.poppins,
             fontWeight: 500,
@@ -330,6 +344,7 @@ function HeroDesktop() {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
+            textShadow: "0 6px 30px rgba(8, 6, 20, 0.5)",
           }}
         >
           AI Agents
@@ -343,7 +358,7 @@ function HeroDesktop() {
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
           style={{
             left: 28,
-            top: 335,
+            top: 365,
             width: 508.73,
             fontFamily: typography.fonts.inter,
             fontWeight: 400,
@@ -360,7 +375,7 @@ function HeroDesktop() {
         {/* Button row */}
         <motion.div
           className="absolute flex flex-row items-center"
-          style={{ left: 30, top: 481, gap: 14 }}
+          style={{ left: 30, top: 511, gap: 14 }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.38 }}
@@ -480,6 +495,31 @@ function HeroMobile() {
           background:
             "radial-gradient(ellipse at center, rgba(186,132,255,0.42) 0%, rgba(148,88,255,0.26) 40%, rgba(108,64,220,0.14) 66%, rgba(108,64,220,0) 100%)",
           filter: "blur(18px)",
+        }}
+      />
+      {/* Desktop-style circuit backdrop behind mascot (mobile adaptation, no bg image) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[226px] -translate-x-1/2 -translate-y-1/2"
+        style={{ width: 520, height: 420, opacity: 0.68 }}
+      >
+        <Image
+          src="/images/hero/circuit-lines.svg"
+          alt=""
+          fill
+          sizes="520px"
+          className="object-contain object-center"
+        />
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[226px] -translate-x-1/2 -translate-y-1/2"
+        style={{
+          width: 420,
+          height: 300,
+          background:
+            "radial-gradient(ellipse at 55% 55%, rgba(255,255,255,0.88) 0%, rgba(239,214,255,0.48) 34%, rgba(171,106,248,0.22) 62%, rgba(171,106,248,0) 100%)",
+          filter: "blur(14px)",
         }}
       />
 

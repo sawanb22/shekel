@@ -174,11 +174,12 @@ function Panel({
         prefersReducedMotion
           ? undefined
           : {
+              y: -8,
               backgroundColor: withBlur ? panelBg : "#F8FAFC",
               boxShadow:
                 withBlur
-                  ? "0px 12px 24px 0px rgba(0, 0, 0, 0.05), 0px 20px 36px -10px rgba(0, 0, 0, 0.09)"
-                  : "inset 0 0 0 1px rgba(96, 127, 192, 0.24), 0px 12px 24px 0px rgba(0, 0, 0, 0.05), 0px 20px 36px -10px rgba(0, 0, 0, 0.09)",
+                  ? "0px 18px 32px -10px rgba(0, 0, 0, 0.14), 0px 30px 52px -20px rgba(15, 23, 42, 0.18)"
+                  : "inset 0 0 0 1px rgba(96, 127, 192, 0.24), 0px 18px 32px -10px rgba(0, 0, 0, 0.14), 0px 30px 52px -20px rgba(15, 23, 42, 0.18)",
             }
       }
       transition={{ duration: 0.22, ease: "easeOut" }}

@@ -9,6 +9,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { Float } from "@/components/shared/motion/Float";
+import ctaBgImage from "../../../../new-images/bg (1).webp";
 
 const CANVAS_W = 1280;
 const CANVAS_H = 552;
@@ -35,7 +36,7 @@ function CtaDesktop() {
           style={{
             aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
             containerType: "inline-size",
-            backgroundImage: "url('/section-6/features-bg.webp')",
+            backgroundImage: `url("${ctaBgImage.src}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundColor: "#f0e8ff",
@@ -241,7 +242,7 @@ function CtaMobile() {
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: "url('/section-6/features-bg.webp')",
+        backgroundImage: `url("${ctaBgImage.src}")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundColor: "#f0e8ff",
