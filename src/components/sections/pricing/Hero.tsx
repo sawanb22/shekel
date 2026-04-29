@@ -27,6 +27,8 @@ const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
 const BUTTON_GRADIENT = `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`;
 const TEXT_GRADIENT = `linear-gradient(190.0119828008808deg, rgb(255, 255, 255) 55.625%, rgba(255, 255, 255, 0) 110.73%)`;
+const HERO_BG_OVERLAY =
+  "linear-gradient(90deg, rgba(8,12,28,0.95) 0%, rgba(5,10,24,0.78) 33%, rgba(5,10,24,0.62) 62%, rgba(5,10,24,0.88) 100%)";
 
 export default function Hero() {
   return (
@@ -42,7 +44,7 @@ export default function Hero() {
 function SectionDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block rounded-bl-[37px] rounded-br-[37px]"
+      className="relative hidden w-full overflow-x-hidden overflow-y-visible md:block rounded-bl-[37px] rounded-br-[37px]"
       style={{
         backgroundColor: colors.black,
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
@@ -59,66 +61,107 @@ function SectionDesktop() {
         }}
       >
         <div
-          className="absolute"
-          style={{ left: -19, top: -49, width: 1343, height: 211 }}
-        >
-           <Image
-              src="/section-1-pricing/ellipse-1.png"
-              alt=""
-              fill
-              className="object-cover"
-            />
-        </div>
-        <div
-          className="absolute"
-          style={{ left: -98, top: -139, width: 163, height: 163 }}
-        >
-           <Image
-              src="/section-1-pricing/ellipse-2.png"
-              alt=""
-              fill
-              className="object-cover"
-            />
-        </div>
-        <div
-          className="absolute"
-          style={{ left: 1252, top: -82, width: 163, height: 163 }}
-        >
-           <Image
-              src="/section-1-pricing/ellipse-3.png"
-              alt=""
-              fill
-              className="object-cover"
-            />
-        </div>
-        <div
+          aria-hidden
           className="absolute"
           style={{
-            left: 0,
-            top: 626,
-            width: 34,
-            height: 90,
-            background: "linear-gradient(to right, #000000, rgba(0,0,0,0))"
+            inset: 0,
+            background: HERO_BG_OVERLAY,
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        />
+
+        {/* Ellipse glows rebuilt from Figma gradients (prevents white seam lines) */}
+        <div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            left: -19,
+            top: -49,
+            width: 1343,
+            height: 211,
+            background: BUTTON_GRADIENT,
+            filter: "blur(1000px)",
+            pointerEvents: "none",
+            zIndex: 0,
           }}
         />
         <div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            left: -98,
+            top: -139,
+            width: 163,
+            height: 163,
+            background: BUTTON_GRADIENT,
+            filter: "blur(203.4px)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            left: 1252,
+            top: -82,
+            width: 163,
+            height: 163,
+            background: BUTTON_GRADIENT,
+            filter: "blur(214.7px)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
+        {/* Rocket background shape */}
+        <div
+          aria-hidden
           className="absolute"
           style={{
-            left: -270,
-            top: 0,
-            width: 625,
-            height: 716,
-            filter: "blur(4.35px)"
+            left: -360,
+            top: -48,
+            width: 760,
+            height: 820,
+            filter: "blur(8.7px)",
+            pointerEvents: "none",
+            zIndex: 2,
           }}
         >
-            <div className="absolute" style={{ left: "-46.42%", width: "203.78%", height: "100%" }}>
-              <Image
-                src="/section-1-pricing/bg-image.png"
-                alt=""
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="absolute" style={{ left: 0, top: 0, width: "100%", height: "100%" }}>
+            <Image
+              src="/section-1-pricing/bg-image.png"
+              alt=""
+              fill
+              className="object-contain"
+              sizes="1300px"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Laptop mascot foreground */}
+        <div
+          aria-hidden
+          className="absolute"
+          style={{
+            left: 8,
+            top: 45,
+            width: 470,
+            height: 560,
+            pointerEvents: "none",
+            zIndex: 20,
+          }}
+        >
+          <Image
+            src="/section-1-pricing/laptop-mascot.png"
+            alt=""
+            fill
+            className="object-contain"
+            sizes="500px"
+            priority
+          />
         </div>
 
         <div
@@ -129,6 +172,7 @@ function SectionDesktop() {
             width: 552,
             height: 60,
             transform: "translate(-50%, -50%)",
+            zIndex: 5,
           }}
         >
            <SectionHeading fontSize={64} lineHeight="60px" />
@@ -136,7 +180,7 @@ function SectionDesktop() {
 
         <div
           className="absolute flex flex-col items-center"
-          style={{ left: 546, top: 281, width: 672 }}
+          style={{ left: 546, top: 281, width: 672, zIndex: 5 }}
         >
           <div style={{ width: 570.16 }}>
             <SectionBody fontSize={18} lineHeight="28px" />
@@ -145,7 +189,7 @@ function SectionDesktop() {
 
         <div
           className="absolute flex flex-col items-start"
-          style={{ left: 762, top: 384 }}
+          style={{ left: 762, top: 384, zIndex: 30 }}
         >
           <ExploreButton />
         </div>
@@ -225,7 +269,7 @@ function SectionBody({
         color: colors.white,
       }}
     >
-      Choose how you want to use AI agents pay per run or scale with{"\n"}subscriptions.
+      Choose how you want to use AI agents  pay per run or scale with{"\n"}subscriptions.
     </p>
   );
 }
@@ -254,7 +298,7 @@ function ExploreButton({ isMobile }: { isMobile?: boolean }) {
       >
         Explore Agents
       </span>
-      <div style={{ position: "relative", width: 16, height: 16 }}>
+      <div style={{ position: "relative", width: 16, height: 16, flexShrink: 0, zIndex: 2 }}>
         <Image
           src="/section-1-pricing/icon.png"
           alt=""

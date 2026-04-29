@@ -248,7 +248,16 @@ function Card1({ mobile }: { mobile?: boolean }) {
     <div
       className={`${mobile ? "w-full" : "absolute"} flex flex-col gap-2`}
       style={{
-        ...(mobile ? {} : { left: -4.97, top: -6.57, width: 265.96, zIndex: 2 }),
+        ...(mobile
+          ? {}
+          : {
+              left: -10,
+              top: -18,
+              width: 265.96,
+              zIndex: 4,
+              transform: "rotate(-5deg)",
+              transformOrigin: "top left",
+            }),
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER}`,
         borderRadius: 20,
@@ -443,7 +452,16 @@ function Card3({ mobile }: { mobile?: boolean }) {
     <div
       className={`${mobile ? "w-full" : "absolute"} flex flex-col gap-4 items-center justify-center text-center`}
       style={{
-        ...(mobile ? {} : { left: 115.04, top: 384.22, width: 321.92, zIndex: 1 }),
+        ...(mobile
+          ? {}
+          : {
+              left: 104,
+              top: 350,
+              width: 321.92,
+              zIndex: 4,
+              transform: "rotate(-2deg)",
+              transformOrigin: "top left",
+            }),
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER}`,
         borderRadius: 20,

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { colors, typography, radiuses } from "@/tokens/design-tokens";
+import { colors, typography } from "@/tokens/design-tokens";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CtaSection.tsx  —  "Ready to scale with AI?"
@@ -10,25 +10,68 @@ import { colors, typography, radiuses } from "@/tokens/design-tokens";
 //   ≥ 768 px  →  Scaled cqw canvas (100cqw / 1280px)
 //   < 768 px  →  Stacked reflow, fluid clamp() font sizes
 //
-// LAYOUT MAP  (all coords are section-absolute Figma px):
-//   bg image      (x=-385, y=-397)  1841×1252
-//   Ellipse 43668 (x=147, y=-566)   696×696
-//   Ellipse 43670 (x=160, y=523)    696×696
-//   Ellipse 43669 (x=1147, y=-531)  696×696
-//   Design 1      (x=610.94, y=184) 663.50×665.53
-//   Design 2      (x=-92, y=128.1)  360.37×421.14
-//   Heading       (x=268, y=79)     744×72
-//   Body          (x=352, y=192)    576×56
-//   Buttons       (x=419, y=291)    458.49×62
+// LAYOUT MAP  (Figma 506:4925, section-absolute px):
+//   bg            (x=-385, y=-397)  1841×1252
+//   Ellipses      (-549,-566) (-536,523) (1147,-531) 696×696
+//   Design A      (x=264, y=184) 663.5×665.5  rot 43.72°
+//   Design B      (x=898.67, y=165) 463.8×474.5  rot 35.54°  blur
+//   Design C      (x=-92, y=105) 360.4×421.1  rot -3.97°  blur
+//   Heading       calc(50% - 372px) top 115  (744 wide, translateY -50%)
+//   Body          (50% x), top 192
+//   Buttons       calc(50% + 8.24px) top 291
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CANVAS_W = 1280;
 const CANVAS_H = 552;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
-const BUTTON_GRADIENT = `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`;
 const TEXT_GRADIENT = `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`;
 const BORDER_GRADIENT = `linear-gradient(188.63061178185168deg, rgb(40, 100, 228) 35.408%, rgb(30, 154, 255) 67.174%, rgb(198, 248, 255) 151.22%)`;
+
+function CtaEllipse({
+  left,
+  top,
+  flip,
+  useEllipse2,
+}: {
+  left: number;
+  top: number;
+  flip?: boolean;
+  useEllipse2?: boolean;
+}) {
+  const src = useEllipse2
+    ? "/section-5-pricing/ellipse-2.png"
+    : "/section-5-pricing/ellipse-1.png";
+  return (
+    <div
+      aria-hidden
+      className="absolute z-0 flex items-center justify-center"
+      style={{
+        left,
+        top,
+        width: 696,
+        height: 696,
+        transform: flip ? "scaleY(-1) rotate(180deg)" : undefined,
+        pointerEvents: "none",
+      }}
+    >
+      <div className="relative h-[696px] w-[696px] overflow-hidden">
+        <div
+          className="absolute"
+          style={{ left: "-37%", top: "-37%", width: "174%", height: "174%" }}
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="800px"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function CtaSection() {
   return (
@@ -44,12 +87,11 @@ export default function CtaSection() {
 function SectionDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block rounded-[24px] mx-auto"
+      className="relative hidden w-full overflow-hidden md:block rounded-[24px]"
       style={{
-        backgroundColor: colors.black,
+        backgroundColor: colors.white,
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        maxWidth: 1280
       }}
     >
       <div
@@ -62,7 +104,7 @@ function SectionDesktop() {
         }}
       >
         <div
-          className="absolute"
+          className="absolute z-0"
           style={{ left: -385, top: -397, width: 1841, height: 1252 }}
         >
           <Image
@@ -70,88 +112,135 @@ function SectionDesktop() {
             alt=""
             fill
             className="object-cover"
+            sizes="1900px"
           />
         </div>
 
+        {/* Ellipses — Figma 506:4925 */}
+        <CtaEllipse
+          left={-549}
+          top={-566}
+          flip
+        />
+        <CtaEllipse
+          left={-536}
+          top={523}
+          flip
+        />
+        <CtaEllipse
+          left={1147}
+          top={-531}
+          useEllipse2
+        />
+
+        {/* Design decors (below copy in stack order, z-1) */}
         <div
-          className="absolute"
-          style={{ left: 147, top: -566, width: 696, height: 696, transform: "scaleY(-1) rotate(180deg)" }}
+          aria-hidden
+          className="absolute z-[1] flex items-center justify-center"
+          style={{ left: 264, top: 184, width: 663.501, height: 665.527, transform: "rotate(43.72deg)" }}
         >
-          <Image
-            src="/section-5-pricing/ellipse-1.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
+          <div className="relative overflow-hidden" style={{ width: 438, height: 502 }}>
+            <div
+              className="absolute"
+              style={{ left: "-46.42%", top: 0, width: "203.78%", height: "100%" }}
+            >
+              <Image
+                src="/section-5-pricing/design-1.png"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="800px"
+              />
+            </div>
+          </div>
         </div>
 
         <div
-          className="absolute"
-          style={{ left: 160, top: 523, width: 696, height: 696, transform: "scaleY(-1) rotate(180deg)" }}
+          aria-hidden
+          className="absolute z-[1] flex items-center justify-center"
+          style={{
+            left: 898.67,
+            top: 165,
+            width: 463.807,
+            height: 474.461,
+            transform: "rotate(35.54deg)",
+            filter: "blur(6.2px)",
+          }}
         >
-           <Image
-            src="/section-5-pricing/ellipse-1.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
+          <div className="relative overflow-hidden" style={{ width: 313.382, height: 359.22 }}>
+            <div
+              className="absolute"
+              style={{ left: "-46.42%", top: 0, width: "203.78%", height: "100%" }}
+            >
+              <Image
+                src="/section-5-pricing/design-1.png"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="400px"
+              />
+            </div>
+          </div>
         </div>
 
         <div
-          className="absolute"
-          style={{ left: 1147, top: -531, width: 696, height: 696 }}
+          aria-hidden
+          className="absolute z-[1] flex items-center justify-center"
+          style={{
+            left: -92,
+            top: 105,
+            width: 360.375,
+            height: 421.136,
+            transform: "rotate(-3.97deg)",
+            filter: "blur(4.4px)",
+          }}
         >
-          <Image
-            src="/section-5-pricing/ellipse-2.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
+          <div className="relative overflow-hidden" style={{ width: 333.54, height: 398.992 }}>
+            <div
+              className="absolute"
+              style={{ left: "-73.82%", top: "-9.34%", width: "248.85%", height: "117.01%" }}
+            >
+              <Image
+                src="/section-5-pricing/design-2.png"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="500px"
+              />
+            </div>
+          </div>
         </div>
 
         <div
-          className="absolute"
-          style={{ left: 610.94, top: 184, width: 663.50, height: 665.53, transform: "rotate(43.72deg)" }}
-        >
-           <Image
-            src="/section-5-pricing/design-1.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          className="absolute"
-          style={{ left: -92, top: 128.1, width: 360.37, height: 421.14, transform: "rotate(-3.97deg)", filter: "blur(4.4px)" }}
-        >
-           <Image
-            src="/section-5-pricing/design-2.png"
-            alt=""
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          className="absolute flex flex-col justify-center text-center whitespace-nowrap"
-          style={{ left: 268, top: 79, width: 744, height: 72 }}
+          className="absolute z-10 flex flex-col justify-center text-center"
+          style={{
+            left: "calc(50% - 372px)",
+            top: 115,
+            width: 744,
+            height: 72,
+            transform: "translateY(-50%)",
+          }}
         >
           <SectionHeading fontSize={72} lineHeight="72px" />
         </div>
 
         <div
-          className="absolute flex flex-col items-center"
-          style={{ left: 352, top: 192, width: 576, height: 56 }}
+          className="absolute z-10 flex flex-col items-center"
+          style={{ left: "50%", top: 192, width: 576, height: 56, transform: "translateX(-50%)" }}
         >
           <div style={{ width: 561.64 }}>
-             <SectionBody fontSize={18} lineHeight="28px" />
+            <SectionBody fontSize={18} lineHeight="28px" />
           </div>
         </div>
 
         <div
-          className="absolute flex items-center justify-center gap-[16px]"
-          style={{ left: 419, top: 291, width: 458.49, height: 62 }}
+          className="absolute z-10 flex items-center"
+          style={{
+            left: "50%",
+            top: 291,
+            gap: 16,
+            transform: "translateX(-50%)",
+          }}
         >
           <PrimaryButton text="Explore Agents" />
           <SecondaryButton text="Start Building" />
@@ -167,7 +256,7 @@ function SectionMobile() {
   return (
     <section
       className="relative block w-full overflow-hidden md:hidden rounded-[24px] py-16"
-      style={{ backgroundColor: colors.black }}
+      style={{ backgroundColor: colors.white }}
     >
        <div
           className="absolute"

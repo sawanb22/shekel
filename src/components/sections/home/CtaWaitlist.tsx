@@ -226,6 +226,7 @@ function WaitlistForm() {
             : {
                 scale: 1.03,
                 boxShadow: "0 12px 28px -6px rgba(40, 100, 228, 0.65)",
+                filter: "brightness(1.15)",
               }
         }
         whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
@@ -375,7 +376,7 @@ function MobileWaitlistForm() {
           fontSize: 16,
           boxShadow: "0 10px 20px -8px rgba(40, 100, 228, 0.5)",
         }}
-        whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+        whileHover={prefersReducedMotion ? undefined : { scale: 1.03, filter: "brightness(1.15)" }}
         whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
       >
         Join Waitlist

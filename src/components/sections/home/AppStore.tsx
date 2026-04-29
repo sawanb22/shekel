@@ -103,7 +103,7 @@ export default function AppStore() {
                 {/* "Explore Marketplace →" link-button */}
                 <a
                   href="#"
-                  className="group inline-flex items-center gap-2 pt-4 font-sans font-semibold text-[16px] leading-[24px] transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]"
+                  className="group inline-flex items-center gap-2 pt-4 font-sans font-semibold text-[16px] leading-[24px] transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))_brightness(1.15)]"
                 >
                   <span
                     className="bg-clip-text text-transparent"

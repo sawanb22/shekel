@@ -11,9 +11,9 @@ import { colors, typography, radiuses } from "@/tokens/design-tokens";
 //   < 768 px  →  Stacked reflow, fluid clamp() font sizes
 //
 // LAYOUT MAP  (all coords are section-absolute Figma px):
-//   Starter Plan   (x=0, y=12)   389.33×452
-//   Pro Plan       (x=842.67, y=16)   389.33×444
-//   Pay-as-you-go Plan (Highlighted) (x=421.33, y=9.5) 401.01×456.98 (Scaled)
+//   Starter Plan   (x=0, y=32)   389.33×452
+//   Pro Plan       (x=842.67, y=36)   389.33×444
+//   Pay-as-you-go Plan (Highlighted) (x=421.33, y=29.5) 401.01×456.98 (Scaled)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CANVAS_W = 1232;
@@ -23,7 +23,7 @@ const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 const CARD_BORDER = "#e2e8f0";
 const BLUE_TEXT = "#005ab6";
 const TEXT_MUTED = "#414753";
-const CARD_SHADOW = "0px 1px 2px 0px rgba(0,0,0,0.05)";
+const CARD_SHADOW = "0px 1px 1px 0px rgba(0,0,0,0.05)";
 const HIGHLIGHT_SHADOW = "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 8px 10px -6px rgba(0,0,0,0.1)";
 const BLUE_GRADIENT = `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`;
 
@@ -61,38 +61,39 @@ export default function PricingGrid() {
 function SectionDesktop() {
   return (
     <section
-      className="relative hidden w-full overflow-hidden md:block"
+      className="relative hidden w-full md:block"
       style={{
-        backgroundColor: colors.black,
-        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
+        backgroundColor: "transparent",
+        aspectRatio: `${CANVAS_W} / ${CANVAS_H + 40}`,
         containerType: "inline-size",
       }}
     >
       <div
         className="absolute left-0 top-0 w-full"
         style={{
-          height: CANVAS_H,
+          height: CANVAS_H + 40,
         }}
       >
         <div
           className="absolute"
           style={{
             width: CANVAS_W,
-            height: CANVAS_H,
+            height: CANVAS_H + 40,
             transform: `scale(${SCALE})`,
             transformOrigin: "top left",
           }}
         >
-          <div className="grid grid-cols-3 gap-x-[32px] w-full h-full items-center">
-            {/* Starter Plan */}
-            <div
-              className="flex flex-col bg-white w-[389.33px] relative rounded-[12px]"
-              style={{
-                padding: 33,
-                border: `1px solid ${CARD_BORDER}`,
-                boxShadow: CARD_SHADOW,
-              }}
-            >
+          {/* Starter Plan — Figma x=0, y=12 */}
+          <div
+            className="absolute flex flex-col bg-white w-[389.33px] rounded-[12px]"
+            style={{
+              left: 0,
+              top: 32,
+              padding: 33,
+              border: `1px solid ${CARD_BORDER}`,
+              boxShadow: CARD_SHADOW,
+            }}
+          >
                <PlanHeader
                   title="Starter"
                   description="Ideal for individuals testing the waters."
@@ -103,10 +104,13 @@ function SectionDesktop() {
                   <FeatureList features={STARTER_FEATURES} />
                 </div>
                 <SecondaryButton text="Start Free" />
-            </div>
+          </div>
 
-            {/* Pay-as-you-go Plan (Highlighted) */}
-            <div className="flex h-[456.981px] items-center justify-center relative shrink-0 w-[401.01px]">
+          {/* Pay-as-you-go Plan — Figma x=421.33, y=9.5 */}
+          <div
+            className="absolute flex h-[456.981px] items-center justify-center w-[401.01px]"
+            style={{ left: 421.33, top: 29.5 }}
+          >
               <div className="flex-none" style={{ transform: "scale(1.03)" }}>
                 <div
                   className="bg-white relative overflow-hidden flex flex-col w-[389.33px]"
@@ -157,17 +161,19 @@ function SectionDesktop() {
                     <PrimaryButton text="Run Agent" />
                 </div>
               </div>
-            </div>
+          </div>
 
-            {/* Pro Plan */}
-            <div
-              className="flex flex-col bg-white w-[389.33px] relative rounded-[12px]"
-              style={{
-                padding: 33,
-                border: `1px solid ${CARD_BORDER}`,
-                boxShadow: CARD_SHADOW,
-              }}
-            >
+          {/* Pro Plan — Figma x=842.67, y=16 */}
+          <div
+            className="absolute flex flex-col bg-white w-[389.33px] rounded-[12px]"
+            style={{
+              left: 842.67,
+              top: 36,
+              padding: 33,
+              border: `1px solid ${CARD_BORDER}`,
+              boxShadow: CARD_SHADOW,
+            }}
+          >
                 <PlanHeader
                   title="Pro"
                   description="Complete solution for growing teams."
@@ -178,7 +184,6 @@ function SectionDesktop() {
                   <FeatureList features={PRO_FEATURES} />
                 </div>
                 <SecondaryButton text="Go Pro" />
-            </div>
           </div>
         </div>
       </div>
@@ -192,7 +197,7 @@ function SectionMobile() {
   return (
     <section
       className="relative block w-full overflow-hidden md:hidden pb-16"
-      style={{ backgroundColor: colors.black }}
+      style={{ backgroundColor: "transparent" }}
     >
       <div className="flex flex-col gap-6 px-6 sm:px-8">
         

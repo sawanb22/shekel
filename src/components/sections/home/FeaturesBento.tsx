@@ -72,7 +72,7 @@ function FeaturesBentoDesktop() {
               <p style={{ ...bodyStyle, width: 384 }}>
                 The world&apos;s largest repository of fine-tuned, task-specific autonomous agents ready for work.
               </p>
-              <a href="#" className="group mt-2 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]">
+              <a href="#" className="group mt-2 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))_brightness(1.15)]">
                 <span style={exploreLinkStyle}>Explore Marketplace</span>
                 <Image
                   src="/section-6/icon-arrow.svg"
@@ -358,7 +358,7 @@ function MobileCard({
       <h3 style={large ? h3Style : h4Style}>{title}</h3>
       <p style={large ? bodyStyle : smallBodyStyle}>{body}</p>
       {cta ? (
-        <a href="#" className="group mt-1 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))]">
+        <a href="#" className="group mt-1 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))_brightness(1.15)]">
           <span style={exploreLinkStyle}>{cta}</span>
           <Image
             src="/section-6/icon-arrow.svg"

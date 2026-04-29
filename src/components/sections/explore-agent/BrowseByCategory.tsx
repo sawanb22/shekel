@@ -1,19 +1,19 @@
 import Image from "next/image";
-import { colors, typography } from "@/tokens/design-tokens";
+import { typography, radiuses } from "@/tokens/design-tokens";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BrowseByCategory.tsx  —  "Browse by category"
 // Figma frame: 506:3784  "Section - Category Grid"
-// Canvas: 1280 × 124 px   Page-y: ...   bg: transparent
+// Canvas: 1280 × 228 px   Page-y: ...   bg: transparent
 //
 // Responsive strategy:
 //   ≥ 768 px  →  Scaled cqw canvas  (100cqw / 1280px)
 //   < 768 px  →  Stacked reflow, fluid clamp() font sizes
 //
 // LAYOUT MAP  (all coords are section-absolute Figma px):
-//   Heading (0, 0) 1280 wide row
+//   Heading (x=32, y=0) 1216 wide row
 //     Heading 2 "Browse by category"
-//   Categories Row (0, 84) 1280 wide row, 6 items
+//   Categories Row (x=32, y=84) 1216 wide row, 6 cards
 //     Link "Marketing"
 //     Link "Design"
 //     Link "Development"
@@ -23,19 +23,19 @@ import { colors, typography } from "@/tokens/design-tokens";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CANVAS_W = 1280;
-const CANVAS_H = 172; // Adjusted height based on gap 48px + heading 36px + cards 88px
+const CANVAS_H = 228;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 
 const CATEGORY_BG = "#F2F4F7";
 const TEXT_DARK = "#191C1E";
 
 const CATEGORIES = [
-  { name: "Marketing", icon: "icon-marketing.svg", width: 78.39, iconW: 30, iconH: 24 },
-  { name: "Design", icon: "icon-design.svg", width: 53.8, iconW: 30, iconH: 30 },
-  { name: "Development", icon: "icon-development.svg", width: 102.5, iconW: 30, iconH: 18 },
-  { name: "Finance", icon: "icon-finance.svg", width: 61.14, iconW: 30, iconH: 24 },
-  { name: "Legal", icon: "icon-legal.svg", width: 41.89, iconW: 27, iconH: 28.5 },
-  { name: "Automation", icon: "icon-automation.svg", width: 89.64, iconW: 33, iconH: 33 },
+  { name: "Marketing", icon: "icon-marketing.svg", iconW: 30, iconH: 24 },
+  { name: "Design", icon: "icon-design.svg", iconW: 30, iconH: 30 },
+  { name: "Development", icon: "icon-development.svg", iconW: 30, iconH: 18 },
+  { name: "Finance", icon: "icon-finance.svg", iconW: 30, iconH: 30 },
+  { name: "Legal", icon: "icon-legal.svg", iconW: 27, iconH: 28.5 },
+  { name: "Automation", icon: "icon-automation.svg", iconW: 33, iconH: 33 },
 ];
 
 export default function BrowseByCategory() {
@@ -72,15 +72,15 @@ function SectionDesktop() {
       >
         <div
           className="absolute flex flex-col"
-          style={{ left: 0, top: 0, width: 1280, gap: 48, padding: "0 32px" }}
+          style={{ left: 32, top: 0, width: 1216, gap: 48 }}
         >
           {/* Header */}
           <SectionHeading fontSize={30} lineHeight="36px" />
 
           {/* Categories Grid/Row */}
-          <div className="flex flex-row justify-between w-full">
-            {CATEGORIES.map((cat, index) => (
-              <CategoryLink key={cat.name} category={cat} index={index} />
+          <div className="grid w-full grid-cols-6 gap-6">
+            {CATEGORIES.map((cat) => (
+              <CategoryLink key={cat.name} category={cat} />
             ))}
           </div>
         </div>
@@ -97,9 +97,9 @@ function SectionMobile() {
       <div className="flex flex-col gap-6 px-6 py-12">
         <SectionHeading fontSize="clamp(24px, 6vw, 30px)" lineHeight="1.2" />
 
-        <div className="flex flex-col gap-4">
-          {CATEGORIES.map((cat, index) => (
-            <CategoryLink key={cat.name} category={cat} index={index} mobile />
+        <div className="grid grid-cols-2 gap-4">
+          {CATEGORIES.map((cat) => (
+            <CategoryLink key={cat.name} category={cat} mobile />
           ))}
         </div>
       </div>
@@ -127,19 +127,22 @@ function SectionHeading({ fontSize, lineHeight }: { fontSize: number | string; l
   );
 }
 
-function CategoryLink({ category, index, mobile = false }: { category: any; index: number; mobile?: boolean }) {
+function CategoryLink({
+  category,
+  mobile = false,
+}: {
+  category: { name: string; icon: string; iconW: number; iconH: number };
+  mobile?: boolean;
+}) {
   return (
-    <a
-      href="#"
-      className="flex flex-col items-center justify-center transition-transform hover:scale-105"
+    <div
+      className="flex flex-col items-center justify-center"
       style={{
         background: CATEGORY_BG,
-        borderRadius: 24,
+        borderRadius: radiuses.card,
         padding: mobile ? "24px 16px" : 32,
         gap: 16,
-        width: mobile ? "100%" : "auto", // Removed fixed width distribution constraint on mobile
-        flex: mobile ? "none" : 1,
-        marginLeft: mobile ? 0 : index === 0 ? 0 : 16, // Adds gap between items on desktop
+        minHeight: 144,
       }}
     >
       <div className="flex items-center justify-center" style={{ height: 33 }}>
@@ -163,6 +166,6 @@ function CategoryLink({ category, index, mobile = false }: { category: any; inde
       >
         {category.name}
       </span>
-    </a>
+    </div>
   );
 }

@@ -1,0 +1,469 @@
+{
+  "canvas": {
+    "width": 1280,
+    "height": 466,
+    "background": [
+      "#FFFFFF"
+    ]
+  },
+  "hierarchy": {
+    "name": "Frame 2147225669",
+    "type": "FRAME",
+    "x": 0,
+    "y": 783,
+    "width": 1280,
+    "height": 466,
+    "fills": [
+      "#FFFFFF"
+    ],
+    "borderRadius": "0px 0px 33px 33px",
+    "children": [
+      {
+        "name": "Ellipse 43664",
+        "type": "ELLIPSE",
+        "x": -688,
+        "y": 929,
+        "width": 696,
+        "height": 696,
+        "fills": [
+          {
+            "type": "GRADIENT_LINEAR",
+            "gradient": "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)"
+          }
+        ],
+        "effects": {
+          "filter": "blur(257.5px)"
+        }
+      },
+      {
+        "name": "Ellipse 43665",
+        "type": "ELLIPSE",
+        "x": 1270,
+        "y": 931,
+        "width": 696,
+        "height": 696,
+        "fills": [
+          {
+            "type": "GRADIENT_LINEAR",
+            "gradient": "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)"
+          }
+        ],
+        "effects": {
+          "filter": "blur(203.39999389648438px)"
+        }
+      },
+      {
+        "name": "Ellipse 43664",
+        "type": "ELLIPSE",
+        "x": -187,
+        "y": 1761,
+        "width": 1647,
+        "height": 163,
+        "fills": [
+          {
+            "type": "GRADIENT_LINEAR",
+            "gradient": "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)"
+          }
+        ],
+        "effects": {
+          "filter": "blur(203.39999389648438px)"
+        }
+      },
+      {
+        "name": "Ellipse 43666",
+        "type": "ELLIPSE",
+        "x": -187,
+        "y": 621,
+        "width": 1647,
+        "height": 163,
+        "fills": [
+          {
+            "type": "GRADIENT_LINEAR",
+            "gradient": "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)"
+          }
+        ],
+        "effects": {
+          "filter": "blur(203.39999389648438px)"
+        }
+      },
+      {
+        "name": "Section 2: Contact Methods",
+        "type": "FRAME",
+        "x": 34,
+        "y": 899,
+        "width": 1216,
+        "children": [
+          {
+            "name": "Card 1: WhatsApp",
+            "type": "FRAME",
+            "x": 34,
+            "y": 899,
+            "width": "auto",
+            "height": "auto",
+            "fills": [
+              "rgba(255, 255, 255, 0.03)"
+            ],
+            "strokes": [
+              "rgba(0, 0, 0, 0.08)"
+            ],
+            "effects": {
+              "backdropFilter": "blur(10px)"
+            },
+            "borderRadius": "24px",
+            "strokeWeight": "1px",
+            "children": [
+              {
+                "name": "Overlay",
+                "type": "IMAGE-SVG",
+                "x": 34,
+                "y": 899,
+                "width": 48,
+                "height": 48,
+                "fills": [
+                  "rgba(47, 128, 237, 0.1)"
+                ],
+                "borderRadius": "16px"
+              },
+              {
+                "name": "Heading 3",
+                "type": "FRAME",
+                "x": 34,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "WhatsApp",
+                    "type": "TEXT",
+                    "x": 34,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#000000"
+                    ],
+                    "text": "WhatsApp",
+                    "fontFamily": "Poppins",
+                    "fontSize": 20,
+                    "fontWeight": 500,
+                    "lineHeight": "28px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Container",
+                "type": "FRAME",
+                "x": 34,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Immediate support via encrypted chat.",
+                    "type": "TEXT",
+                    "x": 34,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#A1A1AA"
+                    ],
+                    "text": "Immediate support via encrypted chat.",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 400,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Link",
+                "type": "FRAME",
+                "x": 34,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Text",
+                    "type": "TEXT",
+                    "x": 34,
+                    "y": 899,
+                    "width": 78.08,
+                    "height": 24,
+                    "fills": [
+                      "#2F80ED"
+                    ],
+                    "text": "Start Chat",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 600,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  },
+                  {
+                    "name": "Container",
+                    "type": "IMAGE-SVG",
+                    "x": 34,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Card 2: Email",
+            "type": "FRAME",
+            "x": 450,
+            "y": 899,
+            "width": "auto",
+            "height": "auto",
+            "fills": [
+              "rgba(255, 255, 255, 0.03)"
+            ],
+            "strokes": [
+              "rgba(0, 0, 0, 0.08)"
+            ],
+            "borderRadius": "24px",
+            "strokeWeight": "1px",
+            "children": [
+              {
+                "name": "Overlay",
+                "type": "IMAGE-SVG",
+                "x": 450,
+                "y": 899,
+                "width": 48,
+                "height": 48,
+                "fills": [
+                  "rgba(86, 204, 242, 0.1)"
+                ],
+                "borderRadius": "16px"
+              },
+              {
+                "name": "Heading 3",
+                "type": "FRAME",
+                "x": 450,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Email",
+                    "type": "TEXT",
+                    "x": 450,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#000000"
+                    ],
+                    "text": "Email",
+                    "fontFamily": "Poppins",
+                    "fontSize": 20,
+                    "fontWeight": 500,
+                    "lineHeight": "28px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Container",
+                "type": "FRAME",
+                "x": 450,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Detailed inquiries and technical help.",
+                    "type": "TEXT",
+                    "x": 450,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#A1A1AA"
+                    ],
+                    "text": "Detailed inquiries and technical help.",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 400,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Link",
+                "type": "FRAME",
+                "x": 450,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Text",
+                    "type": "TEXT",
+                    "x": 450,
+                    "y": 899,
+                    "width": 145.5,
+                    "height": 24,
+                    "fills": [
+                      "#2F80ED"
+                    ],
+                    "text": "support@shekel.ai",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 600,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  },
+                  {
+                    "name": "Container",
+                    "type": "IMAGE-SVG",
+                    "x": 450,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Card 3: Social Media",
+            "type": "FRAME",
+            "x": 866,
+            "y": 899,
+            "width": "auto",
+            "height": "auto",
+            "fills": [
+              "rgba(255, 255, 255, 0.03)"
+            ],
+            "strokes": [
+              "rgba(0, 0, 0, 0.08)"
+            ],
+            "borderRadius": "24px",
+            "strokeWeight": "1px",
+            "children": [
+              {
+                "name": "Overlay",
+                "type": "IMAGE-SVG",
+                "x": 866,
+                "y": 899,
+                "width": 48,
+                "height": 48,
+                "fills": [
+                  "#E8F1FE"
+                ],
+                "borderRadius": "16px"
+              },
+              {
+                "name": "Heading 3",
+                "type": "FRAME",
+                "x": 866,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Social Media",
+                    "type": "TEXT",
+                    "x": 866,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#000000"
+                    ],
+                    "text": "Social Media",
+                    "fontFamily": "Poppins",
+                    "fontSize": 20,
+                    "fontWeight": 500,
+                    "lineHeight": "28px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Container",
+                "type": "FRAME",
+                "x": 866,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Follow our updates and news.",
+                    "type": "TEXT",
+                    "x": 866,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto",
+                    "fills": [
+                      "#A1A1AA"
+                    ],
+                    "text": "Follow our updates and news.",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 400,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  }
+                ]
+              },
+              {
+                "name": "Link",
+                "type": "FRAME",
+                "x": 866,
+                "y": 899,
+                "width": "auto",
+                "height": "auto",
+                "children": [
+                  {
+                    "name": "Text",
+                    "type": "TEXT",
+                    "x": 866,
+                    "y": 899,
+                    "width": 101.52,
+                    "height": 24,
+                    "fills": [
+                      "#2F80ED"
+                    ],
+                    "text": "View Profiles",
+                    "fontFamily": "Inter",
+                    "fontSize": 16,
+                    "fontWeight": 600,
+                    "lineHeight": "24px",
+                    "textAlignHorizontal": "LEFT",
+                    "textAlignVertical": "CENTER"
+                  },
+                  {
+                    "name": "Container",
+                    "type": "IMAGE-SVG",
+                    "x": 866,
+                    "y": 899,
+                    "width": "auto",
+                    "height": "auto"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

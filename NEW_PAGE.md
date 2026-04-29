@@ -13,7 +13,6 @@ Do not skip steps. Do not ask for confirmation between sections.
 ## STEP A — Load Context (do this before anything else)
 
 Read these files in this exact order:
-
 1. `CLAUDE.md` — master rules, what is already built, token reference
 2. `PROGRESS.md` — what pages and sections are done, current known issues
 3. `src/tokens/design-tokens.ts` — full token list
@@ -27,11 +26,11 @@ Do not proceed to Step B until all five files are read and understood.
 ## STEP B — Page Details
 
 ```
-Page name (display):      [e.g. About]
-Route:                    src/app/[page-name]/page.tsx
-Component folder:         src/components/sections/[page-name]/
-Asset folder pattern:     public/section-[N]-[page-name]/   ← N restarts from 1
-Figma file key:           [paste file key from Figma URL]
+Page name (display):      [workflows]
+Route:                    src/app/workflows/page.tsx
+Component folder:         src/components/sections/workflows/
+Asset folder pattern:     public/section-[N]-workflows/   ← N restarts from 1
+Figma file key:           Yj9hI04koEndwwwkRN6g29
 ```
 
 ---
@@ -39,14 +38,25 @@ Figma file key:           [paste file key from Figma URL]
 ## STEP C — Section Frame IDs (Figma y-order, top → bottom)
 
 ```
-Section 1:  [paste node ID e.g. 500:12345]
-Section 2:  [paste node ID]
-Section 3:  [paste node ID]
-Section 4:  [paste node ID]
-Section 5:  [paste node ID]
-Section 6:  [paste node ID]
-Section 7:  [paste node ID]
-Section 8:  [paste node ID]
+section 1 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-5657&m=dev
+
+section 2 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-5917&m=dev
+
+section 3 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-5787&m=dev
+
+section 4 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-5942&m=dev
+
+section 5 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-6025&m=dev
+
+section 6 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-6051&m=dev
+
+section 7 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-6187&m=dev
+
+section 8 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-6082&m=dev
+
+section 9 https://www.figma.com/design/Yj9hI04koEndwwwkRN6g29/Shekel--Copy-?node-id=507-6214&m=dev
+
+
 ```
 
 Add or remove lines as needed. Order must match Figma top-to-bottom.
@@ -80,7 +90,6 @@ export default function [PageName]Page() {
 ```
 
 Also create the empty component folder:
-
 ```
 src/components/sections/[page-name]/
 ```
@@ -92,7 +101,6 @@ Confirm both exist before starting the section loop.
 ## STEP E — Section Reuse Check
 
 Before building any section, scan these folders for a visually identical component:
-
 - `src/components/sections/home/`
 - `src/components/sections/marketplace/`
 
@@ -127,7 +135,6 @@ Step 11 → Immediately begin next section — no pause, no user prompt
 ```
 
 Only stop the loop if:
-
 - Asset is unresolvable after all attempts → log `[!]`, continue
 - Discrepancy unfixable after 3 attempts → log `[!]`, continue
 - You see the words "STOP HERE" in this file
@@ -160,4 +167,3 @@ Send one message with:
 - Never create public/images/ subfolders
 - Never touch: Header.tsx, Footer.tsx, layout.tsx, home sections, marketplace sections
 - Never mark `[x]` without browser agent screenshot confirmation at all three viewports
-

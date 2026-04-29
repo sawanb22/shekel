@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { colors, typography, radiuses } from "@/tokens/design-tokens";
+import { colors, typography } from "@/tokens/design-tokens";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MainAgentGrid.tsx  —  "All Agents"
@@ -25,19 +25,21 @@ import { colors, typography, radiuses } from "@/tokens/design-tokens";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CANVAS_W = 1280;
-const CANVAS_H = 1241;
+const CANVAS_H = 980;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
+const SECTION_INSET = 32;
+const SECTION_CONTENT_W = CANVAS_W - SECTION_INSET * 2;
+const LOAD_MORE_TOP = 720;
 
 const BUTTON_GRADIENT = "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)";
 const TEXT_DARK = "#191C1E";
 const TEXT_MUTED = "#414753";
-const TEXT_LIGHT_MUTED = "#94A3B8";
 const CARD_BG = "#FFFFFF";
 const CARD_BORDER = "#F8FAFC";
-const CARD_SHADOW = "0px 1px 2px 0px rgba(0, 0, 0, 0.05)";
+const CARD_SHADOW = "0px 1px 1px 0px rgba(0, 0, 0, 0.05)";
 const ICON_BG = "#ECEEF1";
-const BADGE_TEXT = "#000000";
 const BTN_DETAILS_BG = "#F2F4F7";
+const TEXT_BLUE_GRADIENT = "linear-gradient(180deg, #2864E4 0%, #ECF2FF 100%)";
 
 const AGENTS = [
   {
@@ -133,24 +135,25 @@ function SectionDesktop() {
           width: CANVAS_W,
           height: CANVAS_H,
           transform: `scale(${SCALE})`,
-          transformOrigin: "top left",
+          transformOrigin: "top center",
           left: "50%",
           marginLeft: `calc(-${CANVAS_W}px / 2)`,
-          padding: "0 32px",
         }}
       >
-        <div className="absolute" style={{ left: 32, top: 0 }}>
+        <div className="absolute" style={{ left: SECTION_INSET, top: 0 }}>
           <SectionHeading fontSize={30} lineHeight="36px" />
         </div>
 
         <div
-          className="absolute grid"
+          className="absolute"
           style={{
-            left: 32,
+            left: SECTION_INSET,
             top: 84,
-            width: 1216, // 1280 - 64 padding
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 24,
+            width: SECTION_CONTENT_W,
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 280px)",
+            columnGap: 32,
+            rowGap: 32,
           }}
         >
           {AGENTS.map((agent, index) => (
@@ -158,7 +161,10 @@ function SectionDesktop() {
           ))}
         </div>
 
-        <div className="absolute flex items-center justify-center w-full" style={{ left: 0, top: 1193 }}>
+        <div
+          className="absolute flex items-center justify-center"
+          style={{ left: SECTION_INSET, top: LOAD_MORE_TOP, width: SECTION_CONTENT_W }}
+        >
           <button
             className="flex items-center justify-center"
             style={{
@@ -246,7 +252,30 @@ function SectionHeading({ fontSize, lineHeight }: { fontSize: number | string; l
   );
 }
 
-function AgentCard({ agent, mobile = false }: { agent: any; mobile?: boolean }) {
+function AgentCard({
+  agent,
+  mobile = false,
+}: {
+  agent: {
+    title: string;
+    desc: string;
+    rating: string;
+    runs: string;
+    price: string;
+    icon: string;
+  };
+  mobile?: boolean;
+}) {
+  const iconSizeMap: Record<string, { width: number; height: number }> = {
+    "icon-data-harvester.svg": { width: 18, height: 18 },
+    "icon-lingo-master.svg": { width: 22.1, height: 20 },
+    "icon-sentinal-shield.svg": { width: 16, height: 20 },
+    "icon-inbox-manager.svg": { width: 20, height: 16 },
+    "icon-trend-forecaster.svg": { width: 18, height: 18 },
+    "icon-legal-summarizer.svg": { width: 19.5, height: 16 },
+  };
+  const iconSize = iconSizeMap[agent.icon] ?? { width: 18, height: 18 };
+
   return (
     <div
       className="flex flex-col relative"
@@ -254,20 +283,21 @@ function AgentCard({ agent, mobile = false }: { agent: any; mobile?: boolean }) 
         background: CARD_BG,
         border: `1px solid ${CARD_BORDER}`,
         borderRadius: 24,
-        padding: 24,
+        padding: 25,
         boxShadow: CARD_SHADOW,
-        gap: 24,
+        gap: 0,
         width: mobile ? "100%" : 280,
+        ...(mobile ? {} : { height: 278 }),
       }}
     >
-      <div className="flex flex-row items-center gap-4 w-full">
+      <div className="flex flex-row items-start gap-4 w-full pb-6">
         <div
           className="flex items-center justify-center"
           style={{ width: 56, height: 56, background: ICON_BG, borderRadius: 16 }}
         >
-          <Image src={`/section-5-explore-agent/${agent.icon}`} alt="" width={18} height={18} />
+          <Image src={`/section-5-explore-agent/${agent.icon}`} alt="" width={iconSize.width} height={iconSize.height} />
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0">
           <h4
             className="m-0"
             style={{
@@ -288,7 +318,10 @@ function AgentCard({ agent, mobile = false }: { agent: any; mobile?: boolean }) 
                 fontWeight: 600,
                 fontSize: 12,
                 lineHeight: "16px",
-                color: BADGE_TEXT,
+                background: TEXT_BLUE_GRADIENT,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
               }}
             >
               {agent.rating}
@@ -306,26 +339,27 @@ function AgentCard({ agent, mobile = false }: { agent: any; mobile?: boolean }) 
           lineHeight: "20px",
           color: TEXT_MUTED,
           minHeight: mobile ? "auto" : 40,
+          paddingBottom: 24,
         }}
       >
         {agent.desc.replace(/\\n/g, '\n')}
       </p>
 
       <div className="flex flex-row justify-between items-center w-full">
-        <div className="flex flex-row items-center gap-1">
-          <Image src="/section-5-explore-agent/icon-runs.svg" alt="" width={16} height={16} />
-          <span
-            style={{
-              fontFamily: typography.fonts.inter,
-              fontWeight: 500,
-              fontSize: 12,
-              lineHeight: "16px",
-              color: TEXT_DARK,
-            }}
-          >
-            {agent.runs}
-          </span>
-        </div>
+        <span
+          style={{
+            fontFamily: typography.fonts.inter,
+            fontWeight: 500,
+            fontSize: 12,
+            lineHeight: "16px",
+            background: TEXT_BLUE_GRADIENT,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          {agent.runs}
+        </span>
         <span
           style={{
             fontFamily: typography.fonts.inter,
@@ -339,7 +373,7 @@ function AgentCard({ agent, mobile = false }: { agent: any; mobile?: boolean }) 
         </span>
       </div>
 
-      <div className="flex flex-row gap-2 mt-auto">
+      <div className="flex flex-row gap-2 mt-auto pt-6">
         <button
           className="flex-1 flex justify-center items-center"
           style={{ background: "#005AB6", borderRadius: 12, padding: "12px" }}

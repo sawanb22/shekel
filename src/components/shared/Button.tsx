@@ -41,14 +41,28 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             : variant === 'outline'
               ? {
                   y: -3,
-                  borderColor: 'rgba(255,255,255,0.3)',
-                  boxShadow: '0px 14px 26px -10px rgba(118, 138, 178, 0.6)',
+                  borderColor: 'transparent',
+                  background:
+                    'linear-gradient(to right, var(--color-primary-from), var(--color-primary-to))',
+                  color: 'var(--color-text-light)',
+                  boxShadow: 'none',
                 }
-              : {
+              : variant === 'primary'
+                ? {
+                  y: -3,
+                  scale: 1.025,
+                  background: 'linear-gradient(180deg, rgba(26,31,45,1) 0%, rgba(40,50,74,1) 100%)',
+                  color: '#ffffff',
+                  borderColor: 'rgba(255,255,255,0.2)',
+                  boxShadow:
+                    '0px 18px 34px -8px rgba(20, 24, 36, 0.55), 0px 8px 18px -8px rgba(20, 24, 36, 0.4)',
+                }
+                : {
                   y: -3,
                   scale: 1.025,
                   boxShadow:
                     '0px 18px 34px -8px rgba(186,158,255,0.5), 0px 8px 18px -8px rgba(186,158,255,0.38)',
+                  filter: 'brightness(1.15)',
                 }
         }
         whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}

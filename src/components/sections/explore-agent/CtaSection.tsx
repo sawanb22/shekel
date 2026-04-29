@@ -29,6 +29,9 @@ const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
 const BUTTON_GRADIENT = "linear-gradient(160deg, rgba(40, 100, 228, 1) 9%, rgba(30, 154, 255, 1) 72%, rgba(198, 248, 255, 1) 100%)";
 const BORDER_GRADIENT = "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)";
 const BLUR_GRADIENT = "linear-gradient(180deg, rgba(40, 100, 228, 1) 0%, rgba(236, 242, 255, 1) 100%)";
+const CTA_DECOR_SCALE = 1.6;
+const CTA_DECOR_BASE_W = 760;
+const CTA_DECOR_BASE_H = 552;
 
 export default function CtaSection() {
   return (
@@ -83,15 +86,23 @@ function SectionDesktop() {
           }}
         />
 
-        {/* Decorative SVG */}
-        <Image
-          src="/section-6-explore-agent/cta-decor.svg"
-          alt=""
-          width={850.85}
-          height={556.86}
+        {/* Decorative SVG - scaled +80% behind mascot */}
+        <div
           className="absolute pointer-events-none"
-          style={{ left: 555, top: 1 }}
-        />
+          style={{
+            right: -160,
+            top: -(CTA_DECOR_BASE_H * CTA_DECOR_SCALE - CANVAS_H) / 2,
+            width: CTA_DECOR_BASE_W * CTA_DECOR_SCALE,
+            height: CTA_DECOR_BASE_H * CTA_DECOR_SCALE,
+          }}
+        >
+          <Image
+            src="/section-6-explore-agent/cta-decor.svg"
+            alt=""
+            fill
+            className="object-contain object-right"
+          />
+        </div>
 
         {/* Right Graphic Image */}
         <div className="absolute" style={{ left: 682, top: 19, width: 870, height: 870 }}>
@@ -110,7 +121,7 @@ function SectionDesktop() {
             fontSize: 72,
             lineHeight: "72px",
             letterSpacing: "-0.05em",
-            color: colors.white,
+            color: colors.black,
           }}
         >
           Start using AI agents today
@@ -146,16 +157,16 @@ function SectionDesktop() {
           <button
             style={{
               background: "transparent",
-              border: "1px solid transparent", // We'd use background clip but border image is tricky
+              border: "1px solid transparent",
               borderRadius: 10,
-              padding: "19px 39px", // Account for 1px border
+              padding: "20px 40px",
               position: "relative",
             }}
           >
-            <div 
+            <div
               className="absolute inset-0 rounded-[10px] border border-transparent pointer-events-none"
               style={{
-                background: `linear-gradient(${colors.black}, ${colors.black}) padding-box, ${BORDER_GRADIENT} border-box`,
+                background: `linear-gradient(${colors.white}, ${colors.white}) padding-box, ${BORDER_GRADIENT} border-box`,
               }}
             />
             <span
@@ -184,16 +195,20 @@ function SectionDesktop() {
           style={{
             left: 115,
             top: 426,
+            width: 423,
             fontFamily: typography.fonts.inter,
             fontWeight: 400,
             fontSize: 10,
             lineHeight: "16px",
             letterSpacing: "0.36em",
             textTransform: "uppercase",
-            color: colors.white,
+            textAlign: "center",
+            color: "#1F2430",
           }}
         >
-          Join thousands of users and developers already using Shekel
+          Join thousands of users and developers
+          <br />
+          already using Shekel
         </p>
       </div>
     </section>
@@ -261,11 +276,12 @@ function SectionMobile() {
             className="w-full relative"
             style={{
               background: "transparent",
+              border: "1px solid transparent",
               borderRadius: 10,
-              padding: "15px 23px",
+              padding: "16px 24px",
             }}
           >
-            <div 
+            <div
               className="absolute inset-0 rounded-[10px] border border-transparent pointer-events-none"
               style={{
                 background: `linear-gradient(${colors.black}, ${colors.black}) padding-box, ${BORDER_GRADIENT} border-box`,

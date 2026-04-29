@@ -52,6 +52,7 @@ function SectionDesktop() {
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
         borderRadius: 24,
+        marginTop: 24,
       }}
     >
       <div
@@ -158,7 +159,7 @@ function SectionMobile() {
   return (
     <section
       className="relative block w-full overflow-hidden md:hidden"
-      style={{ backgroundColor: colors.white, borderRadius: 24 }}
+      style={{ backgroundColor: colors.white, borderRadius: 24, marginTop: 24 }}
     >
       {/* Background SVG */}
       <div className="absolute inset-0 z-0 opacity-50 overflow-hidden">
