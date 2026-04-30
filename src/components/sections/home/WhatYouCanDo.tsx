@@ -106,8 +106,11 @@ function WhatYouCanDoDesktop() {
 }
 
 function Heading({ isDark }: { isDark: boolean }) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <h2
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         margin: 0,
         fontFamily: typography.fonts.poppins,
@@ -125,10 +128,15 @@ function Heading({ isDark }: { isDark: boolean }) {
       What you can do with{" "}
       <span
         style={{
-          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
+          color: isDark ? undefined : colors.brand.blueStart,
+          background:
+            isDark || isHovered
+              ? `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`
+              : "none",
+          WebkitBackgroundClip: isDark || isHovered ? "text" : "border-box",
+          WebkitTextFillColor: isDark || isHovered ? "transparent" : "unset",
+          backgroundClip: isDark || isHovered ? "text" : "border-box",
+          transition: "color 180ms ease, background 180ms ease",
         }}
       >
         Shekel
@@ -487,6 +495,7 @@ function BottomColumn({ col, isDark }: { col: (typeof columns)[number]; isDark: 
 
 function WhatYouCanDoMobile() {
   const { isDark } = useThemeTokens();
+  const [isHeadingHovered, setIsHeadingHovered] = useState(false);
   return (
     <section
       className="block w-full overflow-x-clip md:hidden"
@@ -495,6 +504,8 @@ function WhatYouCanDoMobile() {
       <div className="flex min-w-0 max-w-full flex-col gap-10 px-6 py-16 sm:px-8">
         <Reveal className="text-center">
           <h2
+            onMouseEnter={() => setIsHeadingHovered(true)}
+            onMouseLeave={() => setIsHeadingHovered(false)}
             style={{
               margin: 0,
               fontFamily: typography.fonts.poppins,
@@ -512,10 +523,15 @@ function WhatYouCanDoMobile() {
             What you can do with{" "}
             <span
               style={{
-                background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color: isDark ? undefined : colors.brand.blueStart,
+                background:
+                  isDark || isHeadingHovered
+                    ? `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`
+                    : "none",
+                WebkitBackgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                WebkitTextFillColor: isDark || isHeadingHovered ? "transparent" : "unset",
+                backgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                transition: "color 180ms ease, background 180ms ease",
               }}
             >
               Shekel

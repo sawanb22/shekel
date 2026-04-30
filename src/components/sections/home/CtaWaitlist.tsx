@@ -31,6 +31,7 @@ export default function CtaWaitlist() {
 
 function CtaDesktop() {
   const { isDark } = useThemeTokens();
+  const [isHeadingHovered, setIsHeadingHovered] = useState(false);
   return (
     <section
       className="hidden w-full md:block"
@@ -120,6 +121,8 @@ function CtaDesktop() {
         <div className="absolute" style={{ left: 81, top: 62, width: 612 }}>
           <Reveal>
             <h2
+              onMouseEnter={() => setIsHeadingHovered(true)}
+              onMouseLeave={() => setIsHeadingHovered(false)}
               style={{
                 margin: 0,
                 fontFamily: typography.fonts.poppins,
@@ -139,10 +142,12 @@ function CtaDesktop() {
               <br />
               <span
                 style={{
-                  background: BLUE_GRADIENT,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
+                  color: isDark ? undefined : colors.brand.blueStart,
+                  background: isDark || isHeadingHovered ? BLUE_GRADIENT : "none",
+                  WebkitBackgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                  WebkitTextFillColor: isDark || isHeadingHovered ? "transparent" : "unset",
+                  backgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                  transition: "color 180ms ease, background 180ms ease",
                 }}
               >
                 AI Automation
@@ -335,6 +340,7 @@ function WaitlistForm({ isDark }: { isDark: boolean }) {
 
 function CtaMobile() {
   const { isDark } = useThemeTokens();
+  const [isHeadingHovered, setIsHeadingHovered] = useState(false);
   return (
     <section
       className="relative block w-full overflow-hidden md:hidden"
@@ -401,6 +407,8 @@ function CtaMobile() {
       <div className="relative z-10 flex flex-col gap-6 px-6 py-16 sm:px-8">
         <Reveal>
           <h2
+            onMouseEnter={() => setIsHeadingHovered(true)}
+            onMouseLeave={() => setIsHeadingHovered(false)}
             className="relative pr-[min(7.5rem,30%)]"
             style={{
               margin: 0,
@@ -420,10 +428,12 @@ function CtaMobile() {
             Join The Future Of{" "}
             <span
               style={{
-                background: BLUE_GRADIENT,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color: isDark ? undefined : colors.brand.blueStart,
+                background: isDark || isHeadingHovered ? BLUE_GRADIENT : "none",
+                WebkitBackgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                WebkitTextFillColor: isDark || isHeadingHovered ? "transparent" : "unset",
+                backgroundClip: isDark || isHeadingHovered ? "text" : "border-box",
+                transition: "color 180ms ease, background 180ms ease",
               }}
             >
               AI Automation

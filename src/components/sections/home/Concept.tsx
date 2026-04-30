@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { colors, typography, radiuses } from "@/tokens/design-tokens";
 import { useThemeTokens } from "@/hooks/useThemeTokens";
 
@@ -295,6 +296,8 @@ function ConceptList({
   lineHeight: string;
   isDark: boolean;
 }) {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
   return (
     <ul
       className="m-0 list-none p-0"
@@ -306,14 +309,26 @@ function ConceptList({
       }}
     >
       {LIST_ITEMS.map((item) => (
-        <li key={item} className="flex items-center" style={{ gap: 12 }}>
-          <Image
-            src="/section-2/check-icon.svg"
-            alt=""
-            width={20}
-            height={20}
+        <li
+          key={item}
+          className="flex items-center"
+          style={{ gap: 12 }}
+          onMouseEnter={() => setHoveredItem(item)}
+          onMouseLeave={() => setHoveredItem(null)}
+        >
+          <motion.div
+            animate={{
+              scale: hoveredItem === item ? 1.08 : 1,
+              filter:
+                hoveredItem === item
+                  ? "none"
+                  : "brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(1900%) hue-rotate(213deg) brightness(95%) contrast(94%)",
+            }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             className="flex-shrink-0"
-          />
+          >
+            <Image src="/section-2/check-icon.svg" alt="" width={20} height={20} />
+          </motion.div>
           <span
             style={{
               fontFamily: typography.fonts.inter,

@@ -5,6 +5,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { colors, typography } from "@/tokens/design-tokens";
 import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
@@ -160,10 +161,13 @@ function TrustHeading({ isDark }: { isDark: boolean }) {
 
 function TrustCard({ card, isDark }: { card: Card; isDark: boolean }) {
   const prefersReducedMotion = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <motion.article
       className="flex h-full flex-col"
       style={{ padding: 32 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       whileHover={
         prefersReducedMotion
           ? undefined
@@ -180,13 +184,29 @@ function TrustCard({ card, isDark }: { card: Card; isDark: boolean }) {
           style={{
             width: 56,
             height: 56,
-            backgroundColor: isDark ? "#060b16" : "#ffffff",
+            backgroundColor: isDark ? "#060b16" : isHovered ? "#ffffff" : "transparent",
             boxShadow: isDark
               ? "0 0 0 1px rgba(120, 139, 196, 0.2), 0 8px 22px -14px rgba(36, 54, 86, 0.45)"
-              : "0 8px 22px -14px rgba(36, 54, 86, 0.35)",
+              : isHovered
+                ? "0 8px 22px -14px rgba(36, 54, 86, 0.35)"
+                : "none",
           }}
         >
-          <Image src={card.icon} alt="" width={card.iconW} height={card.iconH} />
+          <Image
+            src={card.icon}
+            alt=""
+            width={card.iconW}
+            height={card.iconH}
+            style={
+              isDark || isHovered
+                ? undefined
+                : {
+                    // Force a stronger single-blue icon tone before hover.
+                    filter:
+                      "brightness(0) saturate(100%) invert(32%) sepia(95%) saturate(1900%) hue-rotate(213deg) brightness(95%) contrast(94%)",
+                  }
+            }
+          />
         </div>
       </div>
       <h3

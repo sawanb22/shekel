@@ -36,7 +36,7 @@ export default function Faq() {
       style={{ backgroundColor: isDark ? colors.black : colors.background.faq }}
     >
       <div
-        className="mx-auto flex w-full flex-col px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex w-full flex-col px-[54px] sm:px-[62px] lg:px-[78px]"
         style={{
           paddingTop: "clamp(64px, 8vw, 96px)",
           paddingBottom: "clamp(64px, 8vw, 96px)",
@@ -59,8 +59,11 @@ export default function Faq() {
 }
 
 function FaqHeading({ isDark }: { isDark: boolean }) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <h2
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         margin: 0,
         fontFamily: typography.fonts.poppins,
@@ -78,10 +81,15 @@ function FaqHeading({ isDark }: { isDark: boolean }) {
       Frequently Asked{" "}
       <span
         style={{
-          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
+          color: isDark ? undefined : colors.brand.blueStart,
+          background:
+            isDark || isHovered
+              ? `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`
+              : "none",
+          WebkitBackgroundClip: isDark || isHovered ? "text" : "border-box",
+          WebkitTextFillColor: isDark || isHovered ? "transparent" : "unset",
+          backgroundClip: isDark || isHovered ? "text" : "border-box",
+          transition: "color 180ms ease, background 180ms ease",
         }}
       >
         Questions
