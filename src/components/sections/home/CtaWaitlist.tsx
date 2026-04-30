@@ -7,9 +7,11 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { Float } from "@/components/shared/motion/Float";
 import ctaBgImage from "../../../../new-images/bg (1).webp";
+import darkCircuitBg from "../../../../new-images/Group 9210 (1).webp";
 
 const CANVAS_W = 1280;
 const CANVAS_H = 552;
@@ -28,21 +30,67 @@ export default function CtaWaitlist() {
 }
 
 function CtaDesktop() {
+  const { isDark } = useThemeTokens();
   return (
-    <section className="hidden w-full bg-white md:block">
+    <section
+      className="hidden w-full md:block"
+      style={{ backgroundColor: isDark ? colors.black : colors.white }}
+    >
       <div className="pb-16">
         <div
           className="relative w-full rounded-[24px]"
           style={{
             aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
             containerType: "inline-size",
-            backgroundImage: `url("${ctaBgImage.src}")`,
+            backgroundImage: isDark ? "none" : `url("${ctaBgImage.src}")`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            backgroundColor: "#f0e8ff",
+            backgroundColor: isDark ? "#000000" : "#f0e8ff",
           }}
         >
+          {isDark ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[24px]"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(2,6,16,0.36) 0%, rgba(4,8,20,0.3) 42%, rgba(12,10,28,0.38) 72%, rgba(24,16,46,0.42) 100%)",
+              }}
+            />
+          ) : null}
           <div className="absolute inset-0 overflow-hidden rounded-[24px]">
+            {isDark ? (
+              <>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: -90,
+                    top: -90,
+                    width: 520,
+                    height: 320,
+                    background:
+                      "radial-gradient(ellipse at 16% 18%, rgba(128,173,255,0.98) 0%, rgba(94,140,248,0.9) 28%, rgba(56,96,212,0.62) 50%, rgba(24,58,156,0.30) 66%, rgba(24,58,156,0) 100%)",
+                    filter: "blur(56px)",
+                    opacity: 1,
+                  }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute"
+                  style={{
+                    left: -120,
+                    bottom: -120,
+                    width: 560,
+                    height: 360,
+                    background:
+                      "radial-gradient(ellipse at 18% 82%, rgba(128,173,255,0.96) 0%, rgba(94,140,248,0.84) 32%, rgba(56,96,212,0.56) 54%, rgba(24,58,156,0.26) 70%, rgba(24,58,156,0) 100%)",
+                    filter: "blur(60px)",
+                    opacity: 0.98,
+                  }}
+                />
+              </>
+            ) : null}
             <div
               className="absolute left-0 top-0"
               style={{
@@ -53,18 +101,20 @@ function CtaDesktop() {
               }}
             >
         {/* Decorative blurred ellipse — Figma x=-549, y=-566, w=696, h=696 */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: -549,
-            top: -566,
-            width: 696,
-            height: 696,
-            background: BLUE_GRADIENT,
-            filter: "blur(257.5px)",
-          }}
-        />
+        {!isDark ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute rounded-full"
+            style={{
+              left: -549,
+              top: -566,
+              width: 696,
+              height: 696,
+              background: BLUE_GRADIENT,
+              filter: "blur(257.5px)",
+            }}
+          />
+        ) : null}
 
         {/* Heading — Figma x=81, y=62, w=612, textCase TITLE */}
         <div className="absolute" style={{ left: 81, top: 62, width: 612 }}>
@@ -77,7 +127,12 @@ function CtaDesktop() {
                 fontSize: 60,
                 lineHeight: "60px",
                 letterSpacing: "-0.05em",
-                color: "#000000",
+                color: isDark ? colors.white : "#000000",
+                background: isDark
+                  ? "linear-gradient(202.88deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                  : "none",
+                WebkitBackgroundClip: isDark ? "text" : "border-box",
+                WebkitTextFillColor: isDark ? "transparent" : "unset",
               }}
             >
               Join The Future Of
@@ -108,7 +163,7 @@ function CtaDesktop() {
               fontWeight: 400,
               fontSize: 20,
               lineHeight: "28px",
-              color: "rgba(0, 0, 0, 0.73)",
+              color: isDark ? "rgba(255, 255, 255, 0.73)" : "rgba(0, 0, 0, 0.73)",
             }}
           >
             Get early access to the developer beta and start building the agents
@@ -116,12 +171,29 @@ function CtaDesktop() {
           </p>
         </Reveal>
 
+        {isDark ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute"
+            style={{
+              left: 560,
+              top: 58,
+              width: 620,
+              height: 430,
+              background:
+                "radial-gradient(ellipse at center, rgba(181,106,255,0.30) 0%, rgba(142,82,232,0.18) 44%, rgba(95,56,171,0.10) 68%, rgba(95,56,171,0) 100%)",
+              filter: "blur(10px)",
+              opacity: 0.85,
+            }}
+          />
+        ) : null}
+
         <Reveal delay={0.2}>
           <div
             className="absolute"
             style={{ left: 84, top: 368, width: 448, height: 72 }}
           >
-            <WaitlistForm />
+            <WaitlistForm isDark={isDark} />
           </div>
         </Reveal>
             </div>
@@ -136,6 +208,21 @@ function CtaDesktop() {
               transformOrigin: "top left",
             }}
           >
+            {isDark ? (
+              <div
+                aria-hidden
+                className="absolute"
+                style={{ right: 0, top: 6, width: 780, height: 540, opacity: 0.72 }}
+              >
+                <Image
+                  src={darkCircuitBg}
+                  alt=""
+                  width={780}
+                  height={540}
+                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                />
+              </div>
+            ) : null}
             <Float
               amplitude={14}
               rotate={2}
@@ -158,7 +245,7 @@ function CtaDesktop() {
   );
 }
 
-function WaitlistForm() {
+function WaitlistForm({ isDark }: { isDark: boolean }) {
   const prefersReducedMotion = useReducedMotion();
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -183,7 +270,7 @@ function WaitlistForm() {
           onBlur={() => setFocused(false)}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          className="h-full w-full bg-white outline-none"
+          className="h-full w-full outline-none"
           animate={{
             boxShadow: focused
               ? "0 0 0 3px rgba(40, 100, 228, 0.18), 0px 12px 26px -18px rgba(40, 100, 228, 0.45)"
@@ -199,8 +286,15 @@ function WaitlistForm() {
             fontWeight: 400,
             fontSize: 16,
             color: "#6B7280",
+            backgroundColor: isDark ? "rgba(10,14,24,0.5)" : colors.white,
             border: `1px solid ${
-              focused ? colors.brand.blueStart : hovered ? "rgba(40,100,228,0.58)" : "#e5e7eb"
+              focused
+                ? colors.brand.blueStart
+                : hovered
+                  ? "rgba(40,100,228,0.58)"
+                  : isDark
+                    ? "rgba(255,255,255,0.3)"
+                    : "#e5e7eb"
             }`,
           }}
         />
@@ -240,16 +334,43 @@ function WaitlistForm() {
 }
 
 function CtaMobile() {
+  const { isDark } = useThemeTokens();
   return (
     <section
       className="relative block w-full overflow-hidden md:hidden"
       style={{
-        backgroundImage: `url("${ctaBgImage.src}")`,
+        backgroundImage: isDark ? "none" : `url("${ctaBgImage.src}")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundColor: "#f0e8ff",
+        backgroundColor: isDark ? "#000000" : "#f0e8ff",
       }}
     >
+      {isDark ? (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 200px 100px at 100% 0%, rgba(17,17,17,1) 0%, rgba(11,11,11,1) 100%)",
+              opacity: 0.9,
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-[-80px] top-[40px] h-[280px] w-[320px]"
+            style={{ opacity: 0.66 }}
+          >
+            <Image
+              src={darkCircuitBg}
+              alt=""
+              fill
+              sizes="320px"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </>
+      ) : null}
       {/* Decorative robot — top-right by headline (mobile), behind copy */}
       <Float
         amplitude={12}
@@ -272,7 +393,8 @@ function CtaMobile() {
           width: 500,
           height: 500,
           background: BLUE_GRADIENT,
-          filter: "blur(200px)",
+          filter: isDark ? "blur(140px)" : "blur(200px)",
+          opacity: isDark ? 0.72 : 1,
         }}
       />
 
@@ -287,7 +409,12 @@ function CtaMobile() {
               fontSize: "clamp(32px, 9vw, 48px)",
               lineHeight: 1.05,
               letterSpacing: "-0.03em",
-              color: "#000000",
+              color: isDark ? colors.white : "#000000",
+              background: isDark
+                ? "linear-gradient(202.88deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                : "none",
+              WebkitBackgroundClip: isDark ? "text" : "border-box",
+              WebkitTextFillColor: isDark ? "transparent" : "unset",
             }}
           >
             Join The Future Of{" "}
@@ -311,7 +438,7 @@ function CtaMobile() {
               fontWeight: 400,
               fontSize: 16,
               lineHeight: "24px",
-              color: "rgba(0, 0, 0, 0.73)",
+              color: isDark ? "rgba(255, 255, 255, 0.73)" : "rgba(0, 0, 0, 0.73)",
             }}
           >
             Get early access to the developer beta and start building the agents
@@ -319,14 +446,14 @@ function CtaMobile() {
           </p>
         </Reveal>
         <Reveal delay={0.2}>
-          <MobileWaitlistForm />
+          <MobileWaitlistForm isDark={isDark} />
         </Reveal>
       </div>
     </section>
   );
 }
 
-function MobileWaitlistForm() {
+function MobileWaitlistForm({ isDark }: { isDark: boolean }) {
   const prefersReducedMotion = useReducedMotion();
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -345,7 +472,7 @@ function MobileWaitlistForm() {
         onBlur={() => setFocused(false)}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="flex-1 bg-white outline-none"
+        className="flex-1 outline-none"
         animate={{
           boxShadow: focused
             ? "0 0 0 3px rgba(40, 100, 228, 0.18), 0px 12px 26px -18px rgba(40, 100, 228, 0.45)"
@@ -360,8 +487,15 @@ function MobileWaitlistForm() {
           fontFamily: typography.fonts.inter,
           fontSize: 16,
           color: "#111",
+          backgroundColor: isDark ? "rgba(10,14,24,0.5)" : colors.white,
           border: `1px solid ${
-            focused ? colors.brand.blueStart : hovered ? "rgba(40,100,228,0.58)" : "#e5e7eb"
+            focused
+              ? colors.brand.blueStart
+              : hovered
+                ? "rgba(40,100,228,0.58)"
+                : isDark
+                  ? "rgba(255,255,255,0.3)"
+                  : "#e5e7eb"
           }`,
         }}
       />

@@ -6,6 +6,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
 
@@ -62,16 +63,31 @@ export default function TrustReliability() {
 }
 
 function TrustDesktop() {
+  const { isDark } = useThemeTokens();
   return (
     <section
       className="relative hidden w-full overflow-hidden md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        background:
-          "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
+        background: isDark
+          ? "#101420"
+          : "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
       }}
     >
+      {isDark ? (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-[-56px] h-[190px]"
+            style={{
+              background:
+                "radial-gradient(120% 95% at 50% 100%, rgba(124,166,255,0.22) 0%, rgba(66,117,232,0.14) 36%, rgba(40,100,228,0.06) 58%, rgba(40,100,228,0) 100%)",
+              filter: "blur(18px)",
+            }}
+          />
+        </>
+      ) : null}
       <div
         className="absolute left-0 top-0 flex flex-col"
         style={{
@@ -84,12 +100,12 @@ function TrustDesktop() {
         }}
       >
         <Reveal className="w-full text-center">
-          <TrustHeading />
+          <TrustHeading isDark={isDark} />
         </Reveal>
         <RevealStagger className="grid w-full grid-cols-4" stagger={0.1}>
           {CARDS.map((c) => (
             <RevealItem key={c.title} className="h-full">
-              <TrustCard card={c} />
+              <TrustCard card={c} isDark={isDark} />
             </RevealItem>
           ))}
         </RevealStagger>
@@ -98,7 +114,7 @@ function TrustDesktop() {
   );
 }
 
-function TrustHeading() {
+function TrustHeading({ isDark }: { isDark: boolean }) {
   return (
     <h2
       style={{
@@ -108,7 +124,12 @@ function TrustHeading() {
         fontSize: 48,
         lineHeight: "48px",
         letterSpacing: "-0.025em",
-        color: "#191C1E",
+        color: isDark ? colors.white : "#191C1E",
+        background: isDark
+          ? "linear-gradient(186.05deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+          : "none",
+        WebkitBackgroundClip: isDark ? "text" : "border-box",
+        WebkitTextFillColor: isDark ? "transparent" : "unset",
       }}
     >
       Built for{" "}
@@ -137,7 +158,7 @@ function TrustHeading() {
   );
 }
 
-function TrustCard({ card }: { card: Card }) {
+function TrustCard({ card, isDark }: { card: Card; isDark: boolean }) {
   const prefersReducedMotion = useReducedMotion();
   return (
     <motion.article
@@ -155,11 +176,14 @@ function TrustCard({ card }: { card: Card }) {
     >
       <div className="pb-8">
         <div
-          className="flex items-center justify-center rounded-[12px] bg-white"
+          className="flex items-center justify-center rounded-[12px]"
           style={{
             width: 56,
             height: 56,
-            boxShadow: "0 8px 22px -14px rgba(36, 54, 86, 0.35)",
+            backgroundColor: isDark ? "#060b16" : "#ffffff",
+            boxShadow: isDark
+              ? "0 0 0 1px rgba(120, 139, 196, 0.2), 0 8px 22px -14px rgba(36, 54, 86, 0.45)"
+              : "0 8px 22px -14px rgba(36, 54, 86, 0.35)",
           }}
         >
           <Image src={card.icon} alt="" width={card.iconW} height={card.iconH} />
@@ -174,7 +198,7 @@ function TrustCard({ card }: { card: Card }) {
           fontSize: 20,
           lineHeight: "28px",
           letterSpacing: "-0.025em",
-          color: "#191C1E",
+            color: isDark ? colors.white : "#191C1E",
         }}
       >
         {card.title}
@@ -187,7 +211,7 @@ function TrustCard({ card }: { card: Card }) {
           fontWeight: 400,
           fontSize: 16,
           lineHeight: "26px",
-          color: "#414753",
+          color: isDark ? "#e5e7f6" : "#414753",
         }}
       >
         {card.desc}
@@ -197,22 +221,37 @@ function TrustCard({ card }: { card: Card }) {
 }
 
 function TrustMobile() {
+  const { isDark } = useThemeTokens();
   return (
     <section
-      className="block w-full md:hidden"
+      className="relative block w-full overflow-hidden md:hidden"
       style={{
-        background:
-          "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
+        background: isDark
+          ? "#101420"
+          : "linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(242, 244, 247, 1) 100%)",
       }}
     >
+      {isDark ? (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-[-44px] h-[160px]"
+            style={{
+              background:
+                "radial-gradient(130% 95% at 50% 100%, rgba(124,166,255,0.2) 0%, rgba(66,117,232,0.12) 36%, rgba(40,100,228,0.05) 58%, rgba(40,100,228,0) 100%)",
+              filter: "blur(16px)",
+            }}
+          />
+        </>
+      ) : null}
       <div className="flex flex-col gap-12 px-6 py-20 sm:px-8">
         <Reveal className="text-center">
-          <TrustHeading />
+          <TrustHeading isDark={isDark} />
         </Reveal>
         <RevealStagger className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.1}>
           {CARDS.map((c) => (
             <RevealItem key={c.title}>
-              <TrustCard card={c} />
+              <TrustCard card={c} isDark={isDark} />
             </RevealItem>
           ))}
         </RevealStagger>

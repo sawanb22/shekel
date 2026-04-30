@@ -7,6 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
 
@@ -28,10 +29,11 @@ const ITEMS: Item[] = [
 ];
 
 export default function Faq() {
+  const { isDark } = useThemeTokens();
   return (
     <section
       className="relative w-full"
-      style={{ backgroundColor: colors.background.faq }}
+      style={{ backgroundColor: isDark ? colors.black : colors.background.faq }}
     >
       <div
         className="mx-auto flex w-full flex-col px-4 sm:px-6 lg:px-8"
@@ -42,12 +44,12 @@ export default function Faq() {
         }}
       >
         <Reveal className="w-full text-center">
-          <FaqHeading />
+          <FaqHeading isDark={isDark} />
         </Reveal>
         <RevealStagger className="flex flex-col gap-4" stagger={0.1}>
           {ITEMS.map((item) => (
             <RevealItem key={item.q}>
-              <FaqCard item={item} />
+              <FaqCard item={item} isDark={isDark} />
             </RevealItem>
           ))}
         </RevealStagger>
@@ -56,7 +58,7 @@ export default function Faq() {
   );
 }
 
-function FaqHeading() {
+function FaqHeading({ isDark }: { isDark: boolean }) {
   return (
     <h2
       style={{
@@ -65,7 +67,12 @@ function FaqHeading() {
         fontWeight: 500,
         fontSize: "clamp(32px, 5vw, 48px)",
         lineHeight: "40px",
-        color: "#1A1C1C",
+        color: isDark ? colors.white : "#1A1C1C",
+        background: isDark
+          ? "linear-gradient(185.55deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+          : "none",
+        WebkitBackgroundClip: isDark ? "text" : "border-box",
+        WebkitTextFillColor: isDark ? "transparent" : "unset",
       }}
     >
       Frequently Asked{" "}
@@ -83,15 +90,17 @@ function FaqHeading() {
   );
 }
 
-function FaqCard({ item }: { item: Item }) {
+function FaqCard({ item, isDark }: { item: Item; isDark: boolean }) {
   const [open, setOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.div
-      className="overflow-hidden bg-white"
+      className="overflow-hidden"
       style={{
         borderRadius: 16,
+        backgroundColor: isDark ? "#101420" : colors.white,
+        border: isDark ? "1px solid rgba(255,255,255,0.2)" : "none",
         boxShadow:
           "0px 4px 8px 0px rgba(0, 0, 0, 0.02), 0px 12px 32px 0px rgba(0, 0, 0, 0.04)",
       }}
@@ -109,7 +118,9 @@ function FaqCard({ item }: { item: Item }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-left transition-colors duration-200 ease-out hover:bg-[rgba(40,100,228,0.04)]"
+        className={`flex w-full items-center justify-between text-left transition-colors duration-200 ease-out ${
+          isDark ? "hover:bg-white/5" : "hover:bg-[rgba(40,100,228,0.04)]"
+        }`}
         style={{ padding: 24 }}
         aria-expanded={open}
       >
@@ -119,7 +130,7 @@ function FaqCard({ item }: { item: Item }) {
             fontWeight: 600,
             fontSize: 18,
             lineHeight: "28px",
-            color: "#1A1C1C",
+            color: isDark ? colors.white : "#1A1C1C",
           }}
         >
           {item.q}
@@ -149,7 +160,7 @@ function FaqCard({ item }: { item: Item }) {
                   fontWeight: 400,
                   fontSize: 16,
                   lineHeight: "26px",
-                  color: "#414753",
+                  color: isDark ? "#a7aab9" : "#414753",
                 }}
               >
                 {item.a}

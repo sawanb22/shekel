@@ -7,6 +7,7 @@
 // Body: Inter Regular 16px, lh 24px, #414753.
 
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 
@@ -19,6 +20,7 @@ type StepCardProps = {
 export default function StepCard({ number, title, description }: StepCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
+  const { isDark } = useThemeTokens();
   return (
     <motion.div
       className="flex flex-col items-center gap-3 text-center"
@@ -38,10 +40,12 @@ export default function StepCard({ number, title, description }: StepCardProps) 
       <motion.div
         className="flex items-center justify-center w-20 h-20 rounded-full"
         style={{
-          backgroundColor: isHovered ? colors.white : "transparent",
-          boxShadow: isHovered
-            ? "0px 12px 32px 0px rgba(0,0,0,0.04), 0px 4px 8px 0px rgba(0,0,0,0.02)"
-            : "none",
+          backgroundColor: isDark ? "#201c1c" : isHovered ? colors.white : "transparent",
+          boxShadow: isDark
+            ? "0px 12px 16px rgba(0,0,0,0.04), 0px 4px 4px rgba(0,0,0,0.02)"
+            : isHovered
+              ? "0px 12px 32px 0px rgba(0,0,0,0.04), 0px 4px 8px 0px rgba(0,0,0,0.02)"
+              : "none",
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       >
@@ -73,7 +77,7 @@ export default function StepCard({ number, title, description }: StepCardProps) 
             fontWeight: 500,
             fontSize: 24,
             lineHeight: "28px",
-            color: colors.text.dark,
+            color: isDark ? colors.white : colors.text.dark,
           }}
         >
           {title}
@@ -90,7 +94,7 @@ export default function StepCard({ number, title, description }: StepCardProps) 
           fontWeight: 400,
           fontSize: 16,
           lineHeight: "24px",
-          color: colors.text.body,
+          color: isDark ? colors.white : colors.text.body,
         }}
       >
         {description}

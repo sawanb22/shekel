@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { colors, typography, radiuses } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Concept.tsx — "THE CONCEPT" section
@@ -57,8 +58,17 @@ const BADGE_BG = colors.gradient.purpleLight;
 const BADGE_BORDER = "rgba(186,158,255,0.2)";
 const BADGE_TEXT = colors.background.badgePurple;
 const CARD_TITLE = "#4D4C4C";
+const DARK_SECTION_BG = "#000000";
+const DARK_CARD_BG = "#151926";
+const DARK_CARD_BORDER = "rgba(68,72,84,0.1)";
+const DARK_BADGE_BG = "rgba(186,158,255,0.1)";
+const DARK_BADGE_TEXT = "#ba9eff";
+const DARK_HEADING_GRADIENT =
+  "linear-gradient(196.37deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)";
 
 export default function Concept() {
+  const { isDark } = useThemeTokens();
+
   return (
     <>
       {/* ═══════════════════════════════════════════════════════════════════
@@ -67,7 +77,7 @@ export default function Concept() {
       <section
         className="relative hidden w-full overflow-hidden md:block"
         style={{
-          backgroundColor: colors.white,
+          backgroundColor: isDark ? DARK_SECTION_BG : colors.white,
           aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
           containerType: "inline-size",
         }}
@@ -101,10 +111,10 @@ export default function Concept() {
             className="absolute flex flex-col"
             style={{ left: 24, top: 71.5, width: 648, gap: 24 }}
           >
-            <ConceptBadge />
-            <ConceptHeading fontSize={48} lineHeight="68px" />
-            <ConceptBody fontSize={18} lineHeight="29.25px" />
-            <ConceptList fontSize={16} lineHeight="24px" />
+            <ConceptBadge isDark={isDark} />
+            <ConceptHeading fontSize={48} lineHeight="68px" isDark={isDark} />
+            <ConceptBody fontSize={18} lineHeight="29.25px" isDark={isDark} />
+            <ConceptList fontSize={16} lineHeight="24px" isDark={isDark} />
           </div>
 
           {/* RIGHT column: staggered cards */}
@@ -119,6 +129,7 @@ export default function Concept() {
                   bgAlt="Multi-Chain Sync illustration"
                   title="Multi-Chain Sync"
                   extraBottom={false}
+                  isDark={isDark}
                 />
               </div>
               <div style={{ flex: "1 1 0" }}>
@@ -127,6 +138,7 @@ export default function Concept() {
                   bgAlt="Secure Escrow illustration"
                   title="Secure Escrow"
                   extraBottom
+                  isDark={isDark}
                 />
               </div>
             </div>
@@ -139,7 +151,7 @@ export default function Concept() {
           ═══════════════════════════════════════════════════════════════════ */}
       <section
         className="relative block w-full overflow-hidden md:hidden"
-        style={{ backgroundColor: colors.white }}
+        style={{ backgroundColor: isDark ? DARK_SECTION_BG : colors.white }}
       >
         {/* Same decorative background — covers the mobile section */}
         <div
@@ -156,10 +168,10 @@ export default function Concept() {
         </div>
 
         <div className="relative flex flex-col gap-8 px-6 py-16 sm:px-8">
-          <ConceptBadge />
-          <ConceptHeading fontSize={32} lineHeight="1.15" />
-          <ConceptBody fontSize={16} lineHeight="26px" />
-          <ConceptList fontSize={15} lineHeight="22px" />
+          <ConceptBadge isDark={isDark} />
+          <ConceptHeading fontSize={32} lineHeight="1.15" isDark={isDark} />
+          <ConceptBody fontSize={16} lineHeight="26px" isDark={isDark} />
+          <ConceptList fontSize={15} lineHeight="22px" isDark={isDark} />
 
           {/* Cards: side-by-side if room, stacked on very narrow */}
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -168,12 +180,14 @@ export default function Concept() {
               bgAlt="Multi-Chain Sync illustration"
               title="Multi-Chain Sync"
               extraBottom={false}
+              isDark={isDark}
             />
             <ConceptCard
               bgSrc="/section-2/card-escrow-bg.svg"
               bgAlt="Secure Escrow illustration"
               title="Secure Escrow"
               extraBottom={false}
+              isDark={isDark}
             />
           </div>
         </div>
@@ -187,19 +201,19 @@ export default function Concept() {
 // content and tokens never drift between the two.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ConceptBadge() {
+function ConceptBadge({ isDark }: { isDark: boolean }) {
   return (
     <div
       className="inline-flex items-center self-start rounded-full border"
       style={{
         padding: "4px 12px",
-        backgroundColor: BADGE_BG,
+        backgroundColor: isDark ? DARK_BADGE_BG : BADGE_BG,
         borderColor: BADGE_BORDER,
       }}
     >
       <span
         style={{
-          color: BADGE_TEXT,
+          color: isDark ? DARK_BADGE_TEXT : BADGE_TEXT,
           fontFamily: typography.fonts.inter,
           fontWeight: 700,
           fontSize: 12,
@@ -216,9 +230,11 @@ function ConceptBadge() {
 function ConceptHeading({
   fontSize,
   lineHeight,
+  isDark,
 }: {
   fontSize: number;
   lineHeight: string;
+  isDark: boolean;
 }) {
   return (
     <h2
@@ -229,7 +245,11 @@ function ConceptHeading({
         fontWeight: 500,
         fontSize,
         lineHeight,
-        color: colors.black,
+        color: isDark ? colors.white : colors.black,
+        background: isDark ? DARK_HEADING_GRADIENT : "none",
+        WebkitBackgroundClip: isDark ? "text" : "border-box",
+        WebkitTextFillColor: isDark ? "transparent" : "unset",
+        backgroundClip: isDark ? "text" : "border-box",
       }}
     >
       The App Store for
@@ -242,9 +262,11 @@ function ConceptHeading({
 function ConceptBody({
   fontSize,
   lineHeight,
+  isDark,
 }: {
   fontSize: number;
   lineHeight: string;
+  isDark: boolean;
 }) {
   return (
     <p
@@ -254,7 +276,7 @@ function ConceptBody({
         fontWeight: 400,
         fontSize,
         lineHeight,
-        color: colors.black,
+        color: isDark ? colors.text.badgeUpcoming : colors.black,
       }}
     >
       Shekel is the bridge between raw compute and functional automation. We
@@ -267,9 +289,11 @@ function ConceptBody({
 function ConceptList({
   fontSize,
   lineHeight,
+  isDark,
 }: {
   fontSize: number;
   lineHeight: string;
+  isDark: boolean;
 }) {
   return (
     <ul
@@ -296,7 +320,7 @@ function ConceptList({
               fontWeight: 400,
               fontSize,
               lineHeight,
-              color: colors.black,
+              color: isDark ? colors.text.badgePurple : colors.black,
             }}
           >
             {item}
@@ -312,16 +336,18 @@ function ConceptCard({
   bgAlt,
   title,
   extraBottom,
+  isDark,
 }: {
   bgSrc: string;
   bgAlt: string;
   title: string;
   extraBottom: boolean;
+  isDark: boolean;
 }) {
   const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
-      className="flex flex-col border bg-white shadow-xl"
+      className="flex flex-col border shadow-xl"
       whileHover={
         prefersReducedMotion
           ? undefined
@@ -332,7 +358,8 @@ function ConceptCard({
       }
       transition={{ duration: 0.22, ease: "easeOut" }}
       style={{
-        borderColor: CARD_BORDER,
+        backgroundColor: isDark ? DARK_CARD_BG : colors.white,
+        borderColor: isDark ? DARK_CARD_BORDER : CARD_BORDER,
         borderRadius: 16,
         padding: 16,
         paddingBottom: extraBottom ? 64 : 16,
@@ -353,7 +380,7 @@ function ConceptCard({
           fontWeight: 600,
           fontSize: 16,
           lineHeight: "24px",
-          color: CARD_TITLE,
+          color: isDark ? colors.text.badgePurple : CARD_TITLE,
         }}
       >
         {title}

@@ -81,7 +81,7 @@ export default function Header() {
           </div>
 
           <div className="hidden min-w-0 flex-1 justify-center px-8 lg:flex xl:px-12">
-            <nav className="flex w-full max-w-[520px] items-center justify-between xl:max-w-[620px]">
+            <nav className="flex w-full max-w-[520px] items-center justify-center gap-10 xl:max-w-[620px] xl:gap-12">
               {NAV_LINKS.map((label) => (
                 <Link
                   key={label}
@@ -90,8 +90,8 @@ export default function Header() {
                   style={{
                     fontFamily: "var(--font-inter, 'Inter', sans-serif)",
                     fontWeight: 400,
-                    fontSize: 14,
-                    lineHeight: "20px",
+                    fontSize: 16,
+                    lineHeight: "22px",
                     letterSpacing: "-0.025em",
                   }}
                 >
@@ -149,7 +149,7 @@ export default function Header() {
               key={`mobile-${label}`}
               href="#"
               onClick={closeOverlays}
-              className="text-[16px] leading-6 text-[#b7b7b8] transition-colors duration-200 ease-out hover:text-white"
+              className="text-[17px] leading-7 text-[#b7b7b8] transition-colors duration-200 ease-out hover:text-white"
               style={{ fontFamily: "var(--font-inter, 'Inter', sans-serif)" }}
             >
               {label}

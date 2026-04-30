@@ -14,6 +14,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Float } from "@/components/shared/motion/Float";
 import { Reveal } from "@/components/shared/motion/Reveal";
 
@@ -79,6 +80,7 @@ export default function Roadmap() {
 }
 
 function RoadmapDesktop() {
+  const { isDark } = useThemeTokens();
   const sectionRef = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState<{ 0: boolean; 1: boolean; 2: boolean }>({
     0: false,
@@ -122,19 +124,52 @@ function RoadmapDesktop() {
         style={{
           top: STICKY_TOP_OFFSET,
           height: `calc(100vh - ${STICKY_TOP_OFFSET}px)`,
-          backgroundImage: "url('/section-8/roadmap.webp')",
+          backgroundImage: isDark ? "none" : "url('/section-8/roadmap.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundColor: "#f0e8ff",
+          backgroundColor: isDark ? "#111111" : "#f0e8ff",
         }}
       >
+        {isDark ? (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse 240px 120px at 100% 0%, rgba(17,17,17,1) 0%, rgba(11,11,11,1) 100%)",
+                opacity: 0.9,
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-20 bottom-[-120px] h-[220px] w-[240px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+                filter: "blur(82px)",
+                opacity: 0.68,
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-20 bottom-[-120px] h-[220px] w-[240px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+                filter: "blur(82px)",
+                opacity: 0.68,
+              }}
+            />
+          </>
+        ) : null}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
-            opacity: 0.38,
+              "repeating-linear-gradient(to right, rgba(110, 142, 232, 0.17) 0px, rgba(110, 142, 232, 0.17) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(110, 142, 232, 0.17) 0px, rgba(110, 142, 232, 0.17) 1px, transparent 1px, transparent 44px)",
+            opacity: isDark ? 0.24 : 0.38,
           }}
         />
         <div
@@ -173,7 +208,12 @@ function RoadmapDesktop() {
                   fontWeight: 700,
                   fontSize: 36,
                   lineHeight: "40px",
-                  color: "#000000",
+                    color: isDark ? colors.white : "#000000",
+                    background: isDark
+                      ? "linear-gradient(187.68deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                      : "none",
+                    WebkitBackgroundClip: isDark ? "text" : "border-box",
+                    WebkitTextFillColor: isDark ? "transparent" : "unset",
                 }}
               >
                 Development Roadmap
@@ -223,7 +263,7 @@ function RoadmapDesktop() {
                 }}
               >
                 {TIMELINE.map((item, i) => (
-                  <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} />
+                  <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} isDark={isDark} />
                 ))}
               </div>
             </div>
@@ -304,7 +344,15 @@ function TimelineDot({ item }: { item: TimelineItem }) {
   );
 }
 
-function TimelineStep({ item, revealed }: { item: TimelineItem; revealed: boolean }) {
+function TimelineStep({
+  item,
+  revealed,
+  isDark,
+}: {
+  item: TimelineItem;
+  revealed: boolean;
+  isDark: boolean;
+}) {
   const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
@@ -347,7 +395,7 @@ function TimelineStep({ item, revealed }: { item: TimelineItem; revealed: boolea
           fontWeight: 600,
           fontSize: 20,
           lineHeight: "28px",
-          color: "#0b0b0b",
+          color: isDark ? "#e5e7f6" : "#0b0b0b",
         }}
       >
         {item.heading}
@@ -360,7 +408,7 @@ function TimelineStep({ item, revealed }: { item: TimelineItem; revealed: boolea
           fontWeight: 400,
           fontSize: 16,
           lineHeight: "24px",
-          color: "rgba(0, 0, 0, 0.6)",
+          color: isDark ? "#a7aab9" : "rgba(0, 0, 0, 0.6)",
         }}
       >
         {item.desc}
@@ -370,6 +418,7 @@ function TimelineStep({ item, revealed }: { item: TimelineItem; revealed: boolea
 }
 
 function RoadmapMobile() {
+  const { isDark } = useThemeTokens();
   const sectionRef = useRef<HTMLElement | null>(null);
   const [revealed, setRevealed] = useState<{ 0: boolean; 1: boolean; 2: boolean }>({
     0: false,
@@ -413,19 +462,52 @@ function RoadmapMobile() {
         style={{
           top: STICKY_TOP_OFFSET,
           height: `calc(100vh - ${STICKY_TOP_OFFSET}px)`,
-          backgroundImage: "url('/section-8/roadmap.webp')",
+          backgroundImage: isDark ? "none" : "url('/section-8/roadmap.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundColor: "#f0e8ff",
+          backgroundColor: isDark ? "#111111" : "#f0e8ff",
         }}
       >
+        {isDark ? (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse 180px 90px at 100% 0%, rgba(17,17,17,1) 0%, rgba(11,11,11,1) 100%)",
+                opacity: 0.9,
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-32 bottom-[-130px] h-[250px] w-[270px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+                filter: "blur(78px)",
+                opacity: 0.66,
+              }}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-32 bottom-[-130px] h-[250px] w-[270px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+                filter: "blur(78px)",
+                opacity: 0.66,
+              }}
+            />
+          </>
+        ) : null}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
-            opacity: 0.34,
+              "repeating-linear-gradient(to right, rgba(110, 142, 232, 0.17) 0px, rgba(110, 142, 232, 0.17) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(110, 142, 232, 0.17) 0px, rgba(110, 142, 232, 0.17) 1px, transparent 1px, transparent 44px)",
+            opacity: isDark ? 0.24 : 0.34,
           }}
         />
         <Float
@@ -452,7 +534,12 @@ function RoadmapMobile() {
                 fontWeight: 700,
                 fontSize: "clamp(28px, 8vw, 36px)",
                 lineHeight: 1.1,
-                color: "#000000",
+                color: isDark ? colors.white : "#000000",
+                background: isDark
+                  ? "linear-gradient(187.68deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                  : "none",
+                WebkitBackgroundClip: isDark ? "text" : "border-box",
+                WebkitTextFillColor: isDark ? "transparent" : "unset",
               }}
             >
               Development Roadmap
@@ -501,7 +588,7 @@ function RoadmapMobile() {
               }}
             >
               {TIMELINE.map((item, i) => (
-                <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} />
+                <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} isDark={isDark} />
               ))}
             </div>
           </div>

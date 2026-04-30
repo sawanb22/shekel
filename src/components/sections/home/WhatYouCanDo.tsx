@@ -5,7 +5,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { colors, typography, radiuses } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
 
@@ -60,13 +62,14 @@ export default function WhatYouCanDo() {
 }
 
 function WhatYouCanDoDesktop() {
+  const { isDark } = useThemeTokens();
   return (
     <section
       className="relative hidden w-full overflow-hidden md:block"
       style={{
         aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
         containerType: "inline-size",
-        backgroundColor: colors.background.sectionAlt,
+        backgroundColor: isDark ? "#101420" : colors.background.sectionAlt,
       }}
     >
       <div
@@ -81,10 +84,10 @@ function WhatYouCanDoDesktop() {
         }}
       >
         <Reveal className="w-full text-center">
-          <Heading />
+          <Heading isDark={isDark} />
         </Reveal>
         <Reveal delay={0.1}>
-          <VisualCard />
+          <VisualCard isDark={isDark} />
         </Reveal>
         <RevealStagger
           className="grid grid-cols-3 gap-x-16 pt-4"
@@ -93,7 +96,7 @@ function WhatYouCanDoDesktop() {
         >
           {columns.map((col) => (
             <RevealItem key={col.heading}>
-              <BottomColumn col={col} />
+              <BottomColumn col={col} isDark={isDark} />
             </RevealItem>
           ))}
         </RevealStagger>
@@ -102,7 +105,7 @@ function WhatYouCanDoDesktop() {
   );
 }
 
-function Heading() {
+function Heading({ isDark }: { isDark: boolean }) {
   return (
     <h2
       style={{
@@ -111,7 +114,12 @@ function Heading() {
         fontWeight: 500,
         fontSize: 48,
         lineHeight: "48px",
-        color: colors.text.heading,
+        color: isDark ? colors.white : colors.text.heading,
+        background: isDark
+          ? "linear-gradient(183.67deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+          : "none",
+        WebkitBackgroundClip: isDark ? "text" : "border-box",
+        WebkitTextFillColor: isDark ? "transparent" : "unset",
       }}
     >
       What you can do with{" "}
@@ -129,7 +137,7 @@ function Heading() {
   );
 }
 
-function VisualCard() {
+function VisualCard({ isDark }: { isDark: boolean }) {
   const prefersReducedMotion = useReducedMotion();
   return (
     <motion.div
@@ -144,23 +152,14 @@ function VisualCard() {
       }
       transition={{ duration: 0.22, ease: "easeOut" }}
       style={{
-        backgroundColor: colors.white,
+        background: isDark
+          ? "linear-gradient(#000000, #000000) padding-box, linear-gradient(145deg, rgba(71,109,214,0.38) 0%, rgba(43,58,98,0.2) 45%, rgba(24,31,52,0.14) 100%) border-box"
+          : colors.white,
+        border: isDark ? "1px solid transparent" : "none",
         borderRadius: radiuses.card,
         height: 330,
       }}
     >
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          top: 104,
-          left: 243,
-          width: 730,
-          height: 122,
-          background: `linear-gradient(to right, ${colors.brand.blue}, ${colors.brand.cyan})`,
-          filter: "blur(60px)",
-          opacity: 0.4,
-        }}
-      />
       <div
         className="pointer-events-none absolute"
         style={{
@@ -181,11 +180,11 @@ function VisualCard() {
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-12 p-12">
-        <TopInputBar />
+        <TopInputBar isDark={isDark} />
         <div className="flex shrink-0 items-center gap-8">
           {workflowNodes.map((node, i) => (
             <div key={node.label} className="flex items-center gap-8">
-              <WorkflowNode node={node} />
+              <WorkflowNode node={node} isDark={isDark} />
               {i < workflowNodes.length - 1 ? (
                 <div
                   style={{
@@ -224,6 +223,7 @@ function VisualCard() {
             <span style={badgeText}>12 Posts generated</span>
           </>
         }
+        isDark={isDark}
       />
       <FloatingBadge
         top={148}
@@ -234,6 +234,7 @@ function VisualCard() {
             <span style={badgeText}>Scheduled</span>
           </>
         }
+        isDark={isDark}
       />
       <FloatingBadge
         top={235}
@@ -265,6 +266,7 @@ function VisualCard() {
             <span style={badgeText}>Success badge</span>
           </>
         }
+        isDark={isDark}
       />
     </motion.div>
   );
@@ -275,18 +277,19 @@ const badgeText = {
   fontWeight: 600,
   fontSize: 14,
   lineHeight: "20px",
-  color: colors.text.badgeDark,
+  color: "#7c7e81",
   whiteSpace: "nowrap" as const,
 };
 
-function TopInputBar() {
+function TopInputBar({ isDark }: { isDark: boolean }) {
   return (
     <div
       className="flex w-full min-w-0 max-w-full shrink items-center gap-3 sm:gap-4"
       style={{
         width: "min(576px, 100%)",
         padding: 16,
-        backgroundColor: colors.white,
+        backgroundColor: isDark ? "#1b1a1a" : colors.white,
+        border: isDark ? "1px solid rgba(255,255,255,0.1)" : "none",
         borderRadius: radiuses.icon,
         boxShadow: "0px 20px 50px 0px rgba(0,0,0,0.08)",
       }}
@@ -308,7 +311,7 @@ function TopInputBar() {
           fontWeight: 500,
           fontSize: 16,
           lineHeight: "24px",
-          color: colors.text.inputLabel,
+          color: isDark ? "#475569" : colors.text.inputLabel,
           flex: 1,
           minWidth: 0,
         }}
@@ -330,33 +333,44 @@ function TopInputBar() {
 
 function WorkflowNode({
   node,
+  isDark,
 }: {
   node: (typeof workflowNodes)[number];
+  isDark: boolean;
 }) {
   const prefersReducedMotion = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <motion.div
       className="relative flex flex-col items-center gap-2"
       style={{
         padding: 21,
-        backgroundColor: colors.overlay.whiteGlass,
+        backgroundColor: isDark ? "#1b1a1a" : colors.overlay.whiteGlass,
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
-        border: `1px solid ${colors.overlay.whiteNode}`,
+        border: isDark ? "1px solid rgba(255,255,255,0.1)" : `1px solid ${colors.overlay.whiteNode}`,
         borderRadius: radiuses.card,
         boxShadow:
           "0px 20px 25px -5px rgba(0,0,0,0.1), 0px 8px 10px -6px rgba(0,0,0,0.1)",
       }}
       whileHover={prefersReducedMotion ? undefined : { y: -4 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
       <div
         className="flex items-center justify-center"
         style={{
           width: 48,
           height: 48,
-          backgroundColor: node.bg,
+          background: isHovered
+            ? `linear-gradient(180deg, ${colors.brand.blueStart} 0%, #d8e6ff 100%)`
+            : isDark
+              ? "#1f2937"
+              : node.bg,
+          border: isHovered ? "none" : isDark ? "1px solid rgba(255,255,255,0.08)" : "none",
           borderRadius: radiuses.icon,
+          boxShadow: isHovered ? "0px 8px 20px rgba(40,100,228,0.32)" : "none",
         }}
       >
         <Image src={node.icon} alt={node.label} width={node.iconW} height={node.iconH} />
@@ -367,7 +381,7 @@ function WorkflowNode({
           fontWeight: 600,
           fontSize: 12,
           lineHeight: "16px",
-          color: colors.text.nodeLabel,
+          color: isDark ? "#334155" : colors.text.nodeLabel,
           whiteSpace: "nowrap",
         }}
       >
@@ -383,12 +397,14 @@ function FloatingBadge({
   right,
   content,
   compact = false,
+  isDark,
 }: {
   top: number;
   left?: number;
   right?: number;
   content: React.ReactNode;
   compact?: boolean;
+  isDark: boolean;
 }) {
   return (
     <div
@@ -398,10 +414,10 @@ function FloatingBadge({
         left,
         right,
         padding: compact ? "10px 17px" : "13px 17px",
-        backgroundColor: colors.overlay.whiteGlass,
+        backgroundColor: isDark ? "#1b1a1a" : colors.overlay.whiteGlass,
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
-        border: `1px solid ${colors.overlay.whiteBorder}`,
+        border: isDark ? "1px solid rgba(255,255,255,0.1)" : `1px solid ${colors.overlay.whiteBorder}`,
         borderRadius: radiuses.icon,
         boxShadow:
           "0px 10px 15px -3px rgba(0,0,0,0.1), 0px 4px 6px -4px rgba(0,0,0,0.1)",
@@ -412,7 +428,7 @@ function FloatingBadge({
   );
 }
 
-function BottomColumn({ col }: { col: (typeof columns)[number] }) {
+function BottomColumn({ col, isDark }: { col: (typeof columns)[number]; isDark: boolean }) {
   return (
     <div className="flex flex-col gap-4 opacity-100 transition-[transform,opacity] duration-200 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:opacity-80">
       <h3
@@ -422,7 +438,7 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
           fontWeight: 600,
           fontSize: 18,
           lineHeight: "28px",
-          color: colors.text.heading,
+          color: isDark ? colors.white : colors.text.heading,
         }}
       >
         {col.heading}
@@ -434,7 +450,7 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
           fontWeight: 400,
           fontSize: 16,
           lineHeight: "26px",
-          color: colors.text.bodyMuted,
+          color: isDark ? colors.white : colors.text.bodyMuted,
         }}
       >
         {col.body}
@@ -470,10 +486,11 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
 }
 
 function WhatYouCanDoMobile() {
+  const { isDark } = useThemeTokens();
   return (
     <section
       className="block w-full overflow-x-clip md:hidden"
-      style={{ backgroundColor: colors.background.sectionAlt }}
+      style={{ backgroundColor: isDark ? "#101420" : colors.background.sectionAlt }}
     >
       <div className="flex min-w-0 max-w-full flex-col gap-10 px-6 py-16 sm:px-8">
         <Reveal className="text-center">
@@ -484,7 +501,12 @@ function WhatYouCanDoMobile() {
               fontWeight: 500,
               fontSize: "clamp(28px, 8vw, 40px)",
               lineHeight: 1.1,
-              color: colors.text.heading,
+              color: isDark ? colors.white : colors.text.heading,
+              background: isDark
+                ? "linear-gradient(183.67deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                : "none",
+              WebkitBackgroundClip: isDark ? "text" : "border-box",
+              WebkitTextFillColor: isDark ? "transparent" : "unset",
             }}
           >
             What you can do with{" "}
@@ -504,12 +526,18 @@ function WhatYouCanDoMobile() {
         <Reveal>
           <div
             className="flex w-full min-w-0 max-w-full flex-col items-center gap-6 overflow-hidden p-6"
-            style={{ backgroundColor: colors.white, borderRadius: radiuses.card }}
+            style={{
+              background: isDark
+                ? "linear-gradient(#000000, #000000) padding-box, linear-gradient(145deg, rgba(71,109,214,0.36) 0%, rgba(43,58,98,0.2) 45%, rgba(24,31,52,0.14) 100%) border-box"
+                : colors.white,
+              borderRadius: radiuses.card,
+              border: isDark ? "1px solid transparent" : "none",
+            }}
           >
-            <TopInputBar />
+            <TopInputBar isDark={isDark} />
             <div className="flex flex-wrap items-center justify-center gap-4">
               {workflowNodes.map((node) => (
-                <WorkflowNode key={node.label} node={node} />
+                <WorkflowNode key={node.label} node={node} isDark={isDark} />
               ))}
             </div>
           </div>
@@ -518,7 +546,7 @@ function WhatYouCanDoMobile() {
         <RevealStagger className="flex flex-col gap-8" stagger={0.12}>
           {columns.map((col) => (
             <RevealItem key={col.heading}>
-              <BottomColumn col={col} />
+              <BottomColumn col={col} isDark={isDark} />
             </RevealItem>
           ))}
         </RevealStagger>

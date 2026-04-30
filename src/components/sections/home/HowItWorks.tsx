@@ -5,6 +5,7 @@
 
 import StepCard from "@/components/shared/StepCard";
 import { colors, typography } from "@/tokens/design-tokens";
+import { useThemeTokens } from "@/hooks/useThemeTokens";
 import { Reveal } from "@/components/shared/motion/Reveal";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -31,8 +32,36 @@ const STEPS = [
 
 export default function HowItWorks() {
   const prefersReducedMotion = useReducedMotion();
+  const { isDark } = useThemeTokens();
   return (
-    <section className="w-full bg-white py-24">
+    <section
+      className="relative w-full overflow-hidden py-24"
+      style={{ backgroundColor: isDark ? "#000000" : colors.white }}
+    >
+      {isDark ? (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-52 -top-40 h-[420px] w-[420px] rounded-full"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+              filter: "blur(120px)",
+              opacity: 0.5,
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-52 -top-40 h-[420px] w-[420px] rounded-full"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(40,100,228,1) 0%, rgba(236,242,255,1) 100%)",
+              filter: "blur(120px)",
+              opacity: 0.5,
+            }}
+          />
+        </>
+      ) : null}
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto mb-20 flex w-full max-w-[768px] flex-col items-center gap-4 text-center">
           <h2
@@ -42,7 +71,12 @@ export default function HowItWorks() {
               fontWeight: 500,
               fontSize: "clamp(32px, 5vw, 48px)",
               lineHeight: "40px",
-              color: colors.text.dark,
+              color: isDark ? colors.white : colors.text.dark,
+              background: isDark
+                ? "linear-gradient(184.89deg, rgba(255,255,255,1) 55.625%, rgba(255,255,255,0) 110.73%)"
+                : "none",
+              WebkitBackgroundClip: isDark ? "text" : "border-box",
+              WebkitTextFillColor: isDark ? "transparent" : "unset",
             }}
           >
             A Three-Step Architectural Flow
@@ -54,7 +88,7 @@ export default function HowItWorks() {
               fontWeight: 400,
               fontSize: 16,
               lineHeight: "24px",
-              color: colors.text.body,
+              color: isDark ? colors.white : colors.text.body,
             }}
           >
             From deployment to global scaling in record time.
@@ -68,8 +102,9 @@ export default function HowItWorks() {
             style={{
               left: "25%",
               right: "25%",
-              backgroundImage:
-                "linear-gradient(to right, rgba(0,90,182,0.05) 0%, #005ab6 18%, #005ab6 82%, rgba(0,90,182,0.05) 100%)",
+              backgroundImage: isDark
+                ? "linear-gradient(to right, rgba(0,90,182,0.1) 0%, #005ab6 50%, rgba(0,90,182,0.1) 100%)"
+                : "linear-gradient(to right, rgba(0,90,182,0.05) 0%, #005ab6 18%, #005ab6 82%, rgba(0,90,182,0.05) 100%)",
               transformOrigin: "left center",
             }}
             initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
