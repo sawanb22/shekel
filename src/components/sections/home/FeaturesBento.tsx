@@ -86,13 +86,18 @@ function FeaturesBentoDesktop() {
                 The world&apos;s largest repository of fine-tuned, task-specific autonomous agents ready for work.
               </p>
               <a href="#" className="group mt-2 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))_brightness(1.15)]">
-                <span style={exploreLinkStyle}>Explore Marketplace</span>
+                <span
+                  className="transition-[color] duration-200 ease-out group-hover:[background-image:linear-gradient(to_bottom,_#2864e4,_#ecf2ff)] group-hover:bg-clip-text group-hover:text-transparent group-hover:[-webkit-text-fill-color:transparent]"
+                  style={exploreLinkStyle}
+                >
+                  Explore Marketplace
+                </span>
                 <Image
                   src="/section-6/icon-arrow.svg"
                   alt=""
                   width={16}
                   height={16}
-                  className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
+                    className="[filter:brightness(0)_saturate(100%)_invert(32%)_sepia(95%)_saturate(1900%)_hue-rotate(213deg)_brightness(95%)_contrast(94%)] transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105 group-hover:[filter:none]"
                 />
               </a>
             </div>
@@ -421,13 +426,18 @@ function MobileCard({
       </p>
       {cta ? (
         <a href="#" className="group mt-1 inline-flex items-center gap-2 transition-[transform,opacity,filter] duration-200 ease-out hover:translate-x-1 hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))_brightness(1.15)]">
-          <span style={exploreLinkStyle}>{cta}</span>
+          <span
+            className="transition-[color] duration-200 ease-out group-hover:[background-image:linear-gradient(to_bottom,_#2864e4,_#ecf2ff)] group-hover:bg-clip-text group-hover:text-transparent group-hover:[-webkit-text-fill-color:transparent]"
+            style={exploreLinkStyle}
+          >
+            {cta}
+          </span>
           <Image
             src="/section-6/icon-arrow.svg"
             alt=""
             width={16}
             height={16}
-            className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
+            className="[filter:brightness(0)_saturate(100%)_invert(32%)_sepia(95%)_saturate(1900%)_hue-rotate(213deg)_brightness(95%)_contrast(94%)] transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105 group-hover:[filter:none]"
           />
         </a>
       ) : null}
@@ -477,8 +487,5 @@ const exploreLinkStyle = {
   fontWeight: 700,
   fontSize: 16,
   lineHeight: "24px",
-  background: BLUE_GRADIENT,
-  WebkitBackgroundClip: "text" as const,
-  WebkitTextFillColor: "transparent",
-  backgroundClip: "text" as const,
+  color: colors.brand.blueStart,
 };

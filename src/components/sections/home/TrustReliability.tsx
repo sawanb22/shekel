@@ -116,8 +116,11 @@ function TrustDesktop() {
 }
 
 function TrustHeading({ isDark }: { isDark: boolean }) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <h2
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         margin: 0,
         fontFamily: typography.fonts.poppins,
@@ -136,10 +139,15 @@ function TrustHeading({ isDark }: { isDark: boolean }) {
       Built for{" "}
       <span
         style={{
-          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
+          color: isDark ? undefined : colors.brand.blueStart,
+          background:
+            isDark || isHovered
+              ? `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`
+              : "none",
+          WebkitBackgroundClip: isDark || isHovered ? "text" : "border-box",
+          WebkitTextFillColor: isDark || isHovered ? "transparent" : "unset",
+          backgroundClip: isDark || isHovered ? "text" : "border-box",
+          transition: "color 180ms ease, background 180ms ease",
         }}
       >
         reliability
@@ -147,10 +155,15 @@ function TrustHeading({ isDark }: { isDark: boolean }) {
       and{" "}
       <span
         style={{
-          background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
+          color: isDark ? undefined : colors.brand.blueStart,
+          background:
+            isDark || isHovered
+              ? `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`
+              : "none",
+          WebkitBackgroundClip: isDark || isHovered ? "text" : "border-box",
+          WebkitTextFillColor: isDark || isHovered ? "transparent" : "unset",
+          backgroundClip: isDark || isHovered ? "text" : "border-box",
+          transition: "color 180ms ease, background 180ms ease",
         }}
       >
         trust
@@ -184,12 +197,12 @@ function TrustCard({ card, isDark }: { card: Card; isDark: boolean }) {
           style={{
             width: 56,
             height: 56,
-            backgroundColor: isDark ? "#060b16" : isHovered ? "#ffffff" : "transparent",
-            boxShadow: isDark
-              ? "0 0 0 1px rgba(120, 139, 196, 0.2), 0 8px 22px -14px rgba(36, 54, 86, 0.45)"
-              : isHovered
-                ? "0 8px 22px -14px rgba(36, 54, 86, 0.35)"
-                : "none",
+            backgroundColor: isHovered ? (isDark ? "#060b16" : "#ffffff") : "transparent",
+            boxShadow: isHovered
+              ? isDark
+                ? "0 0 0 1px rgba(120, 139, 196, 0.2), 0 8px 22px -14px rgba(36, 54, 86, 0.45)"
+                : "0 8px 22px -14px rgba(36, 54, 86, 0.35)"
+              : "none",
           }}
         >
           <Image
@@ -198,7 +211,7 @@ function TrustCard({ card, isDark }: { card: Card; isDark: boolean }) {
             width={card.iconW}
             height={card.iconH}
             style={
-              isDark || isHovered
+              isHovered
                 ? undefined
                 : {
                     // Force a stronger single-blue icon tone before hover.
