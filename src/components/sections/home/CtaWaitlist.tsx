@@ -211,20 +211,21 @@ function WaitlistForm() {
         className="flex h-14 items-center justify-center text-white"
         style={{
           padding: "0 32px",
-          background: BLUE_GRADIENT,
+          background: colors.brand.blue,
           borderRadius: 24,
           fontFamily: typography.fonts.inter,
           fontWeight: 600,
           fontSize: 16,
           lineHeight: "24px",
           whiteSpace: "nowrap",
-          boxShadow: "0 10px 20px -8px rgba(40, 100, 228, 0.5)",
+          boxShadow: "0 8px 18px -10px rgba(40, 100, 228, 0.45)",
         }}
         whileHover={
           prefersReducedMotion
             ? undefined
             : {
                 scale: 1.03,
+                background: BLUE_GRADIENT,
                 boxShadow: "0 12px 28px -6px rgba(40, 100, 228, 0.65)",
                 filter: "brightness(1.15)",
               }
@@ -369,14 +370,23 @@ function MobileWaitlistForm() {
         className="text-white"
         style={{
           padding: "16px 32px",
-          background: BLUE_GRADIENT,
+          background: colors.brand.blue,
           borderRadius: 24,
           fontFamily: typography.fonts.inter,
           fontWeight: 600,
           fontSize: 16,
-          boxShadow: "0 10px 20px -8px rgba(40, 100, 228, 0.5)",
+          boxShadow: "0 8px 18px -10px rgba(40, 100, 228, 0.45)",
         }}
-        whileHover={prefersReducedMotion ? undefined : { scale: 1.03, filter: "brightness(1.15)" }}
+        whileHover={
+          prefersReducedMotion
+            ? undefined
+            : {
+                scale: 1.03,
+                background: BLUE_GRADIENT,
+                filter: "brightness(1.15)",
+                boxShadow: "0 12px 28px -6px rgba(40, 100, 228, 0.65)",
+              }
+        }
         whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
       >
         Join Waitlist

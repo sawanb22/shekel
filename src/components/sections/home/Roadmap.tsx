@@ -5,15 +5,22 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { colors, typography } from "@/tokens/design-tokens";
 import { Float } from "@/components/shared/motion/Float";
 import { Reveal } from "@/components/shared/motion/Reveal";
-import { RevealStagger, RevealItem } from "@/components/shared/motion/RevealStagger";
 
 const CANVAS_W = 1280;
 const CANVAS_H = 690;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;
+const STICKY_TOP_OFFSET = 72;
 
 // Figma fill_3UVOLK uses the same features-bg.webp (imageRef f29b33d3…)
 // as FeaturesBento. Apply it as CSS cover so it fills edge-to-edge.
@@ -72,67 +79,379 @@ export default function Roadmap() {
 }
 
 function RoadmapDesktop() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState<{ 0: boolean; 1: boolean; 2: boolean }>({
+    0: false,
+    1: false,
+    2: false,
+  });
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const fillScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (prefersReducedMotion) {
+      setRevealed({ 0: true, 1: true, 2: true });
+      return;
+    }
+    setRevealed((prev) => ({
+      0: prev[0] || v >= 0.05,
+      1: prev[1] || v >= 0.38,
+      2: prev[2] || v >= 0.7,
+    }));
+  });
+
+  const dotCenter = 14;
+  const lineTopInset = dotCenter + 5;
+
   return (
     <section
-      className="relative hidden w-full overflow-hidden rounded-[24px] md:block"
+      ref={sectionRef}
+      className="relative hidden w-full md:block"
       style={{
-        aspectRatio: `${CANVAS_W} / ${CANVAS_H}`,
-        containerType: "inline-size",
-        backgroundImage: "url('/section-8/roadmap.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: "#f0e8ff",
+        height: "350vh",
       }}
     >
       <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
+        className="sticky overflow-hidden"
         style={{
-          backgroundImage:
-            "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
-          opacity: 0.38,
-        }}
-      />
-      <div
-        className="absolute left-0 top-0"
-        style={{
-          width: CANVAS_W,
-          height: CANVAS_H,
-          transform: `scale(${SCALE})`,
-          transformOrigin: "top left",
+          top: STICKY_TOP_OFFSET,
+          height: `calc(100vh - ${STICKY_TOP_OFFSET}px)`,
+          backgroundImage: "url('/section-8/roadmap.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "#f0e8ff",
         }}
       >
-        {/* Rocket — Figma rect: x=-408, y=-75, w=1274.68, h=1293.46.
-            The section overflow:hidden clips the 408px that sits off-canvas;
-            ~866px (68%) of the rocket is visible on the left. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
+            opacity: 0.38,
+          }}
+        />
+        <div
+          className="absolute left-0 top-0"
+          style={{
+            width: CANVAS_W,
+            height: CANVAS_H,
+            transform: `scale(${SCALE})`,
+            transformOrigin: "top left",
+          }}
+        >
+          <Float
+            amplitude={14}
+            rotate={2}
+            duration={8}
+            className="pointer-events-none absolute"
+            style={{ left: -408, top: -75, width: 1274.68, height: 1293.46 }}
+          >
+            <Image
+              src="/section-8/rocket.webp"
+              alt=""
+              fill
+              style={{ objectFit: "contain" }}
+            />
+          </Float>
+
+          <div
+            className="absolute flex flex-col"
+            style={{ left: 509, top: 55, width: 800, gap: 80 }}
+          >
+            <Reveal>
+              <h2
+                style={{
+                  margin: 0,
+                  fontFamily: typography.fonts.poppins,
+                  fontWeight: 700,
+                  fontSize: 36,
+                  lineHeight: "40px",
+                  color: "#000000",
+                }}
+              >
+                Development Roadmap
+              </h2>
+            </Reveal>
+
+            <div className="flex items-stretch" style={{ gap: 32 }}>
+              <div
+                className="relative grid shrink-0"
+                style={{
+                  width: 36,
+                  height: 430,
+                  gridTemplateRows: "repeat(3, minmax(0, 1fr))",
+                  justifyItems: "center",
+                  alignItems: "start",
+                }}
+              >
+                <motion.div
+                  aria-hidden
+                  className="absolute rounded-full"
+                  style={{
+                    top: lineTopInset,
+                    height: "calc((100% / 3) * 2)",
+                    left: "50%",
+                    width: 3,
+                    transform: "translateX(-50%)",
+                    scaleY: fillScale,
+                    transformOrigin: "top center",
+                    background:
+                      "linear-gradient(180deg, rgba(186,158,255,1) 0%, rgba(40,100,228,1) 45%, rgba(86,204,242,1) 100%)",
+                  }}
+                />
+
+                {TIMELINE.map((item) => (
+                  <div key={item.heading}>
+                    <TimelineDot item={item} />
+                  </div>
+                ))}
+              </div>
+
+              <div
+                className="grid flex-1"
+                style={{
+                  height: 430,
+                  gridTemplateRows: "repeat(3, minmax(0, 1fr))",
+                  alignItems: "start",
+                }}
+              >
+                {TIMELINE.map((item, i) => (
+                  <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TimelineDot({ item }: { item: TimelineItem }) {
+  if (item.icon) {
+    return (
+      <div
+        className="relative z-10 flex items-center justify-center"
+        style={{
+          width: 36,
+          height: 29,
+          borderRadius: 8.64,
+          backgroundColor: item.nodeShadow,
+          flexShrink: 0,
+        }}
+      >
+        <div
+          className="flex items-center justify-center"
+          style={{
+            width: 27,
+            height: 21,
+            borderRadius: 8.64,
+            backgroundColor: item.nodeBg,
+            boxSizing: "border-box",
+            padding: item.status === "COMPLETED" ? "3px 4px" : "3px 3px",
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src={item.icon}
+            alt=""
+            width={item.status === "COMPLETED" ? 6 : 7}
+            height={item.status === "COMPLETED" ? 5 : 7}
+            style={
+              item.status === "COMPLETED"
+                ? {
+                    width: 10,
+                    height: 8,
+                    maxWidth: 10,
+                    maxHeight: 8,
+                    objectFit: "contain",
+                    flexShrink: 0,
+                  }
+                : {
+                    width: 10,
+                    height: 10,
+                    maxWidth: 10,
+                    maxHeight: 10,
+                    objectFit: "contain",
+                    flexShrink: 0,
+                  }
+            }
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="relative z-10"
+      style={{
+        width: 28,
+        height: 28,
+        borderRadius: "9999px",
+        backgroundColor: item.nodeBg,
+        border: `1.5px solid ${item.nodeBorder}`,
+        flexShrink: 0,
+      }}
+    />
+  );
+}
+
+function TimelineStep({ item, revealed }: { item: TimelineItem; revealed: boolean }) {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{
+        opacity: prefersReducedMotion || revealed ? 1 : 0,
+        y: prefersReducedMotion || revealed ? 0 : 20,
+      }}
+      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+      className="flex flex-col"
+      style={{ gap: 8 }}
+    >
+      <div
+        className="inline-flex self-start rounded"
+        style={{
+          backgroundColor: item.statusBg,
+          padding: "3px 10px",
+          borderRadius: 8,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: typography.fonts.inter,
+            fontWeight: 700,
+            fontSize: 10,
+            lineHeight: "14px",
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            color: item.statusText,
+          }}
+        >
+          {item.status}
+        </span>
+      </div>
+
+      <h4
+        style={{
+          margin: 0,
+          fontFamily: typography.fonts.inter,
+          fontWeight: 600,
+          fontSize: 20,
+          lineHeight: "28px",
+          color: "#0b0b0b",
+        }}
+      >
+        {item.heading}
+      </h4>
+
+      <p
+        style={{
+          margin: 0,
+          fontFamily: typography.fonts.inter,
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: "24px",
+          color: "rgba(0, 0, 0, 0.6)",
+        }}
+      >
+        {item.desc}
+      </p>
+    </motion.div>
+  );
+}
+
+function RoadmapMobile() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState<{ 0: boolean; 1: boolean; 2: boolean }>({
+    0: false,
+    1: false,
+    2: false,
+  });
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const fillScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (prefersReducedMotion) {
+      setRevealed({ 0: true, 1: true, 2: true });
+      return;
+    }
+    setRevealed((prev) => ({
+      0: prev[0] || v >= 0.05,
+      1: prev[1] || v >= 0.38,
+      2: prev[2] || v >= 0.7,
+    }));
+  });
+
+  const dotCenter = 14;
+  const lineTopInset = dotCenter + 5;
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative block w-full md:hidden"
+      style={{
+        height: "350vh",
+      }}
+    >
+      <div
+        className="sticky overflow-hidden"
+        style={{
+          top: STICKY_TOP_OFFSET,
+          height: `calc(100vh - ${STICKY_TOP_OFFSET}px)`,
+          backgroundImage: "url('/section-8/roadmap.webp')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundColor: "#f0e8ff",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
+            opacity: 0.34,
+          }}
+        />
         <Float
-          amplitude={14}
-          rotate={2}
+          amplitude={10}
           duration={8}
-          className="pointer-events-none absolute"
-          style={{ left: -408, top: -75, width: 1274.68, height: 1293.46 }}
+          className="pointer-events-none absolute -right-24 top-2 opacity-50"
+          style={{ width: 360 }}
         >
           <Image
             src="/section-8/rocket.webp"
             alt=""
-            fill
-            style={{ objectFit: "contain" }}
+            width={360}
+            height={365}
+            style={{ width: "100%", height: "auto" }}
           />
         </Float>
 
-        {/* Roadmap content — x=509, y=55, w=800 (Figma layout_MG2NQ8) */}
-        <div
-          className="absolute flex flex-col"
-          style={{ left: 509, top: 55, width: 800, gap: 80 }}
-        >
+        <div className="relative z-10 flex h-full flex-col justify-center gap-10 px-6 sm:px-8">
           <Reveal>
             <h2
               style={{
                 margin: 0,
                 fontFamily: typography.fonts.poppins,
                 fontWeight: 700,
-                fontSize: 36,
-                lineHeight: "40px",
+                fontSize: "clamp(28px, 8vw, 36px)",
+                lineHeight: 1.1,
                 color: "#000000",
               }}
             >
@@ -140,228 +459,53 @@ function RoadmapDesktop() {
             </h2>
           </Reveal>
 
-          <RevealStagger className="flex flex-col" style={{ gap: 48 }} stagger={0.18}>
-            {TIMELINE.map((item, i) => (
-              <RevealItem key={item.heading}>
-                <TimelineRow item={item} isLast={i === TIMELINE.length - 1} />
-              </RevealItem>
-            ))}
-          </RevealStagger>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TimelineRow({ item, isLast }: { item: TimelineItem; isLast: boolean }) {
-  const prefersReducedMotion = useReducedMotion();
-  return (
-    <motion.div
-      className="flex flex-row items-stretch"
-      whileHover={
-        prefersReducedMotion
-          ? undefined
-          : {
-              y: -4,
-            }
-      }
-      transition={{ duration: 0.22, ease: "easeOut" }}
-      style={{ gap: 32 }}
-    >
-      {/* Node + connector column */}
-      <div className="relative flex flex-col items-center" style={{ width: 32 }}>
-        {item.icon ? (
-          <div
-            className="relative z-10 flex items-center justify-center"
-            style={{
-              width: 32,
-              height: 25.28,
-              borderRadius: 8.64,
-              backgroundColor: item.nodeShadow,
-              flexShrink: 0,
-            }}
-          >
+          <div className="flex items-stretch" style={{ gap: 24 }}>
             <div
-              className="flex items-center justify-center"
+              className="relative grid shrink-0"
               style={{
-                width: 24,
-                height: 17.28,
-                borderRadius: 8.64,
-                backgroundColor: item.nodeBg,
-                boxSizing: "border-box",
-                padding: item.status === "COMPLETED" ? "3px 4px" : "3px 3px",
-                overflow: "hidden",
+                width: 36,
+                height: 420,
+                gridTemplateRows: "repeat(3, minmax(0, 1fr))",
+                justifyItems: "center",
+                alignItems: "start",
               }}
             >
-              <Image
-                src={item.icon}
-                alt=""
-                width={item.status === "COMPLETED" ? 5 : 6}
-                height={item.status === "COMPLETED" ? 4 : 6}
-                style={
-                  item.status === "COMPLETED"
-                    ? {
-                        width: 9,
-                        height: 7,
-                        maxWidth: 9,
-                        maxHeight: 7,
-                        objectFit: "contain",
-                        flexShrink: 0,
-                      }
-                    : {
-                        width: 9,
-                        height: 9,
-                        maxWidth: 9,
-                        maxHeight: 9,
-                        objectFit: "contain",
-                        flexShrink: 0,
-                      }
-                }
+              <motion.div
+                aria-hidden
+                className="absolute rounded-full"
+                style={{
+                  top: lineTopInset,
+                  height: "calc((100% / 3) * 2)",
+                  left: "50%",
+                  width: 3,
+                  transform: "translateX(-50%)",
+                  scaleY: fillScale,
+                  transformOrigin: "top center",
+                  background:
+                    "linear-gradient(180deg, rgba(186,158,255,1) 0%, rgba(40,100,228,1) 45%, rgba(86,204,242,1) 100%)",
+                }}
               />
+              {TIMELINE.map((item) => (
+                <div key={item.heading}>
+                  <TimelineDot item={item} />
+                </div>
+              ))}
+            </div>
+
+            <div
+              className="grid flex-1"
+              style={{
+                height: 420,
+                gridTemplateRows: "repeat(3, minmax(0, 1fr))",
+                alignItems: "start",
+              }}
+            >
+              {TIMELINE.map((item, i) => (
+                <TimelineStep key={item.heading} item={item} revealed={revealed[i as 0 | 1 | 2]} />
+              ))}
             </div>
           </div>
-        ) : (
-          <div
-            style={{
-              width: 24,
-              height: 24,
-              borderRadius: "9999px",
-              backgroundColor: item.nodeBg,
-              border: `1.5px solid ${item.nodeBorder}`,
-              flexShrink: 0,
-            }}
-          />
-        )}
-
-        {!isLast && (
-          <div
-            className="mt-4 flex-1"
-            style={{
-              width: 2,
-              backgroundColor: "#444854",
-              opacity: 0.92,
-              borderRadius: 9999,
-              minHeight: 60,
-            }}
-          />
-        )}
-      </div>
-
-      {/* Text content */}
-      <div className="flex flex-col" style={{ gap: 8, paddingBottom: 32 }}>
-        {/* Status badge */}
-        <div
-          className="inline-flex self-start rounded"
-          style={{
-            backgroundColor: item.statusBg,
-            padding: "3px 10px",
-            borderRadius: 8,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: typography.fonts.inter,
-              fontWeight: 700,
-              fontSize: 10,
-              lineHeight: "14px",
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-              color: item.statusText,
-            }}
-          >
-            {item.status}
-          </span>
         </div>
-
-        <h4
-          style={{
-            margin: 0,
-            fontFamily: typography.fonts.inter,
-            fontWeight: 600,
-            fontSize: 20,
-            lineHeight: "28px",
-            color: "#0b0b0b",
-          }}
-        >
-          {item.heading}
-        </h4>
-
-        <p
-          style={{
-            margin: 0,
-            fontFamily: typography.fonts.inter,
-            fontWeight: 400,
-            fontSize: 16,
-            lineHeight: "24px",
-            color: "rgba(0, 0, 0, 0.6)",
-          }}
-        >
-          {item.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function RoadmapMobile() {
-  return (
-    <section
-      className="relative block w-full overflow-hidden md:hidden"
-      style={{
-        backgroundImage: "url('/section-8/roadmap.webp')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: "#f0e8ff",
-      }}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(to right, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px), repeating-linear-gradient(to bottom, rgba(126, 84, 206, 0.13) 0px, rgba(126, 84, 206, 0.13) 1px, transparent 1px, transparent 44px)",
-          opacity: 0.34,
-        }}
-      />
-      {/* Rocket — faint decoration top-right on mobile */}
-      <Float
-        amplitude={10}
-        duration={8}
-        className="pointer-events-none absolute -right-24 top-2 opacity-50"
-        style={{ width: 360 }}
-      >
-        <Image
-          src="/section-8/rocket.webp"
-          alt=""
-          width={360}
-          height={365}
-          style={{ width: "100%", height: "auto" }}
-        />
-      </Float>
-
-      <div className="relative z-10 flex flex-col gap-10 px-6 py-16 sm:px-8">
-        <Reveal>
-          <h2
-            style={{
-              margin: 0,
-              fontFamily: typography.fonts.poppins,
-              fontWeight: 700,
-              fontSize: "clamp(28px, 8vw, 36px)",
-              lineHeight: 1.1,
-              color: "#000000",
-            }}
-          >
-            Development Roadmap
-          </h2>
-        </Reveal>
-
-        <RevealStagger className="flex flex-col gap-10" stagger={0.15}>
-          {TIMELINE.map((item, i) => (
-            <RevealItem key={item.heading}>
-              <TimelineRow item={item} isLast={i === TIMELINE.length - 1} />
-            </RevealItem>
-          ))}
-        </RevealStagger>
       </div>
     </section>
   );

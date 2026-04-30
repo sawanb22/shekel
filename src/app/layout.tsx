@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins, Plus_Jakarta_Sans } from "next/font/google";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,11 +40,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${poppins.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-black">
-        <Header />
-        {children}
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -10,6 +10,8 @@ type RevealStaggerProps = {
   stagger?: number;
   delay?: number;
   y?: number;
+  /** Fires once when staggered child animations settle (viewport reveal complete). */
+  onStaggerAnimationsComplete?: () => void;
 };
 
 export function RevealStagger({
@@ -19,6 +21,7 @@ export function RevealStagger({
   stagger = 0.12,
   delay = 0,
   y = 20,
+  onStaggerAnimationsComplete,
 }: RevealStaggerProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -41,6 +44,7 @@ export function RevealStagger({
       viewport={{ once: true, margin: "-80px" }}
       variants={container}
       data-stagger-y={y}
+      onAnimationComplete={onStaggerAnimationsComplete ? () => onStaggerAnimationsComplete() : undefined}
     >
       {children}
     </motion.div>

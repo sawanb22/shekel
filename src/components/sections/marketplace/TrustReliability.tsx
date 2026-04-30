@@ -93,7 +93,7 @@ function TrustDesktop() {
           {CARDS.map((card) => (
             <article
               key={card.title}
-              className="rounded-xl px-8 py-8"
+              className="rounded-xl px-8 py-8 opacity-100 transition-opacity duration-200 ease-out hover:opacity-80"
               style={{ borderRadius: radiuses.inputIcon }}
             >
               <div className="mb-8">

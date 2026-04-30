@@ -4,7 +4,7 @@ import React from 'react';
 import { motion, useReducedMotion, type HTMLMotionProps } from 'framer-motion';
 
 type ButtonProps = Omit<HTMLMotionProps<'button'>, 'children'> & {
-  variant?: 'primary' | 'outline' | 'nav';
+  variant?: 'primary' | 'outline' | 'nav' | 'hero';
   children: React.ReactNode;
 };
 
@@ -19,6 +19,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-gradient-to-r from-[var(--color-primary-from)] to-[var(--color-primary-to)] font-semibold text-[var(--color-text-light)] text-[16px] px-[32px] py-[17px] rounded-[12px] shadow-[0px_10px_15px_-3px_rgba(186,158,255,0.2),0px_4px_6px_-4px_rgba(186,158,255,0.2)]',
       outline:
         'bg-[#1a1f2d] border border-[rgba(255,255,255,0.2)] font-semibold text-white text-[16px] px-[33px] py-[17px] rounded-[12px] hover:bg-white/8',
+      /** Home hero CTAs: outline at rest, gradient + glow on hover (both buttons match). */
+      hero:
+        'bg-[#1a1f2d] border border-[rgba(255,255,255,0.2)] font-semibold text-white text-[16px] px-[32px] py-[17px] rounded-[12px]',
       nav: 'font-medium text-white text-[14px] uppercase tracking-[-0.35px] px-[24px] py-[8px] rounded-[5px]',
     };
 
@@ -38,7 +41,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         whileHover={
           prefersReducedMotion
             ? undefined
-            : variant === 'outline'
+            : variant === 'hero'
+              ? {
+                  y: -3,
+                  scale: 1.02,
+                  borderColor: 'transparent',
+                  background:
+                    'linear-gradient(to right, var(--color-primary-from), var(--color-primary-to))',
+                  color: 'var(--color-text-light)',
+                  boxShadow:
+                    '0px 12px 28px -6px rgba(186, 158, 255, 0.45), 0px 8px 20px -8px rgba(105, 156, 255, 0.35)',
+                }
+              : variant === 'outline'
               ? {
                   y: -3,
                   borderColor: 'transparent',

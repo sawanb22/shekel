@@ -33,7 +33,7 @@ export default function HowItWorks() {
   const prefersReducedMotion = useReducedMotion();
   return (
     <section className="w-full bg-white py-24">
-      <div className="mx-auto w-full max-w-[1280px] px-6">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto mb-20 flex w-full max-w-[768px] flex-col items-center gap-4 text-center">
           <h2
             style={{

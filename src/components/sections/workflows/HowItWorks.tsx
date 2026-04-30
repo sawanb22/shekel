@@ -13,7 +13,7 @@ import { colors, radiuses, typography } from "@/tokens/design-tokens";
 // Responsive: ≥768px — cqw scaled canvas; <768px — stacked cards, clamp() typography
 // ─────────────────────────────────────────────────────────────────────────────
 
-const CANVAS_W = 1280;
+const CANVAS_W = 1440;
 /** Row height cushion for stacked body lines + paddings (+ shadow overflow) */
 const CANVAS_H = 336;
 const SCALE = `calc(100cqw / ${CANVAS_W}px)`;

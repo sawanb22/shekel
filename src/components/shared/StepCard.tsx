@@ -8,6 +8,7 @@
 
 import { colors, typography } from "@/tokens/design-tokens";
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 
 type StepCardProps = {
   number: string;      // e.g. "01"
@@ -17,9 +18,12 @@ type StepCardProps = {
 
 export default function StepCard({ number, title, description }: StepCardProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <motion.div
       className="flex flex-col items-center gap-3 text-center"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
       whileHover={
         prefersReducedMotion
           ? undefined
@@ -31,27 +35,33 @@ export default function StepCard({ number, title, description }: StepCardProps) 
       transition={{ duration: 0.22, ease: "easeOut" }}
     >
       {/* Number Bubble — 80×80px, rounded-full, white bg, Figma shadow */}
-      <div
-        className="flex items-center justify-center w-20 h-20 rounded-full bg-white"
+      <motion.div
+        className="flex items-center justify-center w-20 h-20 rounded-full"
         style={{
-          boxShadow:
-            "0px 12px 32px 0px rgba(0,0,0,0.04), 0px 4px 8px 0px rgba(0,0,0,0.02)",
+          backgroundColor: isHovered ? colors.white : "transparent",
+          boxShadow: isHovered
+            ? "0px 12px 32px 0px rgba(0,0,0,0.04), 0px 4px 8px 0px rgba(0,0,0,0.02)"
+            : "none",
         }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       >
         {/* Gradient number text: Inter SemiBold 30px */}
         <span
-          className="select-none bg-clip-text text-transparent"
+          className={`select-none ${isHovered ? "bg-clip-text text-transparent" : ""}`}
           style={{
             fontFamily: typography.fonts.inter,
             fontWeight: 600,
             fontSize: 30,
             lineHeight: "36px",
-            backgroundImage: "linear-gradient(to bottom, #2864e4, #ecf2ff)",
+            color: isHovered ? "transparent" : colors.brand.blueStart,
+            backgroundImage: isHovered
+              ? "linear-gradient(to bottom, #2864e4, #ecf2ff)"
+              : "none",
           }}
         >
           {number}
         </span>
-      </div>
+      </motion.div>
 
       {/* Title — Poppins Medium 24px, #1a1c1c, pt-5 inferred from y=92 - y=80 = 12 + 20pt gap  */}
       <div className="pt-5">

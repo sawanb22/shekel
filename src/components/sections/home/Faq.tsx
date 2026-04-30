@@ -34,10 +34,10 @@ export default function Faq() {
       style={{ backgroundColor: colors.background.faq }}
     >
       <div
-        className="mx-auto flex w-full flex-col"
+        className="mx-auto flex w-full flex-col px-4 sm:px-6 lg:px-8"
         style={{
-          maxWidth: 860,
-          padding: "clamp(64px, 8vw, 96px) clamp(24px, 5vw, 48px)",
+          paddingTop: "clamp(64px, 8vw, 96px)",
+          paddingBottom: "clamp(64px, 8vw, 96px)",
           gap: "clamp(32px, 4vw, 48px)",
         }}
       >

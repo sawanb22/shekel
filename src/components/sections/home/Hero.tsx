@@ -380,8 +380,8 @@ function HeroDesktop() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut", delay: 0.38 }}
         >
-          <Button variant="primary">Join Waitlist</Button>
-          <Button variant="outline">Explore Platform</Button>
+          <Button variant="hero">Join Waitlist</Button>
+          <Button variant="hero">Explore Platform</Button>
         </motion.div>
 
         {/* Logo strip (Frame 2147225678) — auto-scrolling marquee */}
@@ -594,8 +594,8 @@ function HeroMobile() {
 
         {/* Buttons */}
         <div className="flex flex-row flex-wrap items-center justify-center gap-3 pt-2">
-          <Button variant="primary">Join Waitlist</Button>
-          <Button variant="outline">Explore Platform</Button>
+          <Button variant="hero">Join Waitlist</Button>
+          <Button variant="hero">Explore Platform</Button>
         </div>
       </div>
 

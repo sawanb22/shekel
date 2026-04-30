@@ -414,7 +414,7 @@ function FloatingBadge({
 
 function BottomColumn({ col }: { col: (typeof columns)[number] }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 opacity-100 transition-[transform,opacity] duration-200 ease-out hover:-translate-y-1 hover:scale-[1.01] hover:opacity-80">
       <h3
         style={{
           margin: 0,
@@ -441,17 +441,18 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
       </p>
       <a
         href="#"
-        className="group inline-flex items-center gap-1 rounded-full border border-transparent px-3 py-1.5 transition-[transform,opacity,filter,background-color,border-color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:border-[rgba(40,100,228,0.28)] hover:bg-[rgba(236,242,255,0.95)] hover:opacity-100 hover:[filter:drop-shadow(0_4px_10px_rgba(40,100,228,0.34))] hover:shadow-[0px_12px_24px_-14px_rgba(40,100,228,0.52)]"
+        className="group inline-flex items-center gap-1 rounded-full px-3 py-1.5"
       >
         <span
+          className="transition-[color] duration-200 ease-out group-hover:bg-clip-text group-hover:text-transparent group-hover:[-webkit-text-fill-color:transparent]"
           style={{
             fontFamily: typography.fonts.inter,
             fontWeight: 500,
             fontSize: 16,
             lineHeight: "24px",
+            color: colors.brand.blueStart,
             background: `linear-gradient(to bottom, ${colors.brand.blueStart}, ${colors.brand.blueEnd})`,
             WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}
         >
@@ -462,7 +463,6 @@ function BottomColumn({ col }: { col: (typeof columns)[number] }) {
           alt=""
           width={12}
           height={12}
-          className="transition-transform duration-200 ease-out group-hover:translate-x-1.5 group-hover:scale-105"
         />
       </a>
     </div>
