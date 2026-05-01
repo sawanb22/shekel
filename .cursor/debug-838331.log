@@ -1,4 +1,0 @@
-{"sessionId":"838331","runId":"post-fix","hypothesisId":"H1","location":"debug-utf8-probe.mjs:32","message":"non-ascii byte scan","data":{"file":"src/components/sections/workflows/UseCases.tsx","count":0,"first":null},"timestamp":1777455993307}
-{"sessionId":"838331","runId":"post-fix","hypothesisId":"H3","location":"debug-utf8-probe.mjs:45","message":"utf8 decode success","data":{"decodedLength":7687},"timestamp":1777455994269}
-{"sessionId":"838331","runId":"post-fix","hypothesisId":"H4","location":"debug-utf8-probe.mjs:56","message":"window-around-index-202","data":{"start":194,"bytes":[101,115,46,116,115,120,32,32,45,32,32,87,111,114,107,102]},"timestamp":1777455994273}
-{"sessionId":"838331","runId":"post-fix","hypothesisId":"H2","location":"debug-utf8-probe.mjs:38","message":"byte-at-build-error-index","data":{"file":"src/components/sections/workflows/UseCases.tsx","index202":45},"timestamp":1777455994264}
