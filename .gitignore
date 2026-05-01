@@ -68,5 +68,5 @@ parse-figma.js
 parse-figma.py
 output.json
 
-# Staging/design-time assets (shipped copies live under public/)
-new-images/
+# Note: keep new-images/ tracked — components import bundled assets via
+# ../../../../new-images/… (marketplace Hero, CTA, workflows; home CtaWaitlist).
