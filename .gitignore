@@ -48,3 +48,25 @@ next-env.d.ts
 # logs / OS clutter
 *.log
 Thumbs.db
+
+# Agent/workflow docs (not used by Next.js build or production runtime)
+AGENTS.md
+CLAUDE.md
+NEW_PAGE.md
+PROGRESS.md
+
+# Local/tooling scripts and scratch output (design pipelines, probes, helpers)
+.agent/
+debug-utf8-probe.mjs
+download_assets.ps1
+download-img.js
+dump-node.js
+inspect_yaml.py
+parse_figma_resolved.py
+parse_yaml.py
+parse-figma.js
+parse-figma.py
+output.json
+
+# Staging/design-time assets (shipped copies live under public/)
+new-images/
